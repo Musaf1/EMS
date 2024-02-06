@@ -1,7 +1,7 @@
 from import_export import resources 
-from .models import Employees
+from .models import Employees_info
 
 
 class PersonResources(resources.ModelResource):
     class meta:
-        model = Employees
+        model = Employees_info

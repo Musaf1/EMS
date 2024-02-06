@@ -1,5 +1,5 @@
 from django.contrib import admin
-from employee_information.models import Department, Position, Employees,attendace
+from employee_information.models import Department_info, Position, Employees_info,Attendace_info
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from import_export.fields import Field
@@ -8,7 +8,7 @@ from import_export.fields import Field
 class exportForm(resources.ModelResource):
     # name = Field() if name is FK then use this 
     class Meta:
-        model = attendace
+        model = Attendace_info
         fields = ( 'name', 'date','Time_attendace', 'time_leaves','total_time')
         export_order = fields # same or change the order 
 
@@ -21,13 +21,13 @@ class exportForm(resources.ModelResource):
 class exportAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     resource_class = exportForm
 # uplode exile by admin page 
-admin.site.register(Employees)
+admin.site.register(Employees_info)
 class userdat(ImportExportModelAdmin):
     pass
 
 # Register your models here.
-admin.site.register(Department)
+admin.site.register(Department_info)
 admin.site.register(Position)
 #admin.site.register(Employees)
-admin.site.register(attendace,exportAdmin)
+admin.site.register(Attendace_info,exportAdmin)
  

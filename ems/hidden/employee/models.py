@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from leave.models import Leave
-from employee_information.models import Employees , Department
+from employee_information.models import Employees_info , Department_info
 
 
 
@@ -99,10 +99,10 @@ class Employee(models.Model):
     
     
     # PERSONAL DATA
-    name = models.ForeignKey(Employees,on_delete=models.CASCADE,default=1)
+    name = models.ForeignKey(Employees_info,on_delete=models.CASCADE,default=1)
     
     image = models.FileField(_('Profile Image'),upload_to='profiles',default='default.png',blank=True,null=True,help_text='upload image size less than 2.0MB')#work on path username-date/image
-    department =  models.ForeignKey(Department,verbose_name =_('Department'),on_delete=models.SET_NULL,null=True,default=None)
+    department =  models.ForeignKey(Department_info,verbose_name =_('Department'),on_delete=models.SET_NULL,null=True,default=None)
     #role =  models.ForeignKey(Role,verbose_name =_('Role'),on_delete=models.SET_NULL,null=True,default=None)
     startdate = models.DateField(_('Employement Date'),help_text='date of employement',blank=False,null=True)
     #employeetype = models.CharField(_('Employee Type'),max_length=15,default=FULL_TIME,choices=EMPLOYEETYPE,blank=False,null=True)

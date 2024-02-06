@@ -28,8 +28,7 @@ class Position(models.Model):
     def __str__(self):
         return self.name
 
-
-class Department(models.Model):
+class Department_info(models.Model):
     name = models.TextField() 
     description = models.TextField() 
     status = models.IntegerField() 
@@ -41,7 +40,7 @@ class Department(models.Model):
     def __str__(self):
         return self.name
     
-class Employees(models.Model):
+class Employees_info(models.Model):
 
     MALE = 'male'
     FEMALE = 'female'
@@ -94,7 +93,7 @@ class Employees(models.Model):
     address = models.TextField() 
     email = models.TextField() 
     # change department_id to department
-    department = models.ForeignKey(Department, on_delete=models.CASCADE )  
+    department = models.ForeignKey(Department_info, on_delete=models.CASCADE )  
     # change position_id to position
     position = models.ForeignKey(Position, on_delete=models.CASCADE) 
     startdate = models.DateField(_('Employement Date'),help_text='date of employement',blank=False,null=True , default = None) 
@@ -127,12 +126,21 @@ class Employees(models.Model):
         return self.name 
 #class
 
+class Attendace_info(models.Model):
+    name = models.ForeignKey(Employees_info, on_delete=models.CASCADE )  
+    #name = models.TextField()
+    date = models.DateField(_('Date attended'),help_text='date staff Date attended',blank=False,null=True)
+    Time_attendace = models.TimeField(_('Date attended'),help_text='date staff Date attended')
+    time_leaves = models.TimeField(_('Date attended'),help_text='date staff Date attended')
+    total_time = models.TextField(blank=True , default= True)
+    absent_days = models.IntegerField(default=0)
+
 
 class LinkUser(models.Model):
     # add reson
     user = models.OneToOneField(User , null=True , on_delete=models.CASCADE)
     #employeeid = models.OneToOneField(Employees, on_delete=models.CASCADE)
-    name = models.ForeignKey(Employees, on_delete=models.CASCADE)
+    name = models.ForeignKey(Employees_info, on_delete=models.CASCADE)
     image = models.FileField(_('Profile Image'),upload_to='profiles',default='default.png',blank=True,null=True,help_text='upload image size less than 2.0MB')#work on path username-date/image
     is_blocked = models.BooleanField(_('Is Blocked'),help_text='button to toggle employee block and unblock',default=False)
     is_deleted = models.BooleanField(_('Is Deleted'),help_text='button to toggle employee deleted and undelete',default=False)
@@ -185,17 +193,6 @@ class LinkUser(models.Model):
     def can_apply_leave(self):
         pass
     
-
-    
-class attendace(models.Model):
-    name = models.ForeignKey(Employees, on_delete=models.CASCADE )  
-    #name = models.TextField()
-    date = models.DateField(_('Date attended'),help_text='date staff Date attended',blank=False,null=True)
-    Time_attendace = models.TimeField(_('Date attended'),help_text='date staff Date attended')
-    time_leaves = models.TimeField(_('Date attended'),help_text='date staff Date attended')
-    total_time = models.TextField(blank=True , default= True)
-    absent_days = models.IntegerField(default=0)
-
     
 class pirod(models.Model):
     start_perod = models.DateField(_('Date attended'),help_text='peroid start ',blank=False,null=True)

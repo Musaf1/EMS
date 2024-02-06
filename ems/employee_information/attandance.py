@@ -1,6 +1,6 @@
 from datetime import date 
-from employee_information.models import attendace
-from employee_information.models import Employees
+from employee_information.models import Attendace_info
+from employee_information.models import Employees_info
 
 
 # take info from database

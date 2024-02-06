@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from employee_information.models import Department, Position, Employees
+from employee_information.models import Department_info, Position, Employees_info
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
@@ -66,9 +66,9 @@ def home(request):
     context = {
         'page_title':'Home',
         'employees':employees,
-        'total_department':len(Department.objects.all()),
+        'total_department':len(Department_info.objects.all()),
         'total_position':len(Position.objects.all()),
-        'total_employee':len(Employees.objects.all()),
+        'total_employee':len(Employees_info.objects.all()),
     }
     return render(request, 'employee_information/home.html',context)
 
@@ -82,7 +82,7 @@ def about(request):
 # Departments
 @login_required
 def departments(request):
-    department_list = Department.objects.all()
+    department_list = Department_info.objects.all()
     context = {
         'page_title':'Departments',
         'departments':department_list,
@@ -97,7 +97,7 @@ def manage_departments(request):
         if 'id' in data:
             id= data['id']
         if id.isnumeric() and int(id) > 0:
-            department = Department.objects.filter(id=id).first()
+            department = Department_info.objects.filter(id=id).first()
     
     context = {
         'department' : department
@@ -110,9 +110,9 @@ def save_department(request):
     resp = {'status':'failed'}
     try:
         if (data['id']).isnumeric() and int(data['id']) > 0 :
-            save_department = Department.objects.filter(id = data['id']).update(name=data['name'], description = data['description'],status = data['status'])
+            save_department = Department_info.objects.filter(id = data['id']).update(name=data['name'], description = data['description'],status = data['status'])
         else:
-            save_department = Department(name=data['name'], description = data['description'],status = data['status'])
+            save_department = Department_info(name=data['name'], description = data['description'],status = data['status'])
             save_department.save()
         resp['status'] = 'success'
     except:
@@ -124,7 +124,7 @@ def delete_department(request):
     data =  request.POST
     resp = {'status':''}
     try:
-        Department.objects.filter(id = data['id']).delete()
+        Department_info.objects.filter(id = data['id']).delete()
         resp['status'] = 'success'
     except:
         resp['status'] = 'failed'
@@ -184,7 +184,7 @@ def delete_position(request):
 @login_required
 # Employees
 def employees(request):
-    employee_list = Employees.objects.all()
+    employee_list = Employees_info.objects.all()
     context = {
         'page_title':'Employees',
         'employees':employee_list,
@@ -193,7 +193,7 @@ def employees(request):
 @login_required
 def manage_employees(request):
     employee = {}
-    departments = Department.objects.filter(status = 1).all() 
+    departments = Department_info.objects.filter(status = 1).all() 
     positions = Position.objects.filter(status = 1).all() 
     if request.method == 'GET':
         data =  request.GET
@@ -201,7 +201,7 @@ def manage_employees(request):
         if 'id' in data:
             id= data['id']
         if id.isnumeric() and int(id) > 0:
-            employee = Employees.objects.filter(id=id).first()
+            employee = Employees_info.objects.filter(id=id).first()
     context = {
         'employee' : employee,
         'departments' : departments,
@@ -214,21 +214,21 @@ def save_employee(request):
     data =  request.POST
     resp = {'status':'failed'}
     if (data['id']).isnumeric() and int(data['id']) > 0:
-        check  = Employees.objects.exclude(id = data['id']).filter(employeeid = data['employeeid'])
+        check  = Employees_info.objects.exclude(id = data['id']).filter(employeeid = data['employeeid'])
     else:
-        check  = Employees.objects.filter(employeeid = data['employeeid'])
+        check  = Employees_info.objects.filter(employeeid = data['employeeid'])
 
     if len(check) > 0:
         resp['status'] = 'failed'
         resp['msg'] = 'Code Already Exists'
     else:
         try:
-            dept = Department.objects.filter(id=data['department']).first()
+            dept = Department_info.objects.filter(id=data['department']).first()
             pos = Position.objects.filter(id=data['position']).first()
             if (data['id']).isnumeric() and int(data['id']) > 0 :
-                save_employee = Employees.objects.filter(id = data['id']).update(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'],department = dept,position = pos,startdate = data['startdate'],salary = data['salary'], acount_number = data['acount_number'], status = data['status'])
+                save_employee = Employees_info.objects.filter(id = data['id']).update(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'],department = dept,position = pos,startdate = data['startdate'],salary = data['salary'], acount_number = data['acount_number'], status = data['status'])
             else:
-                save_employee = Employees(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'],department = dept,position = pos,startdate = data['startdate'],salary = data['salary'] , acount_number = data['acount_number'],status = data['status'])
+                save_employee = Employees_info(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'],department = dept,position = pos,startdate = data['startdate'],salary = data['salary'] , acount_number = data['acount_number'],status = data['status'])
                 save_employee.save()
             resp['status'] = 'success'
         except Exception:
@@ -242,7 +242,7 @@ def delete_employee(request):
     data =  request.POST
     resp = {'status':''}
     try:
-        Employees.objects.filter(id = data['id']).delete()
+        Employees_info.objects.filter(id = data['id']).delete()
         resp['status'] = 'success'
     except:
         resp['status'] = 'failed'
@@ -251,7 +251,7 @@ def delete_employee(request):
 @login_required
 def view_employee(request):
     employee = {}
-    departments = Department.objects.filter(status = 1).all() 
+    departments = Department_info.objects.filter(status = 1).all() 
     positions = Position.objects.filter(status = 1).all() 
     if request.method == 'GET':
         data =  request.GET
@@ -259,7 +259,7 @@ def view_employee(request):
         if 'id' in data:
             id= data['id']
         if id.isnumeric() and int(id) > 0:
-            employee = Employees.objects.filter(id=id).first()
+            employee = Employees_info.objects.filter(id=id).first()
     context = {
         'employee' : employee,
         'departments' : departments,
@@ -271,7 +271,7 @@ def view_employee(request):
 
 # Employees
 def employees_salary(request):
-    employee_list = Employees.objects.all()
+    employee_list = Employees_info.objects.all()
     deduction = employee_list
         
     for i in range(len(deduction)):
@@ -279,7 +279,7 @@ def employees_salary(request):
         reuslt = salary*0.11
         total = salary - reuslt
         #deduction[i].deduction = reuslt
-        Employees.objects.filter(employeeid=deduction[i].employeeid).update(gosi =reuslt, total_salary =total)
+        Employees_info.objects.filter(employeeid=deduction[i].employeeid).update(gosi =reuslt, total_salary =total)
         
     '''pirodOB = pirod.objects.all()
     start_pirod =pirodOB[len(pirodOB)-1].start_perod
@@ -303,7 +303,7 @@ def importExcil(request):
         new_per = request.FILES['my_file']
         imported_data = dataset.load(new_per.read(),format='xlsx')
         for data in imported_data:
-            value = Employees(
+            value = Employees_info(
                 data[1],
                 data[2],
                 
@@ -314,7 +314,7 @@ def importExcil(request):
 @login_required
 def salary(request):
     employee = {}
-    departments = Department.objects.filter(status = 1).all() 
+    departments = Department_info.objects.filter(status = 1).all() 
     positions = Position.objects.filter(status = 1).all() 
     if request.method == 'GET':
         data =  request.GET
@@ -322,7 +322,7 @@ def salary(request):
         if 'id' in data:
             id= data['id']
         if id.isnumeric() and int(id) > 0:
-            employee = Employees.objects.filter(id=id).first()
+            employee = Employees_info.objects.filter(id=id).first()
     context = {
         'employee' : employee,
         'departments' : departments,
@@ -331,14 +331,14 @@ def salary(request):
     return render(request, 'employee_information/view_employee.html',context)
 
 def Timeshet(request): 
-    m1 = Employees.objects.all()
+    m1 = Employees_info.objects.all()
     with open ('employee_information/Attandance.csv','w') as f :
         f.write(f'"name","time attendace","time leaves" , "total working hours"')
         for i in m1:
             if date(2023,8,21)<i.date  and i.date <date(2023,8,25):
                 f.write(f'\n{i.name},{i.date} ,{i.Time_attendace} , {i.time_leaves}')
 def TimeshetTest(request):
-    employee_list = attendace.objects.all()
+    employee_list = Attendace_info.objects.all()
     deduction = employee_list
     context = {
         'page_title':'Employees',
@@ -464,7 +464,7 @@ def file_csv(request):
     # create a csv 
     writer = csv.writer(response)
     # get data form database
-    data = attendace.objects.filter(date__range=[start_pirod, end_pirod])
+    data = Attendace_info.objects.filter(date__range=[start_pirod, end_pirod])
     # add columns to csv
     writer.writerow(['name', 'date', 'Time_attendace', 'time_leaves', 'total_time'])
     print("-----------------im in file_csv function--------------- ")
@@ -487,10 +487,10 @@ def salary_csv(request):
     year = now.year
     num_days = calendar.monthrange(year, month)[1]
     print(f"Number of days in {calendar.month_name[month]} {year}: {num_days}")
-    data = attendace.objects.filter( date__range = [start_pirod, end_pirod]) 
+    data = Attendace_info.objects.filter( date__range = [start_pirod, end_pirod]) 
 
-    employee_list = Employees.objects.all()
-    pirodOB = attendace.objects.filter(date__range=[start_pirod, end_pirod])
+    employee_list = Employees_info.objects.all()
+    pirodOB = Attendace_info.objects.filter(date__range=[start_pirod, end_pirod])
     
     for i in range(len(employee_list)):
         print("--------------------- im in salary_csv start first loop : {0} ---------------------- ".format(employee_list[i].name))
@@ -607,7 +607,7 @@ def salary_csv(request):
         # update the salary after gosi detaction and other detaciton 
         print("--------------------------  updating DB -------------------------------")
         total = round(salary - detaction - gosi,2)
-        Employees.objects.filter(employeeid=employee_list[i].employeeid).update(gosi = gosi,deduction =detaction ,total_salary =total )
+        Employees_info.objects.filter(employeeid=employee_list[i].employeeid).update(gosi = gosi,deduction =detaction ,total_salary =total )
         print("-------------------------- DB updated succsufly -------------------------------")
 
     print("-------------------------- first loob ended succsufly -------------------------------")

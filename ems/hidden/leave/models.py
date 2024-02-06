@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
-from employee_information.models import Employees
+from employee_information.models import Employees_info
  
 
 # Create your models here.
@@ -35,7 +35,7 @@ DAYS = 30
 
 
 class Leave(models.Model):
-	name = models.ForeignKey(Employees,on_delete=models.CASCADE,default=1)
+	name = models.ForeignKey(Employees_info,on_delete=models.CASCADE,default=1)
 	startdate = models.DateField(verbose_name=_('Start Date'),help_text='leave start date is on ..',null=True,blank=False)
 	enddate = models.DateField(verbose_name=_('End Date'),help_text='coming back on ...',null=True,blank=False)
 	leavetype = models.CharField(choices=LEAVE_TYPE,max_length=25,default=SICK,null=True,blank=False)
