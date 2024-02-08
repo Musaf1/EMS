@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'import_export',
     'api',
     'rest_framework',
+    'rest_framework.authtoken',
 
 
     # INSTALLED APPS or leaves
@@ -131,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Riyadh'
 
 USE_I18N = True
 
@@ -168,5 +169,11 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES':('rest_framework.renderers.JSONRenderer',)
+    'DEFAULT_RENDERER_CLASSES':('rest_framework.renderers.JSONRenderer',),
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }

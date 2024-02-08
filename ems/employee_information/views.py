@@ -352,7 +352,7 @@ def TimeshetTest(request):
         if form.is_valid():
         #    print("is valid")
             form.save()
-        pirodOB = pirod.objects.all()
+        pirodOB = Pirod.objects.all()
         start_pirod =pirodOB[len(pirodOB)-1].start_perod
         end_pirod =pirodOB[len(pirodOB)-1].end_perod
         #change_type = request.POST["start_perod"]
@@ -455,7 +455,7 @@ def file_csv(request):
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = "attachment; filename= attendace.csv"
 
-    pirodOB = pirod.objects.all()
+    pirodOB = Pirod.objects.all()
     start_pirod =pirodOB[len(pirodOB)-1].start_perod
     end_pirod =pirodOB[len(pirodOB)-1].end_perod
     
@@ -477,7 +477,7 @@ def file_csv(request):
 def salary_csv(request):
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = "attachment; filename= Salary.csv"
-    pirodOB = pirod.objects.all()
+    pirodOB = Pirod.objects.all()
     start_pirod =pirodOB[len(pirodOB)-1].start_perod
     end_pirod =pirodOB[len(pirodOB)-1].end_perod
 

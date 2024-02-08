@@ -1,4 +1,4 @@
-from .models import Employees_info , LinkUser , pirod
+from .models import Employees_info , LinkUser , Pirod
 from django import forms
 
 class employeesForm(forms.Form):
@@ -29,7 +29,7 @@ class LinkUserForm(forms.ModelForm):
 class attendaceForm(forms.ModelForm):
 
 	class Meta:
-		model = pirod
+		model = Pirod
 		fields = '__all__'
 		'''start_perod = forms.DateInput()
 		end_perod= forms.DateInput()'''

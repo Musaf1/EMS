@@ -1,7 +1,31 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
+from django.contrib.auth.models import User
 from employee.models import Role,Department,Employee
-from employee_information.models import Position,Department_info,Employees_info,Attendace_info
+from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod,Shift
 from leave.models import Leave
+
+class UserSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
+
+    class Meta:
+        model = User
+        fields = ('id',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+        )
+        validators = [
+            UniqueTogetherValidator(
+                queryset=User.objects.all(),
+                fields=['username', 'email']
+            )
+        ]
 
 class RoleSerializer(serializers.ModelSerializer):
   class Meta:
@@ -31,7 +55,7 @@ class Department_infoSerializer(serializers.ModelSerializer):
 class Employees_infoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Employees_info
-    fields = ['id', 'employeeid','name','gender','dob','contact','address','email','department','position','startdate','salary','gosi','deduction','total_salary','acount_number','status','created','updated','employeetype']    
+    fields = ['id', 'employeeid','name','gender','dob','contact','address','email','department','position','shift','startdate','salary','gosi','deduction','total_salary','not_paid_hours','acount_number','status','created','updated','employeetype']    
 
 class Attendace_infoSerializer(serializers.ModelSerializer):
   class Meta:
@@ -41,4 +65,21 @@ class Attendace_infoSerializer(serializers.ModelSerializer):
 class LeaveSerializer(serializers.ModelSerializer):
   class Meta:
     model = Leave
-    fields = ['id', 'user','startdate','enddate','leavetype','reason','defaultdays','status','is_approved','updated','created']          
+    fields = ['id', 'user','startdate','enddate','leavetype','reason','defaultdays','status','is_approved','updated','created']  
+
+class LinkUserSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = LinkUser
+    fields = ['id', 'user','name','image','is_blocked','is_deleted','dateissued']  
+
+class PirodSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Pirod
+    fields = ['id', 'start_perod','end_perod']   
+
+class ShiftSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Shift
+    fields = ['id','name', 'start','end']                    
+
+    

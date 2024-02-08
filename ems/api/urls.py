@@ -1,16 +1,20 @@
 from django.urls import path, include
-from api import views 
+from api import viewss 
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 
 router=DefaultRouter()
-router.register('role',views.Role,basename='role')
-router.register('department',views.Department,basename='department')
-router.register('employee',views.Employee,basename='employee')
-router.register('position',views.Position,basename='position')
-router.register('department_info',views.Department_info,basename='department_info')
-router.register('employees_info',views.Employees_info,basename='employees_info')
-router.register('attendace_info',views.Attendace_info,basename='attendace_info')
-router.register('leave',views.Leave,basename='leave')
+router.register('role',viewss.Role,basename='role')
+router.register('department',viewss.Department,basename='department')
+router.register('employee',viewss.Employee,basename='employee')
+router.register('position',viewss.Position,basename='position')
+router.register('department_info',viewss.Department_info,basename='department_info')
+router.register('employees_info',viewss.Employees_info,basename='employees_info')
+router.register('attendace_info',viewss.Attendace_info,basename='attendace_info')
+router.register('leave',viewss.Leave,basename='leave')
+router.register('linkUser',viewss.LinkUser,basename='linkUser')
+router.register('pirod',viewss.Pirod,basename='pirod')
+router.register('shift',viewss.Shift,basename='shift')
 
 urlpatterns = [
     # path('role/', views.RoleList.as_view()),
@@ -24,6 +28,9 @@ urlpatterns = [
 
     # path('Leave/', views.snippet_list),
     # path('Leave/<int:pk>/', views.snippet_detail),
-
+    path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
+    path('user/', viewss.UserRecordView.as_view(), name='users'),
+    path('time/', viewss.ServerTime, name='time'),
+    path('date/', viewss.ServerDate, name='date'),
     path('', include(router.urls)),
 ]

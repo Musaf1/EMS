@@ -1,8 +1,16 @@
 from employee.models import Role,Department,Employee
-from employee_information.models import Position,Department_info,Employees_info,Attendace_info
+from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod,Shift
 from leave.models import Leave
-from .serializers import RoleSerializer,DepartmentSerializer,EmployeeSerializer,PositionSerializer,Department_infoSerializer,Employees_infoSerializer,Attendace_infoSerializer,LeaveSerializer
+from .serializers import UserSerializer,RoleSerializer,DepartmentSerializer,EmployeeSerializer,PositionSerializer,Department_infoSerializer,Employees_infoSerializer,Attendace_infoSerializer,LeaveSerializer,LinkUserSerializer,PirodSerializer,ShiftSerializer
 from rest_framework import viewsets
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAdminUser
+from django.contrib.auth.models import User
+from django.utils import timezone,dateformat
+from django.http import JsonResponse
 # Create your views here.
 
 class Role(viewsets.ModelViewSet):
@@ -35,7 +43,56 @@ class Attendace_info(viewsets.ModelViewSet):
 
 class Leave(viewsets.ModelViewSet):
   queryset = Leave.objects.all()
-  serializer_class = LeaveSerializer  
+  serializer_class = LeaveSerializer 
+
+class Pirod(viewsets.ModelViewSet):
+  queryset = Pirod.objects.all()
+  serializer_class = PirodSerializer
+
+class Shift(viewsets.ModelViewSet):
+  queryset = Shift.objects.all()
+  serializer_class = ShiftSerializer 
+
+class LinkUser(viewsets.ModelViewSet):
+  queryset = LinkUser.objects.all()
+  serializer_class = LinkUserSerializer     
+
+def ServerTime(request):
+    d =dateformat.format(timezone.localtime(timezone.now()),'H:i')
+    return JsonResponse({'time': d})
+
+def ServerDate(request):
+    d =timezone.localtime(timezone.now()).timestamp()
+    return JsonResponse({'date': d})
+
+class UserRecordView(APIView):
+    """
+    API View to create or get a list of all the registered
+    users. GET request returns the registered users whereas
+    a POST request allows to create a new user.
+    """
+    permission_classes = [IsAdminUser]
+
+    def get(self, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=ValueError):
+            serializer.create(validated_data=request.data)
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "error": True,
+                "error_msg": serializer.error_messages,
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )   
 
 
 # class LeaveList(ListAPIView):

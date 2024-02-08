@@ -40,6 +40,14 @@ class Department_info(models.Model):
     def __str__(self):
         return self.name
     
+class Shift(models.Model):
+    name = models.TextField(unique=True)
+    start = models.TimeField(auto_now=False, auto_now_add=False)
+    end = models.TimeField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.name    
+    
 class Employees_info(models.Model):
 
     MALE = 'male'
@@ -96,11 +104,13 @@ class Employees_info(models.Model):
     department = models.ForeignKey(Department_info, on_delete=models.CASCADE )  
     # change position_id to position
     position = models.ForeignKey(Position, on_delete=models.CASCADE) 
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE) 
     startdate = models.DateField(_('Employement Date'),help_text='date of employement',blank=False,null=True , default = None) 
     salary = models.FloatField(default=0) 
     gosi = models.FloatField(default=0) 
     deduction = models.IntegerField(default=0)
-    total_salary = models.FloatField(default=0) 
+    total_salary = models.FloatField(default=0)
+    not_paid_hours = models.FloatField(default=0) 
     acount_number = models.IntegerField(default=0)
     status = models.IntegerField() 
     #change date_added to created
@@ -139,63 +149,64 @@ class Attendace_info(models.Model):
 class LinkUser(models.Model):
     # add reson
     user = models.OneToOneField(User , null=True , on_delete=models.CASCADE)
-    #employeeid = models.OneToOneField(Employees, on_delete=models.CASCADE)
+    # employeeid = models.OneToOneField(Employees_info, on_delete=models.CASCADE)
     name = models.ForeignKey(Employees_info, on_delete=models.CASCADE)
     image = models.FileField(_('Profile Image'),upload_to='profiles',default='default.png',blank=True,null=True,help_text='upload image size less than 2.0MB')#work on path username-date/image
     is_blocked = models.BooleanField(_('Is Blocked'),help_text='button to toggle employee block and unblock',default=False)
     is_deleted = models.BooleanField(_('Is Deleted'),help_text='button to toggle employee deleted and undelete',default=False)
     dateissued = models.DateField(_('Date Issued'),help_text='date staff id was issued',blank=False,null=True)
 
-    #PLUG MANAGERS
-    objects = EmployeeManager()
+    # #PLUG MANAGERS
+    # objects = EmployeeManager()
 
     
     
-    class Meta:
-        verbose_name = _('Employee')
-        verbose_name_plural = _('Employees')
-        #ordering = ['-created']
+    # class Meta:
+    #     verbose_name = _('Employee')
+    #     verbose_name_plural = _('Employees')
+    #     #ordering = ['-created']
 
 
 
-    def __str__(self):
-        return self.get_full_name
+    # def __str__(self):
+    #     return self.get_full_name
 
     
 
-    @property
-    def get_full_name(self):
-        fullname = ''
-        firstname = self.firstname
-        lastname = self.lastname
-        othername = self.othername
+    # @property
+    # def get_full_name(self):
+    #     fullname = ''
+    #     firstname = self.firstname
+    #     lastname = self.lastname
+    #     othername = self.othername
 
-        if (firstname and lastname) or othername is None:
-            fullname = firstname +' '+ lastname
-            return fullname
-        elif othername:
-            fullname = firstname + ' '+ lastname +' '+othername
-            return fullname
-        return
-
-
-    @property
-    def get_age(self):
-        current_year = datetime.date.today().year
-        dateofbirth_year = self.birthday.year
-        if dateofbirth_year:
-            return current_year - dateofbirth_year
-        return
+    #     if (firstname and lastname) or othername is None:
+    #         fullname = firstname +' '+ lastname
+    #         return fullname
+    #     elif othername:
+    #         fullname = firstname + ' '+ lastname +' '+othername
+    #         return fullname
+    #     return
 
 
+    # @property
+    # def get_age(self):
+    #     current_year = datetime.date.today().year
+    #     dateofbirth_year = self.birthday.year
+    #     if dateofbirth_year:
+    #         return current_year - dateofbirth_year
+    #     return
 
-    @property
-    def can_apply_leave(self):
-        pass
+
+
+    # @property
+    # def can_apply_leave(self):
+    #     pass
     
     
-class pirod(models.Model):
+class Pirod(models.Model):
     start_perod = models.DateField(_('Date attended'),help_text='peroid start ',blank=False,null=True)
     end_perod = models.DateField(_('Date attended'),help_text='end of peroid',blank=False,null=True)
+    
 
     
