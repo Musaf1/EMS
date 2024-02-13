@@ -182,7 +182,7 @@ body {
                 	<!-- TABLE -->
                 	<div class="table-responsive table-shadow">
                 		<div class="text-center table-description">
-                			<h4 class="title-h3" style="text-shadow: 1px 0px rgba(0,0,0,0.11)">Cancelled Leaves</h4>
+                			<h3 class="fw-bold">Cancelled Leaves</h3>
                 		</div>
 
                 		<section class="total-leaves-count">
@@ -213,7 +213,7 @@ body {
 
 							      <td> 
 							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
-							      	    <span>View &nbsp;</span>
+							      	    <span class='fw-bold'>View&nbsp;</span>
 							      	</a>
 							      	
 							      	{% if not leave.is_approved %}

@@ -8,33 +8,33 @@
     <div class="row">
         <div class="col-sm-6">
             <dl>
-                <dt class="mdc-typography mdc-theme--primary">Employee ID/Code</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.employeeid }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Fullname</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.name }} </dd>
-                <dt class="mdc-typography mdc-theme--primary">Gender</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.gender }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Date of Birth</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.dob|date:'M d, Y' }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Email</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.email }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Contact number </dt>
-                <dd class="ps-3 fw-bolder">{{ employee.contact }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Address</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.address }}</dd>
+                <dt class="mdc-typography">Employee ID/Code</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.employeeid }}</dd>
+                <dt class="mdc-typography">Fullname</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.name }} </dd>
+                <dt class="mdc-typography">Gender</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.gender }}</dd>
+                <dt class="mdc-typography">Date of Birth</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.dob|date:'M d, Y' }}</dd>
+                <dt class="mdc-typography">Email</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.email }}</dd>
+                <dt class="mdc-typography">Contact number </dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.contact }}</dd>
+                <dt class="mdc-typography">Address</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.address }}</dd>
             </dl>
         </div>
         <div class="col-sm-6">
             <dl>
-                <dt class="mdc-typography mdc-theme--primary">Department</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.department_id }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Position</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.position_id }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Date Hired</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.date_hired|date:'M d, Y' }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Salary</dt>
-                <dd class="ps-3 fw-bolder">{{ employee.salary|intcomma }}</dd>
-                <dt class="mdc-typography mdc-theme--primary">Status</dt>
+                <dt class="mdc-typography">Department</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.department_id }}</dd>
+                <dt class="mdc-typography">Position</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.position_id }}</dd>
+                <dt class="mdc-typography">Date Hired</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.date_hired|date:'M d, Y' }}</dd>
+                <dt class="mdc-typography">Salary</dt>
+                <dd class="ps-3 fw-bolder mdc-theme--dark">{{ employee.salary|intcomma }}</dd>
+                <dt class="mdc-typography">Status</dt>
                 <dd class="ps-3 fw-bolder">
                     {% if employee.status == 1 %}
                     <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}

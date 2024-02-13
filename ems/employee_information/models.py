@@ -9,6 +9,8 @@ from employee_information.managers import EmployeeManager
 #from django.utils.translation import ugettext as _ # virasoin 3.9
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
+from django.db import models
+from location_field.models.plain import PlainLocationField
 #from leave.models import Leave
 
 
@@ -32,6 +34,7 @@ class Department_info(models.Model):
     name = models.TextField() 
     description = models.TextField() 
     status = models.IntegerField() 
+    location = PlainLocationField()
     # change data_added to create 
     created = models.DateTimeField(default=timezone.now) 
     # change data_update to update 
@@ -93,8 +96,8 @@ class Employees_info(models.Model):
 
 
     # change code to employeeid
-    employeeid = models.CharField(max_length=100,blank=True) 
-    name = models.TextField() 
+    employeeid = models.TextField()
+    name = models.TextField(unique=True) 
     gender = models.TextField(blank=True,null= True) 
     dob = models.DateField(blank=True,null= True) 
     contact = models.TextField() 
@@ -151,7 +154,7 @@ class LinkUser(models.Model):
     user = models.OneToOneField(User , null=True , on_delete=models.CASCADE)
     # employeeid = models.OneToOneField(Employees_info, on_delete=models.CASCADE)
     name = models.ForeignKey(Employees_info, on_delete=models.CASCADE)
-    image = models.FileField(_('Profile Image'),upload_to='profiles',default='default.png',blank=True,null=True,help_text='upload image size less than 2.0MB')#work on path username-date/image
+    image = models.FileField(upload_to='images/',default='default.png')#work on path username-date/image
     is_blocked = models.BooleanField(_('Is Blocked'),help_text='button to toggle employee block and unblock',default=False)
     is_deleted = models.BooleanField(_('Is Deleted'),help_text='button to toggle employee deleted and undelete',default=False)
     dateissued = models.DateField(_('Date Issued'),help_text='date staff id was issued',blank=False,null=True)

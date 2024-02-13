@@ -11,6 +11,7 @@ from django.urls import reverse
 from employee.forms import EmployeeCreateForm
 from leave.models import Leave
 from employee.models import *
+from employee_information.models import *
 from leave.forms import LeaveCreationForm
 from django.contrib.auth.decorators import login_required
 from employee_information.forms import EmployeeCreateForm , LinkUserForm
@@ -317,22 +318,25 @@ def leaves_approved_list(request):
 	return render(request,'dashboard/leaves_approved.html',{'leave_list':leaves,'title':'approved leave list'})
 
 
+# @login_required(login_url='accounts:login')
+# def leaves_view(request,id):
+# 	if not (request.user.is_authenticated):
+# 		return redirect('/')
+
+# 	leave = get_object_or_404(Leave, id = id)
+# 	print(leave.user)
+# 	employee = Employee.objects.filter(user = leave.user)[0]
+# 	print(employee)
+# 	return render(request,'dashboard/leave_detail_view.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
+
 @login_required(login_url='accounts:login')
 def leaves_view(request,id):
 	if not (request.user.is_authenticated):
 		return redirect('/')
-
+	
 	leave = get_object_or_404(Leave, id = id)
-	print(leave.user)
-	employee = Employee.objects.filter(user = leave.user)[0]
-	print(employee)
+	employee = LinkUser.objects.filter(user = leave.user)[0]
 	return render(request,'dashboard/leave_detail_view.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
-
-
-
-
-
-
 
 
 @login_required(login_url='accounts:login')
@@ -341,10 +345,10 @@ def approve_leave(request,id):
 		return redirect('/')
 	leave = get_object_or_404(Leave, id = id)
 	user = leave.user
-	employee = Employee.objects.filter(user = user)[0]
+	# employee = Employee.objects.filter(user = user.first_name)
 	leave.approve_leave
 
-	messages.error(request,'Leave successfully approved for {0}'.format(employee.get_full_name),extra_tags = 'alert alert-success alert-dismissible show')
+	# messages.error(request,'Leave successfully approved for {0}'.format(employee),extra_tags = 'alert alert-success alert-dismissible show')
 	return redirect('dashboard:userleaveview', id = id)
 
 @login_required(login_url='accounts:login')

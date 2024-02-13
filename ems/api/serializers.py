@@ -50,7 +50,7 @@ class PositionSerializer(serializers.ModelSerializer):
 class Department_infoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Department_info
-    fields = ['id', 'name', 'description', 'created', 'updated']      
+    fields = ['id', 'name', 'description', 'location', 'created', 'updated']      
 
 class Employees_infoSerializer(serializers.ModelSerializer):
   class Meta:

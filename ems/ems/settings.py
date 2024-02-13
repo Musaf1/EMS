@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'rest_framework.authtoken',
+    'location_field.apps.DefaultConfig',
 
 
     # INSTALLED APPS or leaves
@@ -157,8 +158,11 @@ STATICFILES_DIRS = (
 # MEDIA - UPLOADED FILES/IMAGES
 MEDIA_URL = '/media/'
 
-# MEDIA FILES WILL BE SERVED FROM STATIC_CDN WHEN WE ARE LIVE
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static_cdn','media_root')
+# # MEDIA FILES WILL BE SERVED FROM STATIC_CDN WHEN WE ARE LIVE
+# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static_cdn','media_root')
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 # Default primary key field type
