@@ -3,7 +3,7 @@
     <div class="mdc-card py-2">
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="card-title mb-0">Employee List</h4>
-            <form method="POST" action="{% url 'attandance'%}" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'employee_information:attandance'%}" enctype="multipart/form-data">
                 {% csrf_token %}
                
                 <div >
@@ -70,8 +70,9 @@
                 </tbody>
             </table>
         </div>
-        <a href="{% url 'install_csv' %}" class="btn btn-success"> install</a>
-        <a href="{% url 'salary_csv' %}" class="btn btn-success"> install salary report</a>
+        <a href="{% url 'employee_information:install_csv' %}" class="btn btn-success" style="width: 300px "> install attandance report</a>  
+        <br>
+        <a href="{% url 'employee_information:salary_csv' %}" class="btn btn-success" style="width: 300px ;"> install salary report </a>
     </div> 
 </div>
 {% endblock pageContent %} {% block ScriptBlock %}

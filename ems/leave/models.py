@@ -74,8 +74,9 @@ class Leave(models.Model):
 		days_count = ''
 		startdate = self.startdate
 		enddate = self.enddate
-		if startdate > enddate:
+		"""if startdate > enddate:
 			return
+		"""	
 		dates = (enddate - startdate)
 		return dates.days
 

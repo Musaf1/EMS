@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'location_field.apps.DefaultConfig',
+    'mathfilters',
 
 
     # INSTALLED APPS or leaves

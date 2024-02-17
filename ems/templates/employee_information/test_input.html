@@ -1,4 +1,4 @@
-<form method="POST" action="{% url 'attandance'%}" enctype="multipart/form-data">
+<form method="POST" action="{% url 'employee_information:attandance'%}" enctype="multipart/form-data">
     {% csrf_token %}
    
     <div >
@@ -13,6 +13,7 @@
 </form>
 <h3> Export files </h3>
 <hr>
-<a href="{% url 'export' 'xls' %}" class="btn btn-success">xls</a>
-<a href="{% url 'export' 'csv' %}" class="btn btn-success">csv</a>
+
+<a href="{% url 'employee_information:export' 'xls' %}" class="btn btn-success">xls</a>
+<a href="{% url 'employee_information:export' 'csv' %}" class="btn btn-success">csv</a>
 

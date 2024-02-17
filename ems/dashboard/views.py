@@ -335,7 +335,7 @@ def leaves_view(request,id):
 		return redirect('/')
 	
 	leave = get_object_or_404(Leave, id = id)
-	employee = LinkUser.objects.filter(user = leave.user)[0]
+	employee = LinkUser.objects.filter(user = leave.user)
 	return render(request,'dashboard/leave_detail_view.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
 
 

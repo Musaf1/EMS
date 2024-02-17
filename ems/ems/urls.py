@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf import settings
-from django.conf.urls.static import static
+from .import views
 
 
 urlpatterns = [
+    path('',views.index_view,name='home'),
     path('admin/', admin.site.urls,name="admin-site"),
-    path('', include('employee_information.urls')),
+    path('employee_information/', include('employee_information.urls',namespace='employee_information')),
    # path('home',views.index_view,name='home'),
    # new add code acadimy
 #    path('accounts/',include('django.contrib.auth.urls')),
@@ -31,8 +31,4 @@ urlpatterns = [
     path('dashboard/',include('dashboard.urls',namespace='dashboard')),
     path('api/', include('api.urls')),
 
-]
-
-if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,
-                              document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

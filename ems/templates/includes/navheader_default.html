@@ -56,7 +56,9 @@
                                 {% endif %}
                                 
                                 <li><a href="{% url 'accounts:changepassword' %}">Change Password</a></li>
-                              
+                                <li><a href="{% url 'accounts:Update_Profile' %}">Update Profile Cancelled</a></li>
+                                <li><a href="{% url 'accounts:Update_user' %}">Update Profile</a></li>
+                                <li><a href="{% url 'accounts:profile' request.user.id %}"> My Profile</a></li>
                               </ul>
                         </li>
 						<li class="separator hidden-lg"></li>

@@ -1,6 +1,6 @@
 from datetime import date 
 from employee_information.models import Attendace_info
-from employee_information.models import Employees_info
+from employee_information.models import Employees_info, payment
 
 
 # take info from database
@@ -18,6 +18,11 @@ def confert_to_sec(time):
     total1 += int(time[2]) 
     hour = round(total1 /60/60 ,2) 
     return   hour
+
+def inermdite(lisen):
+    payment_info = payment.objects.last()
+    Employees_info.objects.filter(name=lisen).update( other_payment= payment_info.other_payment, other_deduction= payment_info.other_deduction)
+
 """
 #d = confert_to_sec(m1[0].Time_attendace)
 #d2 = confert_to_sec(m1[0].time_leaves)

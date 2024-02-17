@@ -143,7 +143,7 @@
                 </li>
                 {% if request.user.is_superuser and request.user.is_staff %}
                 <li>
-                    <a href="{% url 'home-page' %}">
+                    <a href="{% url 'employee_information:home-page' %}">
                         <i class="pe-7s-users"></i>
                         <p>Management System</p>
                     </a>

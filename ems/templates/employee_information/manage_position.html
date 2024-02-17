@@ -45,7 +45,7 @@
                 headers: {
                     "X-CSRFToken": '{{csrf_token}}'
                 },
-                url: "{% url 'save-position-page' %}",
+                url: "{% url 'employee_information:save-position-page' %}",
                 data: new FormData($(this)[0]),
                 cache: false,
                 contentType: false,

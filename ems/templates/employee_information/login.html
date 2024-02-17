@@ -158,7 +158,7 @@
                     headers: {
                         "X-CSRFToken": '{{csrf_token}}'
                     },
-                    url: "{% url 'login-user' %}",
+                    url: "{% url 'employee_information:login-user' %}",
                     data: new FormData($(this)[0]),
                     cache: false,
                     contentType: false,
@@ -174,7 +174,7 @@
                     success: function(resp) {
                         if (typeof resp == 'object' && resp.status == 'success') {
                             el.removeClass("alert alert-danger err-msg")
-                            location.href = "{% url 'home-page' %}"
+                            location.href = "{% url 'employee_information:home-page' %}"
                         } else if (resp.status == 'failed' && !!resp.msg) {
                             el.text(resp.msg)
                         } else {

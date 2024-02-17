@@ -69,13 +69,13 @@
 <script>
     $(function() {
         $('#create_new').click(function() {
-            uni_modal("Add New Employee", "{% url 'manage_employees-page' %}", 'modal-lg')
+            uni_modal("Add New Employee", "{% url 'employee_information:manage_employees-page' %}", 'modal-lg')
         })
         $('.view-data').click(function() {
-            uni_modal("Employee Details", "{% url 'view-employee-page' %}?id=" + $(this).attr('data-id'), 'mid-large')
+            uni_modal("Employee Details", "{% url 'employee_information:view-employee-page' %}?id=" + $(this).attr('data-id'), 'mid-large')
         })
         $('.edit-data').click(function() {
-            uni_modal("Edit Employee", "{% url 'manage_employees-page' %}?id=" + $(this).attr('data-id'), 'modal-lg')
+            uni_modal("Edit Employee", "{% url 'employee_information:manage_employees-page' %}?id=" + $(this).attr('data-id'), 'modal-lg')
         })
         $('.delete-data').click(function() {
             _conf("Are you sure to delete this employee?", "delete_employee", [$(this).attr('data-id')])
@@ -88,7 +88,7 @@
             headers: {
                 "X-CSRFToken": '{{csrf_token}}'
             },
-            url: "{% url 'delete-employee' %}",
+            url: "{% url 'employee_information:delete-employee' %}",
             method: "POST",
             data: {
                 id: $id

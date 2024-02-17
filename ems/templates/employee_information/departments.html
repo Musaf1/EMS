@@ -59,10 +59,10 @@
 <script>
     $(function() {
         $('#create_new').click(function() {
-            uni_modal("Add New Department", "{% url 'manage_departments-page' %}")
+            uni_modal("Add New Department", "{% url 'employee_information:manage_departments-page' %}")
         })
         $('.edit-data').click(function() {
-            uni_modal("Edit Department", "{% url 'manage_departments-page' %}?id=" + $(this).attr('data-id'))
+            uni_modal("Edit Department", "{% url 'employee_information:manage_departments-page' %}?id=" + $(this).attr('data-id'))
         })
         $('.delete-data').click(function() {
             _conf("Are you sure to delete this department?", "delete_department", [$(this).attr('data-id')])
@@ -75,7 +75,7 @@
             headers: {
                 "X-CSRFToken": '{{csrf_token}}'
             },
-            url: "{% url 'delete-department' %}",
+            url: "{% url 'employee_information:delete-department' %}",
             method: "POST",
             data: {
                 id: $id

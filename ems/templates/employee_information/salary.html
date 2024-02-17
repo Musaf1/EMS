@@ -1,4 +1,6 @@
-{% extends "employee_information/base.html" %} {% block pageContent %}
+{% extends "employee_information/base.html" %} 
+{% load mathfilters %}
+{% block pageContent %}
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
     <div class="mdc-card py-2">
         <div class="d-flex justify-content-between align-items-center">
@@ -21,6 +23,7 @@
                     <col width="20%">
                     <col width="10%">
                     <col width="10%">
+                    <col width="10%">
                 </colgroup>
                 <thead>
                     <tr>
@@ -29,6 +32,11 @@
                         <th class="text-center py-1">Name</th>
                         <th class="text-center py-1">Salary</th>
                         <th class="text-center py-1">Cosi deduction</th>
+                        <th class="text-center py-1">Basic</th>
+                        <th class="text-center py-1">Home</th>
+                        <th class="text-center py-1">Transportation</th>
+                        <th class="text-center py-1">Other allowance</th>
+                        <th class="text-center py-1">Other deduction</th>
                         <th class="text-center py-1">Total salary </th>
                         <th class="text-center py-1">Bank_acount</th>
                         
@@ -43,7 +51,14 @@
                         <td class="px-2 py-1 text-start">{{ employee.name }}</td>
                         <td class="px-2 py-1 text-start">{{ employee.salary }}</td>
                         <td class="px-2 py-1 text-start">{{ employee.gosi }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.total_salary }}</td>
+                        <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.65}}</td>
+                        <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
+                        <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
+
+
+                        <td class="px-2 py-1 text-start">{{ employee.other_payment }} </td>
+                        <td class="px-2 py-1 text-start">{{ employee.other_deduction }} </td>
+                        <td class="px-2 py-1 text-start">{{ employee.total_salary|add:employee.other_payment|sub:employee.other_deduction }}</td>
                         <td class="px-2 py-1 text-start">{{ employee.acount_number }}</td>
                         
                     {% endif %}
@@ -51,6 +66,10 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <a href="{% url 'employee_information:salary_increse' %}" class="btn btn-success" style="width: 300px ;"> Annual increase </a>
+            <br/>
+            <br/>
+            <a href="{% url 'employee_information:deduction' %}" class="btn btn-success" style="width: 300px ;"> Add deduction or allowance </a> 
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-from .models import Employees_info , LinkUser , Pirod
+from .models import Employees_info , LinkUser , Pirod, payment
 from django import forms
 
 class employeesForm(forms.Form):
@@ -42,3 +42,14 @@ format_chosis = (
 class formFormat(forms.Form):
 	format = forms.ChoiceField(choices=format_chosis,widget=forms.Select(attrs={'class':'form-select'})) # widget to use nice form for bootstarb
     
+class DeductionForm(forms.ModelForm):
+
+	class Meta:
+		model = payment
+		fields = '__all__'
+
+class year_increase(forms.ModelForm):
+
+	class Meta:
+		model = payment
+		fields = ['name', 'year_increase']	

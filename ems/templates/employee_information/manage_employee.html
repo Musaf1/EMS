@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="acount_number" class="control-label">Bank Acount</label>
-                    <input type="number" step="any" name="acount_number" id="acount_number" class="form-control form-control-sm rounded-0" value="{% if employee.acount_number %}{{employee.acount_number}}{% endif %}" required>
+                    <input type="text" step="any" name="acount_number" id="acount_number" maxlength="25"class="form-control form-control-sm rounded-0" value="{% if employee.acount_number %}{{employee.acount_number}}{% endif %}" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="status" class="control-label">Status</label>
@@ -133,7 +133,7 @@
                 headers: {
                     "X-CSRFToken": '{{csrf_token}}'
                 },
-                url: "{% url 'save-employee-page' %}",
+                url: "{% url 'employee_information:save-employee-page' %}",
                 data: new FormData($(this)[0]),
                 cache: false,
                 contentType: false,

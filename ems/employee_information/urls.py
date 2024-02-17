@@ -5,9 +5,10 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from django.views.generic.base import RedirectView
 
+app_name = 'employee_information'
 urlpatterns = [
     path('redirect-admin', RedirectView.as_view(url="/admin"),name="redirect-admin"),
-    path('', views.home, name="home-page"),
+    path('home-page', views.home, name="home-page"),
     path('login', auth_views.LoginView.as_view(template_name = 'employee_information/login.html',redirect_authenticated_user=True), name="login"),
     path('userlogin', views.login_user, name="login-user"),
     path('logout', views.logoutuser, name="logout"),
@@ -30,7 +31,10 @@ urlpatterns = [
     path('attandance',views.TimeshetTest, name = 'attandance'),
     
     path('install_csv',views.file_csv ,name = 'install_csv'), 
-    path('salary_csv',views.salary_csv ,name = 'salary_csv'), 
+    path('salary_csv',views.salary_csv ,name = 'salary_csv'),
+    
+    path('deduction',views.deduction ,name = 'deduction'), 
+    path('salary_increse',views.salary_increse ,name = 'salary_increse'),  
 
 
 

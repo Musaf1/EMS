@@ -96,7 +96,7 @@ class Employees_info(models.Model):
 
 
     # change code to employeeid
-    employeeid = models.TextField()
+    employeeid = models.CharField(max_length=100,blank=True)
     name = models.TextField(unique=True) 
     gender = models.TextField(blank=True,null= True) 
     dob = models.DateField(blank=True,null= True) 
@@ -111,10 +111,13 @@ class Employees_info(models.Model):
     startdate = models.DateField(_('Employement Date'),help_text='date of employement',blank=False,null=True , default = None) 
     salary = models.FloatField(default=0) 
     gosi = models.FloatField(default=0) 
-    deduction = models.IntegerField(default=0)
-    total_salary = models.FloatField(default=0)
+    deduction = models.FloatField(default=0)
     not_paid_hours = models.FloatField(default=0) 
-    acount_number = models.IntegerField(default=0)
+    total_salary = models.FloatField(default=0) 
+    other_payment = models.FloatField(default=0) 
+    other_deduction = models.FloatField(default=0) 
+    bank_name = models.TextField(null= True) 
+    acount_number = models.TextField(max_length = 25, default=0)
     status = models.IntegerField() 
     #change date_added to created
     created = models.DateTimeField(auto_now_add=True) 
@@ -163,7 +166,6 @@ class LinkUser(models.Model):
     # objects = EmployeeManager()
 
     
-    
     # class Meta:
     #     verbose_name = _('Employee')
     #     verbose_name_plural = _('Employees')
@@ -211,5 +213,9 @@ class Pirod(models.Model):
     start_perod = models.DateField(_('Date attended'),help_text='peroid start ',blank=False,null=True)
     end_perod = models.DateField(_('Date attended'),help_text='end of peroid',blank=False,null=True)
     
-
+class payment(models.Model):
+    name = models.ForeignKey(Employees_info, on_delete=models.CASCADE)
+    other_payment = models.FloatField(default=0) 
+    other_deduction = models.FloatField(default=0) 
+    year_increase =  models.FloatField(default=0)
     
