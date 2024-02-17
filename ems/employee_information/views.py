@@ -18,7 +18,12 @@ import pandas as pd
 import chardet
 import csv
 import calendar 
-from .attandance import confert_to_sec
+from .attandance import confert_to_sec,inermdite
+from .forms import DeductionForm,year_increase
+from django.contrib import messages
+import time as t
+from leave.models import Leave
+
 employees = [
 
     {
@@ -477,24 +482,37 @@ def file_csv(request):
 def salary_csv(request):
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = "attachment; filename= Salary.csv"
-    pirodOB = Pirod.objects.all()
-    start_pirod =pirodOB[len(pirodOB)-1].start_perod
-    end_pirod =pirodOB[len(pirodOB)-1].end_perod
+    pirodDB = Pirod.objects.last()
+    start_date =  pirodDB.start_perod
+    end_date = pirodDB.end_perod
+    print("######################### pirod.start_pirod : ", pirodDB.start_perod)
+    print("######################### pirod.start_pirod : ", pirodDB.end_perod)
 
     #Get the number of days in the current month using calendar and datetime modules
     now = datetime.datetime.now()
-    month = now.month
+    print("$$$$$$$$$$$$$$$$$$$$$ now: $$$$$$$$$$$$$$$$$$$$$", now)
+    month = pirodDB.start_perod.month
     year = now.year
     num_days = calendar.monthrange(year, month)[1]
     print(f"Number of days in {calendar.month_name[month]} {year}: {num_days}")
-    data = Attendace_info.objects.filter( date__range = [start_pirod, end_pirod]) 
+    data = Attendace_info.objects.filter( date__range = [start_date, end_date]) 
 
     employee_list = Employees_info.objects.all()
-    pirodOB = Attendace_info.objects.filter(date__range=[start_pirod, end_pirod])
+    leaves = Leave.objects.all()
+    absent = 0
+    # pirodOB = Attendace_info.objects.filter(date__range=[start_pirod, end_pirod])
     
     for i in range(len(employee_list)):
         print("--------------------- im in salary_csv start first loop : {0} ---------------------- ".format(employee_list[i].name))
-        
+
+        for L in range(len(leaves)): 
+            states = 'pending'
+            if  leaves[L].user_id == employee_list[i].id :
+                states = leaves[L].status 
+            if states == 'approveed':
+                days_approvied = leaves[L].leave_days
+                absent += int(days_approvied)
+                
         # Get the employee attendace
         """
         try:
@@ -514,15 +532,16 @@ def salary_csv(request):
         counter5 = 0 
         detaction = 0
 
-        for j in range(len(data)-1): 
+        day_salary = reuslt/num_days 
+        hour_salary = day_salary/8
+        for j in range(len(data)): 
+            print("------------------ salary_csv second loop --------------------") 
             if  data[j].name_id == employee_list[i].id :
-                day_salary = reuslt/num_days 
-                hour_salary = day_salary/8
-                print("------------------ salary_csv start second loop total salry : {0} day salary {1} --------------- ".format(reuslt ,day_salary))
+                print("------------------ salary_csv started second loop total salry : {0} day salary {1} --------------- ".format(reuslt ,day_salary))
                 #if employee_list[i].name == pirodOB[j].name:
                 start_pirod =data[j].Time_attendace
                 end_pirod =data[j].time_leaves
-                absent_days = data[j].absent_days
+                absent_days = data[j].absent_days + absent
                 if time(8,30,0) >= start_pirod > time(8,15,0): 
                     counter1 += 1
                     print("deleaed up to 15 m ")
@@ -585,7 +604,8 @@ def salary_csv(request):
                         detaction += (hour_salary * leave_hours) + day_salary 
                 print("--------------------------- dalay detactoin : {0}----------------".format(detaction))
 
-                if absent_days != 0:
+                print('///////////// absent_days : {0} //////////////////'.format(absent_days))
+                if absent_days > 0:
                     if absent_days == 1 :
                         detaction += day_salary*2
                     elif absent_days == 2 :
@@ -606,21 +626,39 @@ def salary_csv(request):
         #deduction[i].deduction = reuslt
         # update the salary after gosi detaction and other detaciton 
         print("--------------------------  updating DB -------------------------------")
-        total = round(salary - detaction - gosi,2)
+        print("************************start_pirod : {0} , end_pirod{1} *********** :".format(start_date, end_date))
+        x = str(end_date - start_date)
+        print("************************ end_pirod - start_pirod: *********** :",x)
+        split = x.split(" ")
+        y = int(split[0])
+        temp = y + 1  
+        print("***************************** number of days*********** :", temp  )
+
+        temp2 = day_salary*temp 
+        print("*****************************salary*********** :", temp2  )
+        print("*****************************detaction*********** :", detaction  )
+        print("*****************************gosi*********** :", gosi  )
+
+        total = round(temp2 - detaction ,2)       
+        print("*****************************total salary*********** :", total  )
         Employees_info.objects.filter(employeeid=employee_list[i].employeeid).update(gosi = gosi,deduction =detaction ,total_salary =total )
         print("-------------------------- DB updated succsufly -------------------------------")
 
     print("-------------------------- first loob ended succsufly -------------------------------")
 
     print("----------------- installing csv function--------------- ")
+    info = Employees_info.objects.all()
     # create a csv 
     writer = csv.writer(response)
     # add columns to csv
-    writer.writerow(['name', 'Total_salary', 'gosi', 'detaction', 'payed_salary'])
+    writer.writerow(['From', start_date, 'To',end_date])
+    writer.writerow([''])
+
+    writer.writerow(['Name', 'Salary', 'Gosi', 'Detaction', 'Basic','Home', 'Transportation', 'Other', 'Total_salary', 'acount_number'])
     # loop over and add the data 
-    for i in employee_list : 
-        writer.writerow([i.name, i.salary, i.gosi, i.deduction, i.total_salary])
-    print("----------------- csv installed function--------------- ")
+    for i in info : 
+        writer.writerow([i.name, i.salary, i.gosi, i.deduction +  i.other_deduction  , i.total_salary*0.65, i.total_salary*0.25, i.total_salary*0.10,i.other_payment, i.total_salary, i.acount_number])
+        print("----------------- csv installed function--------------- ")
 
     return response
 
@@ -638,4 +676,79 @@ def salary_csv(request):
     print("name form deduction : ", name2)
     print("name form attendace : ", name)
 
+"""
+
+def deduction(request):
+    form = DeductionForm(request.POST)
+    if request.method =='POST':
+        print("-----------mtheod is post and requst.name :")
+        
+        if form.is_valid():
+            print("form is valid: ")
+            form.save()  
+            employee =form.cleaned_data['name']
+            inermdite(employee)
+            messages.success(request, 'add deduction successfly  ff   ' )
+    return render(request, 'employee_information/deduction.html',{'form':form})
+
+"""    user = form.cleaned_data.get("username")
+        print("request.employee_id : ", form.employee_id)
+        print("request.other_deduction : ", request.other_deduction)
+        Employees.objects.filter(employeeid=request.employee_id).update(other_deduction =request.other_deduction)
+        
+
+        
+    employee = {}
+    departments = Department.objects.filter(status = 1).all() 
+    positions = Position.objects.filter(status = 1).all() 
+    if request.method == 'GET':
+        data =  request.GET
+        id = ''
+        if 'id' in data:
+            id= data['id']
+        if id.isnumeric() and int(id) > 0:
+            employee = Employees.objects.filter(id=id).first()
+    context = {
+        'employee' : employee,
+        'departments' : departments,
+        'positions' : positions
+    }
+   
+        """
+
+
+# this function add increase to salary by % 
+# EX:  take 10 and convert it to 0.10
+# get the salary form database
+# update the salary by adding 10% to it 
+def salary_increse(request):
+    form = year_increase(request.POST)
+    
+    if request.method =='POST':
+        print("-----------mtheod is post and requst.name :")
+        if form.is_valid():
+            print("form is valid ")            
+            employee =form.cleaned_data['name']
+            input_year_increase =form.cleaned_data['year_increase']
+            Employee = Employees_info.objects.filter(name = employee )[0]
+            temp = (input_year_increase/100) + 1
+
+            """
+            remove to debug 
+            print("-------Employee : ", Employee.salary)
+            print("-------name : ", employee)
+            print("-------input_year_increase : ", input_year_increase)
+            print("-------temp : ", temp)
+            """
+
+            Employees_info.objects.filter(name=employee).update( salary= Employee.salary*temp)
+            
+            messages.success(request, 'increase added successfly   ' )
+    return render(request, 'employee_information/year_increase.html',{'form':form})
+
+"""
+Delelte me 
+
+def welcome(request):
+	return render(request,'accounts/tow_systems_entery.html')
 """

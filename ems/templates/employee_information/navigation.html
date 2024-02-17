@@ -2,7 +2,7 @@
 <!-- partial:partials/_sidebar.html -->
 <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
     <div class="mdc-drawer__header border-bottom border-light">
-        <a href="{% url 'home-page' %}" class="brand-logo">
+        <a href="{% url 'employee_information:home-page' %}" class="brand-logo">
             <h3 class="text-center text-light">XYZ Corp</h3>
         </a>
     </div>
@@ -10,27 +10,27 @@
         <div class="mdc-list-group">
             <nav class="mdc-list mdc-drawer-menu">
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{% url 'home-page' %}">
+                    <a class="mdc-drawer-link" href="{% url 'employee_information:home-page' %}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i> Home
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{% url 'department-page' %}">
+                    <a class="mdc-drawer-link" href="{% url 'employee_information:department-page' %}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">business</i> Department List
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{% url 'position-page' %}">
+                    <a class="mdc-drawer-link" href="{% url 'employee_information:position-page' %}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">list</i> Position List
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{% url 'employee-page' %}">
+                    <a class="mdc-drawer-link" href="{% url 'employee_information:employee-page' %}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">group</i> Employee List
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{% url 'salary-page' %}">
+                    <a class="mdc-drawer-link" href="{% url 'employee_information:salary-page' %}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">group</i> Employee Salary
                     </a>
                 </div>
@@ -40,7 +40,7 @@
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{% url 'attandance' %}">
+                    <a class="mdc-drawer-link" href="{% url 'employee_information:attandance' %}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">group</i>  Attendacde
                     </a>
                 </div>

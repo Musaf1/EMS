@@ -76,6 +76,13 @@
 
 </head>
 <body>
+	
+	{% for message in messages %}
+	<div class="alert alert-warning" role="alert">
+		<p id ="message"> {{message}}</p>
+	</div>
+	
+    {% endfor %}
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
@@ -106,19 +113,7 @@
 					</form>
 
 				</div>
-        <!-- show a success measge if user just regester-->
-        {% for message in messages %}
-          <p id ="message"> {{message}}</p>
-        {% endfor %}
-        
-				<div class="mt-4">
-					<div class="d-flex justify-content-center links">
-						Forgot password? <a href="{% url 'accounts:register' %}" class="ml-2">Change it</a>
-
-					</div>
-			
-				</div>
-				<div class="mt-4">
+      				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Don't have an account? <a href="{% url 'accounts:register' %}" class="ml-2">Sign Up</a>
 
