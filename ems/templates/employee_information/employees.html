@@ -24,13 +24,13 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="text-center py-1">#</th>
-                        <th class="text-center py-1">Code</th>
-                        <th class="text-center py-1">Name</th>
-                        <th class="text-center py-1">Department</th>
-                        <th class="text-center py-1">Position</th>
-                        <th class="text-center py-1">Status</th>
-                        <th class="text-center py-1">Action</th>
+                        <th class="text-start text-dark py-1">#</th>
+                        <th class="text-start text-dark py-1">Code</th>
+                        <th class="text-start text-dark py-1">Name</th>
+                        <th class="text-start text-dark py-1">Department</th>
+                        <th class="text-start text-dark py-1">Position</th>
+                        <th class="text-center text-dark py-1">Status</th>
+                        <th class="text-center text-dark py-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,7 +51,7 @@
                             <button class="mdc-button mdc-button--raised p-1 icon-button mdc-ripple-upgraded view-data" type="button" data-id="{{ employee.pk }}" title="View Details">
                                 <i class="material-icons mdc-button__icon">visibility</i>
                             </button>
-                            <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" type="button" data-id="{{ employee.pk }}" title="Edit">
+                            <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--primary mdc-ripple-upgraded edit-data" type="button" data-id="{{ employee.pk }}" title="Edit">
                                 <i class="material-icons mdc-button__icon">edit</i>
                             </button>
                             <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ employee.pk }}" title="Delete">

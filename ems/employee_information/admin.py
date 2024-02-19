@@ -1,5 +1,5 @@
 from django.contrib import admin
-from employee_information.models import Department_info, Position, Employees_info,Attendace_info,LinkUser,Pirod,Shift
+from employee_information.models import Department_info, Position, Employees_info,Attendace_info,LinkUser,Pirod,Building_info
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from import_export.fields import Field
@@ -31,6 +31,6 @@ admin.site.register(Position)
 #admin.site.register(Employees)
 admin.site.register(LinkUser)
 admin.site.register(Pirod)
-admin.site.register(Shift)
+admin.site.register(Building_info)
 admin.site.register(Attendace_info,exportAdmin)
  

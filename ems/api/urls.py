@@ -14,7 +14,6 @@ router.register('attendace_info',viewss.Attendace_info,basename='attendace_info'
 router.register('leave',viewss.Leave,basename='leave')
 router.register('linkUser',viewss.LinkUser,basename='linkUser')
 router.register('pirod',viewss.Pirod,basename='pirod')
-router.register('shift',viewss.Shift,basename='shift')
 
 urlpatterns = [
     # path('role/', views.RoleList.as_view()),

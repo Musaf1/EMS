@@ -27,18 +27,15 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="text-center py-1">#</th>
-                        <th class="text-center py-1">Code</th>
-                        <th class="text-center py-1">Name</th>
-                        <th class="text-center py-1">Salary</th>
-                        <th class="text-center py-1">Cosi deduction</th>
-                        <th class="text-center py-1">Basic</th>
-                        <th class="text-center py-1">Home</th>
-                        <th class="text-center py-1">Transportation</th>
-                        <th class="text-center py-1">Other allowance</th>
-                        <th class="text-center py-1">Other deduction</th>
-                        <th class="text-center py-1">Total salary </th>
-                        <th class="text-center py-1">Bank_acount</th>
+                        <th class="text-start text-dark py-1">#</th>
+                        <th class="text-start text-dark py-1">Name</th>
+                        <th class="text-start text-dark py-1">Salary</th>
+                        <th class="text-start text-dark py-1">Cosi deduction</th>
+                        <th class="text-start text-dark py-1">Transportation</th>
+                        <th class="text-start text-dark py-1">Other allowance</th>
+                        <th class="text-start text-dark py-1">Other deduction</th>
+                        <th class="text-start text-dark py-1">Total salary </th>
+                        <th class="text-start text-dark py-1">Bank_acount</th>
                         
                     </tr>
                 </thead>
@@ -47,11 +44,8 @@
                     {% if employee.status == 1 %}
                     <tr>
                         <td class="px-2 py-1 text-center">{{ employee.id }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.employeeid }}</td>
                         <td class="px-2 py-1 text-start">{{ employee.name }}</td>
                         <td class="px-2 py-1 text-start">{{ employee.salary }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.gosi }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.65}}</td>
                         <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
                         <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
 
@@ -66,10 +60,10 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{% url 'employee_information:salary_increse' %}" class="btn btn-success" style="width: 300px ;"> Annual increase </a>
-            <br/>
-            <br/>
-            <a href="{% url 'employee_information:deduction' %}" class="btn btn-success" style="width: 300px ;"> Add deduction or allowance </a> 
+            <div class="d-flex align-items-center">
+                <a href="{% url 'employee_information:salary_increse' %}" class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"> Annual increase </a>
+                <a href="{% url 'employee_information:deduction' %}" class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"> Add deduction or allowance </a> 
+            </div> 
         </div>
     </div>
 </div>

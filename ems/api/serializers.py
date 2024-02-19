@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from django.contrib.auth.models import User
 from employee.models import Role,Department,Employee
-from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod,Shift
+from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod
 from leave.models import Leave
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,7 +55,7 @@ class Department_infoSerializer(serializers.ModelSerializer):
 class Employees_infoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Employees_info
-    fields = ['id', 'employeeid','name','gender','dob','contact','address','email','department','position','shift','startdate','salary','gosi','deduction','total_salary','not_paid_hours','acount_number','status','created','updated','employeetype']    
+    fields = ['id', 'employeeid','name','gender','dob','contact','address','email','department','position','shift','startdate','salary','gosi','deduction','total_salary','acount_number','status','created','updated','employeetype']    
 
 class Attendace_infoSerializer(serializers.ModelSerializer):
   class Meta:
@@ -75,11 +75,6 @@ class LinkUserSerializer(serializers.ModelSerializer):
 class PirodSerializer(serializers.ModelSerializer):
   class Meta:
     model = Pirod
-    fields = ['id', 'start_perod','end_perod']   
-
-class ShiftSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Shift
-    fields = ['id','name', 'start','end']                    
+    fields = ['id', 'start_perod','end_perod']                      
 
     

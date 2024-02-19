@@ -84,6 +84,57 @@ def about(request):
     }
     return render(request, 'employee_information/about.html',context)
 
+@login_required
+def buildings(request):
+    building_list = Building_info.objects.all()
+    context = {
+        'page_title':'Buildings',
+        'buildings':building_list,
+    }
+    return render(request, 'employee_information/buildings.html',context)
+
+@login_required
+def manage_buildings(request):
+    building = {}
+    if request.method == 'GET':
+        data =  request.GET
+        id = ''
+        if 'id' in data:
+            id= data['id']
+        if id.isnumeric() and int(id) > 0:
+            building = Building_info.objects.filter(id=id).first()
+    
+    context = {
+        'building' : building
+    }
+    return render(request, 'employee_information/manage_building.html',context)
+
+@login_required
+def save_building(request):
+    data =  request.POST
+    resp = {'status':'failed'}
+    try:
+        if (data['id']).isnumeric() and int(data['id']) > 0 :
+            save_building = Building_info.objects.filter(id = data['id']).update(name=data['name'], description = data['description'], location = data['location'], status = data['status'])
+        else:
+            save_building = Building_info(name=data['name'], description = data['description'],  location = data['location'],  status = data['status'])
+            save_building.save()
+        resp['status'] = 'success'
+    except:
+        resp['status'] = 'failed'
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+@login_required
+def delete_building(request):
+    data =  request.POST
+    resp = {'status':''}
+    try:
+        Building_info.objects.filter(id = data['id']).delete()
+        resp['status'] = 'success'
+    except:
+        resp['status'] = 'failed'
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
 # Departments
 @login_required
 def departments(request):
@@ -200,6 +251,7 @@ def manage_employees(request):
     employee = {}
     departments = Department_info.objects.filter(status = 1).all() 
     positions = Position.objects.filter(status = 1).all() 
+    build = Building_info.objects.filter(status = 1).all() 
     if request.method == 'GET':
         data =  request.GET
         id = ''
@@ -210,7 +262,8 @@ def manage_employees(request):
     context = {
         'employee' : employee,
         'departments' : departments,
-        'positions' : positions
+        'positions' : positions,
+        'builds' : build
     }
     return render(request, 'employee_information/manage_employee.html',context)
 
@@ -230,10 +283,11 @@ def save_employee(request):
         try:
             dept = Department_info.objects.filter(id=data['department']).first()
             pos = Position.objects.filter(id=data['position']).first()
+            buil = Building_info.objects.filter(id=data['build']).first()
             if (data['id']).isnumeric() and int(data['id']) > 0 :
-                save_employee = Employees_info.objects.filter(id = data['id']).update(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'],department = dept,position = pos,startdate = data['startdate'],salary = data['salary'], acount_number = data['acount_number'], status = data['status'])
+                save_employee = Employees_info.objects.filter(id = data['id']).update(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'], build= buil,department = dept,position = pos,startdate = data['startdate'],salary = data['salary'], acount_number = data['acount_number'], status = data['status'])
             else:
-                save_employee = Employees_info(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'],department = dept,position = pos,startdate = data['startdate'],salary = data['salary'] , acount_number = data['acount_number'],status = data['status'])
+                save_employee = Employees_info(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'], build= buil,department = dept,position = pos,startdate = data['startdate'],salary = data['salary'] , acount_number = data['acount_number'],status = data['status'])
                 save_employee.save()
             resp['status'] = 'success'
         except Exception:

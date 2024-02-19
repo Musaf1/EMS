@@ -48,6 +48,24 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group mb-3">
+                    <label for="build" class="control-label">Building</label>
+                    <select name="build" id="build" class="form-select form-select-sm rounded-0" required>
+                        {% if not employee.build %}
+                        <option value="1" disabled selected>Please Select Here</option>
+                        {% else %}
+                        <option value="1" disabled>Please Select Here</option>
+                        {% endif %}
+                        {% for build in builds %}
+                            {% if employee.build and employee.build == build.id %}
+                            <option value="{{ build.id }}" selected>{{ build.name }}</option>
+                            {% else %}
+                            <option value="{{ build.id }}">{{ build.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+
+                    </select>
+                </div>
+                <div class="form-group mb-3">
                     <label for="department" class="control-label">Department</label>
                     <select name="department" id="department" class="form-select form-select-sm rounded-0" required>
                         {% if not employee.department %}

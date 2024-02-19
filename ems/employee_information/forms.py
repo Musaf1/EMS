@@ -53,3 +53,5 @@ class year_increase(forms.ModelForm):
 	class Meta:
 		model = payment
 		fields = ['name', 'year_increase']	
+
+		

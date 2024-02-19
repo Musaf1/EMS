@@ -1,7 +1,7 @@
 from employee.models import Role,Department,Employee
-from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod,Shift
+from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod
 from leave.models import Leave
-from .serializers import UserSerializer,RoleSerializer,DepartmentSerializer,EmployeeSerializer,PositionSerializer,Department_infoSerializer,Employees_infoSerializer,Attendace_infoSerializer,LeaveSerializer,LinkUserSerializer,PirodSerializer,ShiftSerializer
+from .serializers import UserSerializer,RoleSerializer,DepartmentSerializer,EmployeeSerializer,PositionSerializer,Department_infoSerializer,Employees_infoSerializer,Attendace_infoSerializer,LeaveSerializer,LinkUserSerializer,PirodSerializer
 from rest_framework import viewsets
 
 from rest_framework.views import APIView
@@ -48,10 +48,6 @@ class Leave(viewsets.ModelViewSet):
 class Pirod(viewsets.ModelViewSet):
   queryset = Pirod.objects.all()
   serializer_class = PirodSerializer
-
-class Shift(viewsets.ModelViewSet):
-  queryset = Shift.objects.all()
-  serializer_class = ShiftSerializer 
 
 class LinkUser(viewsets.ModelViewSet):
   queryset = LinkUser.objects.all()
