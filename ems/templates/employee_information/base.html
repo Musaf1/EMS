@@ -72,32 +72,32 @@
     </div>
     {% block ScriptBlock %} {% endblock ScriptBlock %}
     <div class="modal fade" id="uni_modal" role='dialog'>
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-            <div class="modal-content rounded-0">
+        <div class="modal-dialog modal-md modal-dialog-centered"  role="document">
+            <div class="modal-content rounded-0" style="background-color:#2A363B">
                 <div class="modal-header">
-                    <h5 class="modal-title"></h5>
+                    <h5 class="modal-title text-primary"></h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-primary">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-flat btn-primary rounded-0" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
-                    <button type="button" class="btn btn-sm btn-flat btn-secondary rounded-0" data-bs-dismiss="modal">Cancel</button>
+                    <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
+                    <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2 filled-button--danger" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal fade" id="confirm_modal" role='dialog'>
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirmation</h5>
+            <div class="modal-content rounded-0" style="background-color:#2A363B">
+                <div class="modal-header ">
+                    <h5 class="modal-title  text-primary">Confirmation</h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body  text-primary">
                     <div id="delete_content"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-flat btn-primary rounded-0" id='confirm' onclick="">Continue</button>
-                    <button type="button" class="btn btn-sm btn-flat btn-secondary rounded-0" data-bs-dismiss="modal">Close</button>
+                    <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2 filled-button--danger" id='confirm' onclick="">Delete</button>
+                    <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

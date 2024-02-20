@@ -4,10 +4,10 @@
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
     <div class="mdc-card py-2">
         <div class="d-flex justify-content-between align-items-center">
-            <h4 class="card-title mb-0">Employee List</h4>
-            <div class="text-start">
+            <h4 class="card-title mb-0 text-primary">Employee Salary</h4>
+            {% comment %} <div class="text-start">
                 <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm" id="create_new"><i class="material-icons mdc-button__icon">add</i><span> Add New</span></button>
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
 </div>
@@ -27,15 +27,15 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="text-start text-dark py-1">#</th>
-                        <th class="text-start text-dark py-1">Name</th>
-                        <th class="text-start text-dark py-1">Salary</th>
-                        <th class="text-start text-dark py-1">Cosi deduction</th>
-                        <th class="text-start text-dark py-1">Transportation</th>
-                        <th class="text-start text-dark py-1">Other allowance</th>
-                        <th class="text-start text-dark py-1">Other deduction</th>
-                        <th class="text-start text-dark py-1">Total salary </th>
-                        <th class="text-start text-dark py-1">Bank_acount</th>
+                        <th class="text-start text-primary py-1">#</th>
+                        <th class="text-start text-primary py-1">Name</th>
+                        <th class="text-start text-primary py-1">Salary</th>
+                        <th class="text-start text-primary py-1">Cosi deduction</th>
+                        <th class="text-start text-primary py-1">Transportation</th>
+                        <th class="text-start text-primary py-1">Other allowance</th>
+                        <th class="text-start text-primary py-1">Other deduction</th>
+                        <th class="text-start text-primary py-1">Total</th>
+                        <th class="text-start text-primary py-1">Bank account</th>
                         
                     </tr>
                 </thead>
@@ -43,17 +43,17 @@
                     {% for employee in employees %}
                     {% if employee.status == 1 %}
                     <tr>
-                        <td class="px-2 py-1 text-center">{{ employee.id }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.name }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.salary }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
+                        <td class="px-2 py-1 text-center text-primary">{{ employee.id }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.name }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.salary }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
 
 
-                        <td class="px-2 py-1 text-start">{{ employee.other_payment }} </td>
-                        <td class="px-2 py-1 text-start">{{ employee.other_deduction }} </td>
-                        <td class="px-2 py-1 text-start">{{ employee.total_salary|add:employee.other_payment|sub:employee.other_deduction }}</td>
-                        <td class="px-2 py-1 text-start">{{ employee.acount_number }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.other_payment }} </td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.other_deduction }} </td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.total_salary|add:employee.other_payment|sub:employee.other_deduction }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ employee.acount_number }}</td>
                         
                     {% endif %}
                         

@@ -1,5 +1,5 @@
  {% load static %}
- <nav class="navbar navbar-default navbar-fixed shadow">
+ <nav class="navbar navbar-default navbar-fixed shadow " style="background-color:#2A363B">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
@@ -29,18 +29,18 @@
                                     </p>
 
                               </a>
-                              <ul class="dropdown-menu">
+                              <ul class="dropdown-menu" style="background-color: #003342">
                                 {% if request.user.is_superuser %}
-                                <li><a href="{% url 'dashboard:leaveslist' %}">Pending Leaves</a></li>
-                                <li><a href="{% url 'dashboard:approvedleaveslist' %}">Approved Leaves</a></li>
-                                <li><a href="{% url 'dashboard:canceleaveslist' %}">Cancelled Leaves</a></li>
-                                <li><a href="{% url 'dashboard:leavesrejected' %}">Rejected Leaves</a></li>
+                                <li><a href="{% url 'dashboard:leaveslist' %}" style="color: #00836d">Pending Leaves</a></li>
+                                <li><a href="{% url 'dashboard:approvedleaveslist' %}" style="color: #00836d">Approved Leaves</a></li>
+                                <li><a href="{% url 'dashboard:canceleaveslist' %}" style="color: #00836d">Cancelled Leaves</a></li>
+                                <li><a href="{% url 'dashboard:leavesrejected' %}" style="color: #00836d">Rejected Leaves</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'dashboard:createleave' %}">Apply for Leave</a></li>
+                                <li><a href="{% url 'dashboard:createleave' %}" style="color: #00836d">Apply for Leave</a></li>
                                 {% else %}
-                                <li><a href="{% url 'dashboard:createleave' %}">Apply for Leave</a></li>
+                                <li><a href="{% url 'dashboard:createleave' %}" style="color: #00836d">Apply for Leave</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'dashboard:staffleavetable' %}">All Leaves</a></li>
+                                <li><a href="{% url 'dashboard:staffleavetable' %}" style="color: #00836d">All Leaves</a></li>
                                 {% endif %}
                               </ul>
                         </li>
@@ -54,9 +54,9 @@
                                     </p>
 
                               </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="{% url 'accounts:register' %}">Create Users</a></li>
-                                <li><a href="{% url 'accounts:profile_list' %}">All Users</a></li>
+                              <ul class="dropdown-menu" style="background-color: #003342">
+                                <li><a href="{% url 'accounts:register' %}" style="color: #00836d">Create Users</a></li>
+                                <li><a href="{% url 'accounts:profile_list' %}" style="color: #00836d">All Users</a></li>
                               </ul>
                         </li>
                         {% endif %}
@@ -71,13 +71,13 @@
                                     </p>
 
                               </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="{% url 'dashboard:employeecreate' %}">Link user</a></li>
-                                <!--
+                              <ul class="dropdown-menu" style="background-color: #003342">
+                                <li><a href="{% url 'dashboard:employeecreate' %}" style="color: #00836d">Link user</a></li>
+                                {% comment %} <!--
                                 <li><a href="{% url 'dashboard:employees' %}">All Employees</a></li>
                                 <li class="divider"></li>
                                 <li><a href="{% url 'accounts:erasedusers' %}">Deleted Employees</a></li>
-                                 -->
+                                 --> {% endcomment %}
                               </ul>
                         </li>
                         {% endif %}
@@ -109,13 +109,13 @@
                                     </p>
 
                               </a>
-                              <ul class="dropdown-menu">
+                              <ul class="dropdown-menu" style="background-color: #003342">
                                 {% if request.user.is_authenticated %}
-                                <li><a href="{% url 'accounts:logout'  %}">Logout</a></li>
+                                <li><a href="{% url 'accounts:logout'  %}" style="color: #00836d">Logout</a></li>
                                 {% else %}
-                                <li><a href="{% url 'accounts:login'  %}">Login</a></li>
+                                <li><a href="{% url 'accounts:login'  %}" style="color: #00836d">Login</a></li>
                                 {% endif %}
-                                <li><a href="{% url 'accounts:changepassword' %}">Change Password</a></li>
+                                <li><a href="{% url 'accounts:changepassword' %}" style="color: #00836d">Change Password</a></li>
                                 
                               </ul>
                         </li>
@@ -128,10 +128,10 @@
 
 
         <style>
-            .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus, .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus { color: #d04247 }
+            .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus, .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus { color: #00836d }
 
-            .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus { color:  #d04247}
+            .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus { color:  #00836d}
 
-            .navbar-default .navbar-nav > .dropdown > a:hover .caret, .navbar-default .navbar-nav > .dropdown > a:focus .caret { border-bottom-color:  #d04247; border-top-color:  #d04247; }
+            .navbar-default .navbar-nav > .dropdown > a:hover .caret, .navbar-default .navbar-nav > .dropdown > a:focus .caret { border-bottom-color:  #00836d; border-top-color:  #00836d; }
 
         </style>

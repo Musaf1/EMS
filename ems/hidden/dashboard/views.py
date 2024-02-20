@@ -213,7 +213,7 @@ def employee_edit_data(request,id):
 			# instance.updated = now
 
 			instance.save()
-			messages.success(request,'Account Updated Successfully !!!',extra_tags = 'alert alert-success alert-dismissible show')
+			messages.success(request,'Account Updated Successfully !!!',extra_tags = 'alert alert-info alert-dismissible show')
 			return redirect('dashboard:employees')
 
 		else:
@@ -266,7 +266,7 @@ def leave_creation(request):
 
 
 			# print(instance.defaultdays)
-			messages.success(request,'Leave Request Sent,wait for Admins response',extra_tags = 'alert alert-success alert-dismissible show')
+			messages.success(request,'Leave Request Sent,wait for Admins response',extra_tags = 'alert alert-info alert-dismissible show')
 			return redirect('dashboard:createleave')
 
 		messages.error(request,'failed to Request a Leave,please check entry dates',extra_tags = 'alert alert-warning alert-dismissible show')
@@ -329,7 +329,7 @@ def approve_leave(request,id):
 	employee = Employee.objects.filter(name = user)[0]
 	leave.approve_leave
 
-	messages.error(request,'Leave successfully approved for {0}'.format(employee.get_full_name),extra_tags = 'alert alert-success alert-dismissible show')
+	messages.error(request,'Leave successfully approved for {0}'.format(employee.get_full_name),extra_tags = 'alert alert-info alert-dismissible show')
 	return redirect('dashboard:userleaveview', id = id)
 
 
@@ -357,7 +357,7 @@ def cancel_leave(request,id):
 	leave = get_object_or_404(Leave, id = id)
 	leave.leaves_cancel
 
-	messages.success(request,'Leave is canceled',extra_tags = 'alert alert-success alert-dismissible show')
+	messages.success(request,'Leave is canceled',extra_tags = 'alert alert-info alert-dismissible show')
 	return redirect('dashboard:canceleaveslist')#work on redirecting to instance leave - detail view
 
 
@@ -369,7 +369,7 @@ def uncancel_leave(request,id):
 	leave.status = 'pending'
 	leave.is_approved = False
 	leave.save()
-	messages.success(request,'Leave is uncanceled,now in pending list',extra_tags = 'alert alert-success alert-dismissible show')
+	messages.success(request,'Leave is uncanceled,now in pending list',extra_tags = 'alert alert-info alert-dismissible show')
 	return redirect('dashboard:canceleaveslist')#work on redirecting to instance leave - detail view
 
 
@@ -388,7 +388,7 @@ def reject_leave(request,id):
 	dataset = dict()
 	leave = get_object_or_404(Leave, id = id)
 	leave.reject_leave
-	messages.success(request,'Leave is rejected',extra_tags = 'alert alert-success alert-dismissible show')
+	messages.success(request,'Leave is rejected',extra_tags = 'alert alert-info alert-dismissible show')
 	return redirect('dashboard:leavesrejected')
 
 	# return HttpResponse(id)
@@ -399,7 +399,7 @@ def unreject_leave(request,id):
 	leave.status = 'pending'
 	leave.is_approved = False
 	leave.save()
-	messages.success(request,'Leave is now in pending list ',extra_tags = 'alert alert-success alert-dismissible show')
+	messages.success(request,'Leave is now in pending list ',extra_tags = 'alert alert-info alert-dismissible show')
 
 	return redirect('dashboard:leavesrejected')
 

@@ -1,19 +1,38 @@
-<form method="POST" action="{% url 'employee_information:attandance'%}" enctype="multipart/form-data">
-    {% csrf_token %}
-   
-    <div >
-        <label >start perod</label>
-        <input type="date" name="start_perod" id="start_perod" value="{% if form.start_perod %}{{ form.start_perod|date:'Y-m-d' }}{% endif %}" required>
-    </div>
-    <div>
-        <label >end perod</label>
-        <input type="date" name="end_perod" id="end_perod" value="{% if form.end_perod %}{{ form.end_perod|date:'Y-m-d' }}{% endif %}" required>
-    </div>
-    <button>Submit</button>
+<form
+  method="POST"
+  action="{% url 'employee_information:attandance'%}"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+
+  <div>
+    <label>Start period</label>
+    <input
+      type="date"
+      name="start_perod"
+      id="start_perod"
+      value="{% if form.start_perod %}{{ form.start_perod|date:'Y-m-d' }}{% endif %}"
+      required
+    />
+  </div>
+  <div>
+    <label>End period</label>
+    <input
+      type="date"
+      name="end_perod"
+      id="end_perod"
+      value="{% if form.end_perod %}{{ form.end_perod|date:'Y-m-d' }}{% endif %}"
+      required
+    />
+  </div>
+  <button>Submit</button>
 </form>
-<h3> Export files </h3>
-<hr>
+<h3>Export files</h3>
+<hr />
 
-<a href="{% url 'employee_information:export' 'xls' %}" class="btn btn-success">xls</a>
-<a href="{% url 'employee_information:export' 'csv' %}" class="btn btn-success">csv</a>
-
+<a href="{% url 'employee_information:export' 'xls' %}" class="btn btn-success"
+  >xls</a
+>
+<a href="{% url 'employee_information:export' 'csv' %}" class="btn btn-success"
+  >csv</a
+>

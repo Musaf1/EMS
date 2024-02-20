@@ -26,7 +26,7 @@ def changepassword(request):
 			user = form.save(commit=True)
 			update_session_auth_hash(request,user)
 
-			messages.success(request,'Password changed successfully',extra_tags = 'alert alert-success alert-dismissible show' )
+			messages.success(request,'Password changed successfully',extra_tags = 'alert alert-info alert-dismissible show' )
 			return redirect('accounts:changepassword')
 		else:
 			messages.error(request,'Error,changing password',extra_tags = 'alert alert-warning alert-dismissible show' )
@@ -63,7 +63,7 @@ def register_user_view(request):
 			login(request , user) # access auth
 
 			#show success message
-			messages.success(request,'Account created for {0} !!!'.format(username),extra_tags = 'alert alert-success alert-dismissible show' )
+			messages.success(request,'Account created for {0} !!!'.format(username),extra_tags = 'alert alert-info alert-dismissible show' )
 			return redirect('accounts:register')
 		else: #if its not valid form 
 			messages.error(request,'Username or password is invalid',extra_tags = 'alert alert-warning alert-dismissible show')
