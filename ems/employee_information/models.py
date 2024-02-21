@@ -43,7 +43,7 @@ class Department_info(models.Model):
         return self.name
     
 class Building_info(models.Model):
-    name = models.TextField() 
+    name = models.TextField(unique=True) 
     description = models.TextField() 
     status = models.IntegerField() 
     location = PlainLocationField()

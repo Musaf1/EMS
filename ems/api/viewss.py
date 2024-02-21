@@ -1,7 +1,7 @@
-from employee.models import Role,Department,Employee
-from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod
+from employee.models import *
+from employee_information.models import *
 from leave.models import Leave
-from .serializers import UserSerializer,RoleSerializer,DepartmentSerializer,EmployeeSerializer,PositionSerializer,Department_infoSerializer,Employees_infoSerializer,Attendace_infoSerializer,LeaveSerializer,LinkUserSerializer,PirodSerializer
+from .serializers import *
 from rest_framework import viewsets
 
 from rest_framework.views import APIView
@@ -27,7 +27,11 @@ class Employee(viewsets.ModelViewSet):
 
 class Position(viewsets.ModelViewSet):
   queryset = Position.objects.all()
-  serializer_class = PositionSerializer  
+  serializer_class = PositionSerializer 
+
+class Building_info(viewsets.ModelViewSet):
+  queryset = Building_info.objects.all()
+  serializer_class = Building_infoSerializer    
 
 class Department_info(viewsets.ModelViewSet):
   queryset = Department_info.objects.all()
