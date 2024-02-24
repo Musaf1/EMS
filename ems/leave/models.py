@@ -14,12 +14,14 @@ SICK = 'sick'
 CASUAL = 'casual'
 EMERGENCY = 'emergency'
 STUDY = 'study'
+TASK = 'task'
 
 LEAVE_TYPE = (
 (SICK,'Sick Leave'),
 (CASUAL,'Casual Leave'),
 (EMERGENCY,'Emergency Leave'),
-(STUDY,'Study Leave') )
+(STUDY,'Study Leave'),
+(TASK,'Task Leave'),  )
 
 DAYS = 30
 

@@ -23,6 +23,7 @@ from .forms import DeductionForm,year_increase
 from django.contrib import messages
 import time as t
 from leave.models import Leave
+from xlsxwriter import Workbook
 
 employees = [
 
@@ -513,24 +514,41 @@ def export2(requst,format):
 def file_csv(request):
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = "attachment; filename= attendace.csv"
-
     pirodOB = Pirod.objects.all()
     start_pirod =pirodOB[len(pirodOB)-1].start_perod
     end_pirod =pirodOB[len(pirodOB)-1].end_perod
-    
     print("installing atendace CSV from " + str(start_pirod) + " to " + str(end_pirod))
-
-    # create a csv 
-    writer = csv.writer(response)
-    # get data form database
+    workbook = Workbook(response)
     data = Attendace_info.objects.filter(date__range=[start_pirod, end_pirod])
-    # add columns to csv
-    writer.writerow(['name', 'date', 'Time_attendace', 'time_leaves', 'total_time'])
-    print("-----------------im in file_csv function--------------- ")
-    # loop over and add the data 
-    for i in data : 
-        writer.writerow([i.name, i.date, i.Time_attendace, i.time_leaves, i.total_time])
-
+    worksheet = workbook.add_worksheet()
+    bold = workbook.add_format({'bold': True, 'bg_color': 'yellow'})
+    worksheet.set_column('A:A', 10)
+    worksheet.set_column('B:B', 15)
+    worksheet.set_column('C:C', 15)
+    worksheet.set_column('D:D', 15)
+    worksheet.set_column('E:E', 10)
+    worksheet.write(0, 0, 'Name')
+    worksheet.write(0, 1, 'Date')
+    worksheet.write(0, 2, 'Time Attendace')
+    worksheet.write(0, 3, 'Time Leaves')
+    worksheet.write(0, 4, 'Total Time')
+    i=1
+    for row in data:
+            if row.total_time=='False':  # Replace `condition` with your actual logic
+                worksheet.write(i, 0, str(row.name), bold)
+                worksheet.write(i, 1, str(row.date), bold)
+                worksheet.write(i, 2, str(row.Time_attendace), bold)
+                worksheet.write(i, 3, str(row.time_leaves), bold)
+                worksheet.write(i, 4, str(row.total_time), bold)
+                i+=1
+            else:
+                worksheet.write(i, 0, str(row.name))
+                worksheet.write(i, 1, str(row.date))
+                worksheet.write(i, 2, str(row.Time_attendace))
+                worksheet.write(i, 3, str(row.time_leaves))
+                worksheet.write(i, 4, str(row.total_time))
+                i+=1        
+    workbook.close()
     return response
 
 def salary_csv(request):

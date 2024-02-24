@@ -13,6 +13,10 @@ from django.utils import timezone,dateformat
 from django.http import JsonResponse
 # Create your views here.
 
+class User(viewsets.ModelViewSet):
+  queryset = User.objects.all()
+  serializer_class = UserSerializer 
+
 class Role(viewsets.ModelViewSet):
   queryset = Role.objects.all()
   serializer_class = RoleSerializer  
