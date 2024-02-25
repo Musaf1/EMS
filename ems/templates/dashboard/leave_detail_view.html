@@ -171,24 +171,47 @@ span{
                                   <span style="font-size: 13px;padding-left: 1rem;" class="pull-left">Created <b>{{ leave.created }}</b></span>
                               
 
-              {% if request.user.is_superuser and request.user.is_staff %}
+                                  {% if request.user.is_staff and not request.user.is_superuser %}
+
+                                  {%if leave.counter < 1 %}
+                  
+                                        <section class="row">
+                                          <section class="col col-lg-4 col-sm-12 col-lg-offset-7 text-center">
+                                            <div class="btn-group btn-group-justified">
+                                              {%if leave.counter > 0 %}
+                                              <a href="{% url 'dashboard:userleaveunapprove' leave.id %}" class="btn btn-danger" style="background-color:rgb(185, 0, 0); color: white;" name='unapprove'>Decline
+                                              </a>
+                                              {% else %}
+                                              <a href="{% url 'dashboard:userleaveapprove' leave.id %}" class="btn btn-success" style="background-color:green; color: white;" name='approve'>Approve
+                                              </a>
+                                              {% endif %}
+                                              <a href="{% url 'dashboard:userleavecancel' leave.id %}" class="btn btn-info" style="background-color:rgb(0, 142, 185); color: white;" name='cancel'>Cancel</a>
+                                              <a href="{% url 'dashboard:reject' leave.id %}" class="btn btn-danger" style="background-color:rgb(185, 0, 0); color: white;" name='reject'>Reject</a>  
+                                            </div>
+                                          </section>
+                                        </section>
+                                  {% endif %}
+                                  
+                                {% elif request.user.is_superuser %}
+                                  
+                                  {%if leave.counter >= 1 %}
 
                     <section class="row">
                       <section class="col col-lg-4 col-sm-12 col-lg-offset-7 text-center">
-                        <div class="btn btn-fill" style="background-color:#003342;">
-                          <a href="{% url 'dashboard:userleavecancel' leave.id %}" class="btn btn-danger" style="background-color:#ad5555; color: white; margin: 20px;" name='cancel'>Cancel</a>
-                          {%if leave.leave_approved %}
-                          <a href="{% url 'dashboard:userleaveunapprove' leave.id %}" class="btn btn-danger" style="background-color:#ad5555; color: white; margin: 20px;" name='unapprove'>Decline
+                            <div class="btn btn-fill" style="background-color:#003342;">
+                              {%if leave.counter > 1 %}
+                              <a href="{% url 'dashboard:userleaveunapprove' leave.id %}" class="btn btn-danger" style="background-color:#ad5555; color: white; margin: 20px;" name='unapprove'>Decline  
                           </a>
                           {% else %}
                           <a href="{% url 'dashboard:userleaveapprove' leave.id %}" class="btn btn-info" style="background-color:#00836d; color: white; margin: 20px;" name='approve'>Approve
                           </a>
                           {% endif %}
+                          <a href="{% url 'dashboard:userleavecancel' leave.id %}" class="btn btn-danger" style="background-color:#ad5555; color: white; margin: 20px;" name='cancel'>Cancel</a>
                           <a href="{% url 'dashboard:reject' leave.id %}" class="btn btn-danger" style="background-color:#ad5555; color: white; margin: 20px;" name='reject'>Reject</a>  
                         </div>
                       </section>
                     </section>
-
+                    {% endif %}
               {% endif %}
 
                 </section>

@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
+from employee_information.models import Employees_info
 
 
 # Create your models here.
@@ -27,6 +28,7 @@ DAYS = 30
 
 
 class Leave(models.Model):
+	name = models.ForeignKey(Employees_info,on_delete=models.CASCADE,default=1)
 	user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
 	startdate = models.DateField(verbose_name=_('Start Date'),help_text='leave start date is on ..',null=True,blank=False)
 	enddate = models.DateField(verbose_name=_('End Date'),help_text='coming back on ...',null=True,blank=False)
@@ -35,13 +37,12 @@ class Leave(models.Model):
 	defaultdays = models.PositiveIntegerField(verbose_name=_('Leave days per year counter'),default=DAYS,null=True,blank=True)
 
 
-
-	status = models.CharField(max_length=12,default='pending') #pending,approved,rejected,cancelled
+	status = models.CharField(max_length=100,default='pending') #pending,approved,rejected,cancelled
 	is_approved = models.BooleanField(default=False) #hide
-
+	Manger_approve_by = models.TextField(max_length=100,default='pending')
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	created = models.DateTimeField(auto_now=False, auto_now_add=True)
-
+	counter = models.IntegerField(default = 0)
 
 	objects = LeaveManager()
 
@@ -61,9 +62,6 @@ class Leave(models.Model):
 
 	@property
 	def pretty_leave(self):
-		'''
-		i don't like the __str__ of leave object - this is a pretty one :-)
-		'''
 		leave = self.leavetype
 		user = self.user
 		employee = user.employee_set.first().get_full_name
@@ -93,19 +91,37 @@ class Leave(models.Model):
 
 	@property
 	def approve_leave(self):
-		if not self.is_approved:
+		#if not self.is_approved:
+		if self.counter == 0:
+			self.counter = 1
+			print("fisrt if, self.counter : ",self.counter)
+			self.Manger_approve_by = "approved by Department Manger"
+			self.status = 'pending'	
+		else:
 			self.is_approved = True
+			self.counter = 2
+			self.Manger_approve_by = "approved"
+			print("second if,self.counter : ",self.counter)
 			self.status = 'approved'
-			self.save()
+		self.save()
 
 
 
 
 	@property
 	def unapprove_leave(self):
-		if self.is_approved:
+		if self.counter <= 1:
+			self.counter = 0
 			self.is_approved = False
+			print("fisrt if, self.counter : ",self.counter)
+			self.Manger_approve_by = "pending"
+			self.status = 'pending'	
+		else:
+			self.counter = 1
+			self.is_approved = False
+			self.Manger_approve_by = " approved by Department Manger "
 			self.status = 'pending'
+			print("second if,self.counter : ",self.counter)
 			self.save()
 
 
@@ -113,7 +129,9 @@ class Leave(models.Model):
 	@property
 	def leaves_cancel(self):
 		if self.is_approved or not self.is_approved:
+			self.counter = 0
 			self.is_approved = False
+			self.Manger_approve_by = "cancelled"
 			self.status = 'cancelled'
 			self.save()
 
@@ -125,7 +143,9 @@ class Leave(models.Model):
 	@property
 	def reject_leave(self):
 		if self.is_approved or not self.is_approved:
+			self.counter = 0
 			self.is_approved = False
+			self.Manger_approve_by = "rejected"
 			self.status = 'rejected'
 			self.save()
 

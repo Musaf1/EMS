@@ -36,7 +36,7 @@ class LeaveManager(models.Manager):
 		'''
 		gets all approved leaves -> Leave.objects.all_approved_leaves()
 		'''
-		return super().get_queryset().filter(status = 'approved')
+		return super().get_queryset().filter(is_approved = True)
 
 
 

@@ -184,6 +184,7 @@ body {
 							      <th scope="col"><b>Type</b></th>
 							      <th scope="col"><b>Day(s)</b></th>
 							      <th scope="col"><b>Status</b></th>
+								  <th scope="col"><b>Process</b></th>
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -199,7 +200,7 @@ body {
 								  {% else %}
 							      <td ><span class="badge badge-warning" style="background-color:rgb(189, 138, 0); font-size: 14px;">{{ leave.status }}</span></td>
 							      {% endif %}
-
+								  <td>{{ leave.Manger_approve_by }}</td>
 							      <td> 
 							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
 							      	    View Details

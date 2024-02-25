@@ -286,15 +286,15 @@ def save_employee(request):
             pos = Position.objects.filter(id=data['position']).first()
             buil = Building_info.objects.filter(id=data['build']).first()
             if (data['id']).isnumeric() and int(data['id']) > 0 :
-                save_employee = Employees_info.objects.filter(id = data['id']).update(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'], build= buil,department = dept,position = pos,startdate = data['startdate'],salary = data['salary'], acount_number = data['acount_number'], status = data['status'])
+                save_employee = Employees_info.objects.filter(id = data['id']).update(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'], build= buil,department = dept,position = pos,startdate = data['startdate'],salary = data['salary'], acount_number = data['acount_number'], Nationality = data['Nationality'])
             else:
-                save_employee = Employees_info(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'], build= buil,department = dept,position = pos,startdate = data['startdate'],salary = data['salary'] , acount_number = data['acount_number'],status = data['status'])
+                save_employee = Employees_info(employeeid=data['employeeid'], name=data['name'],dob = data['dob'],gender = data['gender'],contact = data['contact'],email = data['email'],address = data['address'], build= buil,department = dept,position = pos,startdate = data['startdate'],salary = data['salary'] , acount_number = data['acount_number'],status = data['status'], Nationality = data['Nationality'])
                 save_employee.save()
             resp['status'] = 'success'
         except Exception:
             resp['status'] = 'failed'
             print(Exception)
-            print(json.dumps({"employeeid":data['employeeid'], "name" : data['name'],"dob" : data['dob'],"gender" : data['gender'],"contact" : data['contact'],"email" : data['email'],"address" : data['address'],"department" : data['department'],"position" : data['position'],"startdate" : data['startdate'],"salary" : data['salary'],"acount_number" : data['acount_number'], "status" : data['status']}))
+            print(json.dumps({"employeeid":data['employeeid'], "name" : data['name'],"dob" : data['dob'],"gender" : data['gender'],"contact" : data['contact'],"email" : data['email'],"address" : data['address'],"department" : data['department'],"position" : data['position'],"startdate" : data['startdate'],"salary" : data['salary'],"acount_number" : data['acount_number'], "status" : data['status'], "Nationality" :data['Nationality'],}))
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 @login_required
@@ -336,7 +336,10 @@ def employees_salary(request):
         
     for i in range(len(deduction)):
         salary = deduction[i].salary
-        reuslt = salary*0.11
+        if employee_list[i].Nationality == 'Saudi':
+            reuslt = salary*0.11
+        else:
+            reuslt = salary*0.025
         total = salary - reuslt
         #deduction[i].deduction = reuslt
         Employees_info.objects.filter(employeeid=deduction[i].employeeid).update(gosi =reuslt, total_salary =total)
@@ -405,27 +408,26 @@ def TimeshetTest(request):
         'employees':employee_list,
     }
     if request.POST :
-        form = attendaceForm(request.POST,request.FILES)
-        # to use the value enter without save in DB
-        print("im in TimeshetTest request.POST") 
+        form = attendaceForm(request.POST)
         # if form okay save in DB
+        print("name_id : ", request.POST["Employee"]) 
         if form.is_valid():
-        #    print("is valid")
+            print("is valid")
             form.save()
-        pirodOB = Pirod.objects.all()
-        start_pirod =pirodOB[len(pirodOB)-1].start_perod
-        end_pirod =pirodOB[len(pirodOB)-1].end_perod
-        #change_type = request.POST["start_perod"]
-        #change_type = (date) change_type
-        print(type(request.POST["start_perod"]))
-        print(request.POST["start_perod"])
-        print(request.POST["end_perod"])
+            employee_name =form.cleaned_data['Employee']
+            start_pirod =form.cleaned_data['start_perod']
+            end_pirod =form.cleaned_data['end_perod']
+            attendace_list = Attendace_info.objects.filter(id = employee_name )
+        else:
+            print("Form not valid")
 
         context = {
             'page_title':'Employees',
             'employees':employee_list,
             'start_pirod' : start_pirod,
-            'end_pirod' : end_pirod,
+            'end_pirod' :end_pirod,
+            'form': form,
+            'attendace_list': attendace_list,
         }
     return render(request, 'employee_information/attandance.html',context)
 '''
@@ -596,7 +598,10 @@ def salary_csv(request):
 
         salary = employee_list[i].salary
         reuslt = salary*0.89
-        gosi = salary*0.11
+        if employee_list[i].Nationality == 'Saudi':
+            gosi = salary*0.11
+        else:
+            gosi = salary*0.025
         counter1 = 0
         counter2 = 0
         counter3 = 0 
@@ -726,10 +731,10 @@ def salary_csv(request):
     writer.writerow(['From', start_date, 'To',end_date])
     writer.writerow([''])
 
-    writer.writerow(['Name', 'Salary', 'Gosi', 'Detaction', 'Basic','Home', 'Transportation', 'Other', 'Total_salary', 'acount_number'])
+    writer.writerow(['Name', 'Salary', 'Gosi', 'Detaction', 'Basic','Home', 'Transportation', 'OtherPayment','Other Deduction', 'Total_salary', 'acount_number'])
     # loop over and add the data 
     for i in info : 
-        writer.writerow([i.name, i.salary, i.gosi, i.deduction +  i.other_deduction  , i.total_salary*0.65, i.total_salary*0.25, i.total_salary*0.10,i.other_payment, i.total_salary, i.acount_number])
+        writer.writerow([i.name, i.salary, i.gosi, i.deduction +  i.other_deduction  , i.total_salary*0.65, i.total_salary*0.25, i.total_salary*0.10,i.other_payment, i.other_deduction, i.total_salary - i.other_deduction + i.other_payment, i.acount_number])
         print("----------------- csv installed function--------------- ")
 
     return response

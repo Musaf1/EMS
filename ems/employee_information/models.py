@@ -104,6 +104,15 @@ class Employees_info(models.Model):
     (INTERN,'Intern'),
     )
 
+    
+    Saudi = 'Saudi'
+    Non_Sadui = 'Non-Sadui'
+
+    NationalityType = (
+        (Saudi,'Saudi'),
+        (Non_Sadui,'Non-Sadui'),
+        )
+
 
     # change code to employeeid
     employeeid = models.CharField(max_length=100,blank=True)
@@ -133,7 +142,8 @@ class Employees_info(models.Model):
     #change data_update to updated
     updated = models.DateTimeField(auto_now_add=True) 
     employeetype = models.CharField(_('Employee Type'),max_length=15,default=FULL_TIME,choices=EMPLOYEETYPE,blank=False,null=True)
-
+    Nationality = models.TextField(blank=False,null= True) 
+    
     def save(self,*args,**kwargs):
         '''
         overriding the save method - for every instance that calls the save method 
@@ -219,6 +229,8 @@ class LinkUser(models.Model):
     
     
 class Pirod(models.Model):
+    #Employee = models.ForeignKey(Employees_info, on_delete=models.CASCADE)
+    Employee = models.TextField() 
     start_perod = models.DateField(_('Date attended'),help_text='peroid start ',blank=False,null=True)
     end_perod = models.DateField(_('Date attended'),help_text='end of peroid',blank=False,null=True)
     
