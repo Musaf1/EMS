@@ -46,14 +46,19 @@ class Building_info(models.Model):
     name = models.TextField(unique=True) 
     description = models.TextField() 
     status = models.IntegerField() 
-    location = PlainLocationField()
+    location = PlainLocationField(based_fields=['address'], zoom=7, default="26.377387, 50.011715")
     # change data_added to create 
     created = models.DateTimeField(default=timezone.now) 
     # change data_update to update 
     updated = models.DateTimeField(auto_now=True) 
 
     def __str__(self):
-        return self.name    
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.location:
+            self.location = "26.377387, 50.011715"
+        super().save(*args, **kwargs)    
      
     
 class Employees_info(models.Model):

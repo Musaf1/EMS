@@ -29,6 +29,7 @@ urlpatterns = [
 
     # path('Leave/', views.snippet_list),
     # path('Leave/<int:pk>/', views.snippet_detail),
+    path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     path('time/', viewss.ServerTime, name='time'),
     path('date/', viewss.ServerDate, name='date'),
     path('', include(router.urls)),
