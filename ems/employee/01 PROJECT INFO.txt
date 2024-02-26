@@ -9,6 +9,8 @@ try installing that particular module without version)
 - Then, make database migrations: python manage.py makemigrations
 - python manage.py migrate
 - And finally, run the application: python manage.py runserver
+python manage.py flush
+python manage.py createsuperuser
 python manage.py migrate --fake
 
 For Admin Account, please create one with superuser!

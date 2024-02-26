@@ -167,7 +167,7 @@ class Attendace_info(models.Model):
     date = models.DateField(_('Date attended'),help_text='date staff Date attended',blank=False,null=True)
     Time_attendace = models.TimeField(_('Date attended'),help_text='date staff Date attended')
     time_leaves = models.TimeField(_('Date attended'),help_text='date staff Date attended')
-    total_time = models.TextField(blank=True , default= True)
+    total_time = models.FloatField()
     absent_days = models.IntegerField(default=0)
 
 

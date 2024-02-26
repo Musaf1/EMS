@@ -41,6 +41,10 @@
 	.download-print-action{
 		padding-bottom: 12px;
 	}
+	body {
+		font-size:17px;
+		color:#00836d;
+	}
 
 {% endblock %}
         <!--CONTENTS-->
@@ -56,16 +60,16 @@
             		</section>
             	</section> -->
                 	<!-- TABLE -->
-                	<div class="table-shadow">
+                	<div class="table-shadow" style="background-color:#003342">
                 		<div class="text-center table-description">
-							<h3 class="fw-bold">Application Users</h3>
+							<h2 class="fw-bold">Application Users</h2>
                 		</div>
                 		<div class="container-fluid">
-                			<div class="row">
+                			{% comment %} <div class="row">
                 			 	<div class="download-print-action">
                 			  		Download Excel | Pdf | Print
                 				</div>
-                			</div>
+                			</div> {% endcomment %}
                 		</div>
                 		<table class="table">
 							  <thead>

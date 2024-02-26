@@ -177,7 +177,7 @@ body {
                     </section>
 
                 	<!-- TABLE -->
-                	<div class="table-responsive table-shadow", style="background-color:#003342"", style="background-color:#003342">
+                	<div class="table-responsive table-shadow", style="background-color:#003342">
                 		<div class="text-center table-description">
                 			<h2 class="fw-bold">Approved Leaves</h2>
                 		</div>
@@ -205,7 +205,7 @@ body {
 							      <td>{{ leave.user }}</td>
 							      <td>{{ leave.leavetype}}</td>
 							      <td>{{ leave.leave_days }}</td>
-							      <td><span class="badge badge-success" style="background-color:#00836d;; font-size: 14px;">{{ leave.status }}</span></td>
+							      <td><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
 
 							      <td> 
 							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color:#00836d;">

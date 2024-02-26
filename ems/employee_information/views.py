@@ -400,6 +400,7 @@ def Timeshet(request):
         for i in m1:
             if date(2023,8,21)<i.date  and i.date <date(2023,8,25):
                 f.write(f'\n{i.name},{i.date} ,{i.Time_attendace} , {i.time_leaves}')
+
 def TimeshetTest(request):
     employee_list = Attendace_info.objects.all()
     deduction = employee_list
@@ -536,7 +537,7 @@ def file_csv(request):
     worksheet.write(0, 4, 'Total Time')
     i=1
     for row in data:
-            if row.total_time=='False':  # Replace `condition` with your actual logic
+            if row.total_time < 8:  # Replace `condition` with your actual logic
                 worksheet.write(i, 0, str(row.name), bold)
                 worksheet.write(i, 1, str(row.date), bold)
                 worksheet.write(i, 2, str(row.Time_attendace), bold)

@@ -83,6 +83,7 @@
 
 body {
 	font-size:17px;
+	color:#00836d;
 }
 
 
@@ -194,16 +195,16 @@ body {
 							      <td>{{ leave.leavetype}}</td>
 							      <td>{{ leave.leave_days }}</td>
 							      {% if leave.is_approved %}
-							      <td ><span class="badge badge-success" style="background-color:green; font-size: 14px;">{{ leave.status }}</span></td>
+							      <td ><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
 								  {% elif leave.is_rejected %}
-							      <td ><span class="badge badge-success" style="background-color:rgb(184, 12, 0); font-size: 14px;">{{ leave.status }}</span></td> 
+							      <td ><span class="badge badge-warning" style="background-color:#ad5555; font-size: 14px;">{{ leave.status }}</span></td> 
 								  {% else %}
-							      <td ><span class="badge badge-warning" style="background-color:rgb(189, 138, 0); font-size: 14px;">{{ leave.status }}</span></td>
+							      <td ><span class="badge badge-warning" style="background-color:#ad5555; font-size: 14px;">{{ leave.status }}</span></td>
 							      {% endif %}
 								  <td>{{ leave.Manger_approve_by }}</td>
 							      <td> 
-							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
-							      	    View Details
+							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #00836d;">
+							      	    View
 							      	</a>
 							      	
 							      </td>
