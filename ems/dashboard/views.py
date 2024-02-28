@@ -51,36 +51,36 @@ def dashboard(request):
 
 
 
-# @login_required(login_url='accounts:login')
-# def dashboard_employees(request):
-# 	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
-# 		return redirect('/')
+@login_required(login_url='accounts:login')
+def dashboard_employees(request):
+	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
+		return redirect('/')
 
-# 	dataset = dict()
-# 	departments = Department.objects.all()
-# 	employees = Employee.objects.all()
+	dataset = dict()
+	departments = Department.objects.all()
+	employees = Employee.objects.all()
 
-# 	#pagination
-# 	query = request.GET.get('search')
-# 	if query:
-# 		employees = employees.filter(
-# 			Q(firstname__icontains = query) |
-# 			Q(lastname__icontains = query)
-# 		)
-
-
-
-# 	paginator = Paginator(employees, 10) #show 10 employee lists per page
-
-# 	page = request.GET.get('page')
-# 	employees_paginated = paginator.get_page(page)
+	#pagination
+	query = request.GET.get('search')
+	if query:
+		employees = employees.filter(
+			Q(firstname__icontains = query) |
+			Q(lastname__icontains = query)
+		)
 
 
 
-# 	blocked_employees = Employee.objects.all_blocked_employees()
+	paginator = Paginator(employees, 10) #show 10 employee lists per page
+
+	page = request.GET.get('page')
+	employees_paginated = paginator.get_page(page)
 
 
-# 	return render(request,'dashboard/employee_app.html',dataset)
+
+	blocked_employees = Employee.objects.all_blocked_employees()
+
+
+	return render(request,'dashboard/employee_app.html',dataset)
 
 
 
@@ -278,7 +278,16 @@ def leave_creation(request):
 		if form.is_valid():
 			instance = form.save(commit = False)
 			user = request.user
+			'''
+			user_id = request.user.id
+			x = LinkUser.objects.filter(name = user)
+			print("user : ", user_id)
+			print("	LinkUser.name: ",LinkUser.name[])
+			#name = request.name
+			#print("name : ", name)
+			'''
 			instance.user = user
+			#instance.name = name
 			instance.save()
 
 
@@ -304,7 +313,7 @@ def leave_creation(request):
 
 @login_required(login_url='accounts:login')
 def leaves_list(request):
-	if not (request.user.is_staff and request.user.is_superuser):
+	if not (request.user.is_staff or request.user.is_superuser):
 		return redirect('/')
 	leaves = Leave.objects.all_pending_leaves()
 	return render(request,'dashboard/leaves_recent.html',{'leave_list':leaves,'title':'leaves list - pending'})
@@ -331,8 +340,15 @@ def leaves_approved_list(request):
 
 @login_required(login_url='accounts:login')
 def leaves_view(request,id):
-	if not (request.user.is_authenticated):
-		return redirect('/')
+	if not (request.user.is_superuser or request.user.is_staff and request.user.is_authenticated):
+		return redirect('/') 
+	leave = get_object_or_404(Leave, id = id)
+	Manager_approve = request.user.first_name
+	id_lave = id
+	#get_object_or_404(Leave, id = id).updated(approve_by =Manager_approve)
+	print("id : ",id_lave)
+	intermet(id,Manager_approve)
+	#Leave.objects.filter(id = id_lave).update(Manger_approve_by = Manager_approve)
 	
 	leave = get_object_or_404(Leave, id = id)
 	employee = LinkUser.objects.filter(user = leave.user)
@@ -345,7 +361,28 @@ def approve_leave(request,id):
 		return redirect('/')
 	leave = get_object_or_404(Leave, id = id)
 	user = leave.user
-	# employee = Employee.objects.filter(user = user.first_name)
+	user_name = leave.user.first_name
+	LinkUser_user_name = leave.name.position
+
+	#x = request.POST[user.first_name]
+	#y = x[user.first_name]
+	#LinkUser_user_name = request.POST
+
+	getin_user = get_object_or_404(LinkUser, user = user)
+	position = getin_user.name.position	
+	#Department = getin_user.name.department
+	#position_manger = str(position).split(" ")
+	#request_user = request.POST[]
+	print("user : ",user)
+	print("user_name : ",user_name)
+	print("LinkUser_user_name : ",LinkUser_user_name)
+	print("position : ",position)
+	#print("Department : ",Department)
+	#print("Department_manger : ",position_manger[0])
+	print("Manager_approve : ",Manager_approve)
+
+	x = LinkUser.objects.filter(user = user)
+	#employee = Employee.objects.filter(user = user.first_name)
 	leave.approve_leave
 
 	# messages.error(request,'Leave successfully approved for {0}'.format(employee),extra_tags = 'alert alert-info alert-dismissible show')
@@ -433,7 +470,7 @@ def view_my_leave_table(request):
 		user = request.user
 		leaves = Leave.objects.filter(user = user)
 		employee = Employee.objects.filter(user = user).first()
-		print(leaves)
+		# print(leaves)
 		dataset = dict()
 		dataset['leave_list'] = leaves
 		dataset['employee'] = employee
@@ -442,7 +479,8 @@ def view_my_leave_table(request):
 		return redirect('accounts:login')
 	return render(request,'dashboard/staff_leaves_table.html',dataset)
 
-
+def intermet(ida,approval):
+	Leave.objects.filter(id = ida).update(Manger_approve_by = approval)
 
 
 

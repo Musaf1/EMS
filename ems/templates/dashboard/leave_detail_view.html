@@ -178,7 +178,7 @@ span{
                                   <section class="row">
                                   <section class="col col-lg-4 col-sm-12 col-lg-offset-7 text-center">
                                         <div class="btn btn-fill" style="background-color:#003342;">
-                                          {%if leave.counter > 1 %}
+                                          {%if leave.counter > 0 %}
                                           <a href="{% url 'dashboard:userleaveunapprove' leave.id %}" class="btn btn-danger" style="background-color:#ad5555; color: white; margin: 20px;" name='unapprove'>Decline  
                                       </a>
                                       {% else %}

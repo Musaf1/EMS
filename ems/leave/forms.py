@@ -6,7 +6,7 @@ class LeaveCreationForm(forms.ModelForm):
 	reason = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
 	class Meta:
 		model = Leave
-		exclude = ['name','user','defaultdays','hrcomments','status','is_approved','updated','created']
+		exclude = ['name','user','defaultdays','hrcomments','status','is_approved','updated','created','counter','Manger_approve_by']
 
 
 

@@ -1,1 +1,0 @@
-register_user_view

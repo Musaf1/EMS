@@ -136,7 +136,7 @@
                 {% endif %}
 
                 <li>
-                    {% if request.user.is_superuser %}<a href="{% url 'dashboard:leaveslist' %}">{% else %}<a href="{% url 'dashboard:staffleavetable' %}"> {% endif %}
+                    {% if request.user.is_superuser or request.user.is_staff%}<a href="{% url 'dashboard:leaveslist' %}">{% else %}<a href="{% url 'dashboard:staffleavetable' %}"> {% endif %}
                         <i class="pe-7s-news-paper"></i>
                         <p>Leave Section</p>
                     </a>
