@@ -1,137 +1,102 @@
 {% extends "employee_information/base.html" %} {% block pageContent %}
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-  <div class="mdc-card py-2">
-    <div class="d-flex justify-content-between align-items-center">
-      <h4 class="card-title mb-0 text-primary">Building List</h4>
-      <div class="text-start">
-        <button
-          class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm"
-          id="create_new"
-        >
-          <i class="material-icons mdc-button__icon">add</i
-          ><span> Add New</span>
-        </button>
-      </div>
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0 text-primary">Building List</h4>
+            <div class="text-start">
+                <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm" id="create_new"><i class="material-icons mdc-button__icon">add</i><span> Add New</span></button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-  <div class="mdc-card">
-    <div class="table-responsive">
-      <table class="table table-striped table-bordered">
-        <colgroup>
-          <col width="5%" />
-          <col width="30%" />
-          <col width="30%" />
-          <col width="15%" />
-          <col width="20%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th class="text-start text-primary py-1">#</th>
-            <th class="text-start text-primary py-1">Building Name</th>
-            <th class="text-start text-primary py-1">Description</th>
-            <th class="text-start text-primary py-1">Location</th>
-            <th class="text-center text-primary py-1">Status</th>
-            <th class="text-center text-primary py-1">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for building in buildings %}
-          <tr>
-            <td class="px-2 py-1 text-center text-primary">
-              {{ building.id }}
-            </td>
-            <td class="px-2 py-1 text-start text-primary">
-              {{ building.name }}
-            </td>
-            <td class="px-2 py-1 text-start text-primary">
-              {{ building.description }}
-            </td>
-            <td class="px-2 py-1 text-start text-primary">
-              {{ building.location }}
-            </td>
-            <td class="px-2 py-1 text-center text-primary">
-              {% if building.status == 1 %}
-              <span class="badge bg-primary rounded-pill px-3">Active</span> {%
-              else %}
-              <span class="badge bg-secondary rounded-pill px-3">Inactive</span>
-              {% endif %}
-            </td>
-            <td class="px-2 py-1 text-center">
-              <button
-                class="mdc-button mdc-button--raised p-1 icon-button filled-button--primary mdc-ripple-upgraded edit-data"
-                type="button"
-                data-id="{{ building.pk }}"
-                title="Edit"
-              >
-                <i class="material-icons mdc-button__icon">edit</i>
-              </button>
-              <button
-                class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data"
-                type="button"
-                data-id="{{ building.pk }}"
-                title="Delete"
-              >
-                <i class="material-icons mdc-button__icon">deleteoutline</i>
-              </button>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="mdc-card">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <colgroup>
+                    <col width="5%">
+                    <col width="30%">
+                    <col width="30%">
+                    <col width="15%">
+                    <col width="20%">
+                </colgroup>
+                <thead> 
+                    <tr>
+                        <th class="text-start text-primary py-1">#</th>
+                        <th class="text-start text-primary py-1">Building Name</th>
+                        <th class="text-start text-primary py-1">Description</th>
+                        <th class="text-start text-primary py-1">Location</th>
+                        <th class="text-center text-primary py-1">Status</th>
+                        <th class="text-center text-primary py-1">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for building in buildings %}
+                    <tr>
+                        <td class="px-2 py-1 text-center text-primary">{{ building.id }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ building.name }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ building.description }}</td>
+                        <td class="px-2 py-1 text-start text-primary">{{ building.location }}</td>
+                        <td class="px-2 py-1 text-center text-primary">
+                            {% if building.status == 1 %}
+                            <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}
+                            <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
+                        </td>
+                        <td class="px-2 py-1 text-center">
+                            <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--primary mdc-ripple-upgraded edit-data" type="button" data-id="{{ building.pk }}" title="Edit">
+                                <i class="material-icons mdc-button__icon">edit</i>
+                            </button>
+                            <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ building.pk }}" title="Delete">
+                                <i class="material-icons mdc-button__icon">deleteoutline</i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock pageContent %} {% block ScriptBlock %}
 <script>
-  $(function () {
-    $("#create_new").click(function () {
-      uni_modal(
-        "Add New Building",
-        "{% url 'employee_information:manage_building-page' %}"
-      );
-    });
-    $(".edit-data").click(function () {
-      uni_modal(
-        "Edit Building",
-        "{% url 'employee_information:manage_building-page' %}?id=" +
-          $(this).attr("data-id")
-      );
-    });
-    $(".delete-data").click(function () {
-      _conf("Are you sure to delete this building?", "delete_building", [
-        $(this).attr("data-id"),
-      ]);
-    });
-  });
+    $(function() {
+        $('#create_new').click(function() {
+            uni_modal("Add New Building", "{% url 'employee_information:manage_building-page' %}")
+        })
+        $('.edit-data').click(function() {
+            uni_modal("Edit Building", "{% url 'employee_information:manage_building-page' %}?id=" + $(this).attr('data-id'))
+        })
+        $('.delete-data').click(function() {
+            _conf("Are you sure to delete this building?", "delete_building", [$(this).attr('data-id')])
+        })
+    })
 
-  function delete_building($id) {
-    start_loader();
-    $.ajax({
-      headers: {
-        "X-CSRFToken": "{{csrf_token}}",
-      },
-      url: "{% url 'employee_information:delete-building' %}",
-      method: "POST",
-      data: {
-        id: $id,
-      },
-      dataType: "json",
-      error: (err) => {
-        console.log(err);
-        alert_toast("An error occured.", "error");
-        end_loader();
-      },
-      success: function (resp) {
-        if (typeof resp == "object" && resp.status == "success") {
-          location.reload();
-        } else {
-          alert_toast("An error occured.", "error");
-          end_loader();
-        }
-      },
-    });
-  }
+    function delete_building($id) {
+        start_loader();
+        $.ajax({
+            headers: {
+                "X-CSRFToken": '{{csrf_token}}'
+            },
+            url: "{% url 'employee_information:delete-building' %}",
+            method: "POST",
+            data: {
+                id: $id
+            },
+            dataType: "json",
+            error: err => {
+                console.log(err)
+                alert_toast("An error occured.", 'error');
+                end_loader();
+            },
+            success: function(resp) {
+                if (typeof resp == 'object' && resp.status == 'success') {
+                    location.reload();
+                } else {
+                    alert_toast("An error occured.", 'error');
+                    end_loader();
+                }
+            }
+        })
+    }
 </script>
 {% endblock ScriptBlock %}

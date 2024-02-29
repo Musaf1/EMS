@@ -1,8 +1,8 @@
-import $ from "jquery";
-import DEFAULTS from "./defaults";
-import methods from "./methods";
-import handlers from "./handlers";
-import render from "./render";
+import $ from 'jquery';
+import DEFAULTS from './defaults';
+import methods from './methods';
+import handlers from './handlers';
+import render from './render';
 import {
   CLASS_HIDE,
   EVENT_CLICK,
@@ -14,8 +14,13 @@ import {
   LANGUAGES,
   NAMESPACE,
   VIEWS,
-} from "./constants";
-import { getScrollParent, isNaN, parseFormat, selectorOf } from "./utilities";
+} from './constants';
+import {
+  getScrollParent,
+  isNaN,
+  parseFormat,
+  selectorOf,
+} from './utilities';
 
 // Classes
 const CLASS_TOP_LEFT = `${NAMESPACE}-top-left`;
@@ -27,7 +32,7 @@ const CLASS_PLACEMENTS = [
   CLASS_TOP_RIGHT,
   CLASS_BOTTOM_LEFT,
   CLASS_BOTTOM_RIGHT,
-].join(" ");
+].join(' ');
 
 class Datepicker {
   constructor(element, options = {}) {
@@ -37,14 +42,14 @@ class Datepicker {
       {},
       DEFAULTS,
       LANGUAGES[options.language],
-      $.isPlainObject(options) && options
+      $.isPlainObject(options) && options,
     );
     this.$scrollParent = getScrollParent(element, true);
     this.built = false;
     this.shown = false;
     this.isInput = false;
     this.inline = false;
-    this.initialValue = "";
+    this.initialValue = '';
     this.initialDate = null;
     this.startDate = null;
     this.endDate = null;
@@ -56,7 +61,7 @@ class Datepicker {
     let { startDate, endDate, date } = options;
 
     this.$trigger = $(options.trigger);
-    this.isInput = $this.is("input") || $this.is("textarea");
+    this.isInput = $this.is('input') || $this.is('textarea');
     this.inline = options.inline && (options.container || !this.isInput);
     this.format = parseFormat(options.format);
 
@@ -115,33 +120,31 @@ class Datepicker {
     const $picker = $(options.template);
 
     this.$picker = $picker;
-    this.$week = $picker.find(selectorOf("week"));
+    this.$week = $picker.find(selectorOf('week'));
 
     // Years view
-    this.$yearsPicker = $picker.find(selectorOf("years picker"));
-    this.$yearsPrev = $picker.find(selectorOf("years prev"));
-    this.$yearsNext = $picker.find(selectorOf("years next"));
-    this.$yearsCurrent = $picker.find(selectorOf("years current"));
-    this.$years = $picker.find(selectorOf("years"));
+    this.$yearsPicker = $picker.find(selectorOf('years picker'));
+    this.$yearsPrev = $picker.find(selectorOf('years prev'));
+    this.$yearsNext = $picker.find(selectorOf('years next'));
+    this.$yearsCurrent = $picker.find(selectorOf('years current'));
+    this.$years = $picker.find(selectorOf('years'));
 
     // Months view
-    this.$monthsPicker = $picker.find(selectorOf("months picker"));
-    this.$yearPrev = $picker.find(selectorOf("year prev"));
-    this.$yearNext = $picker.find(selectorOf("year next"));
-    this.$yearCurrent = $picker.find(selectorOf("year current"));
-    this.$months = $picker.find(selectorOf("months"));
+    this.$monthsPicker = $picker.find(selectorOf('months picker'));
+    this.$yearPrev = $picker.find(selectorOf('year prev'));
+    this.$yearNext = $picker.find(selectorOf('year next'));
+    this.$yearCurrent = $picker.find(selectorOf('year current'));
+    this.$months = $picker.find(selectorOf('months'));
 
     // Days view
-    this.$daysPicker = $picker.find(selectorOf("days picker"));
-    this.$monthPrev = $picker.find(selectorOf("month prev"));
-    this.$monthNext = $picker.find(selectorOf("month next"));
-    this.$monthCurrent = $picker.find(selectorOf("month current"));
-    this.$days = $picker.find(selectorOf("days"));
+    this.$daysPicker = $picker.find(selectorOf('days picker'));
+    this.$monthPrev = $picker.find(selectorOf('month prev'));
+    this.$monthNext = $picker.find(selectorOf('month next'));
+    this.$monthCurrent = $picker.find(selectorOf('month current'));
+    this.$days = $picker.find(selectorOf('days'));
 
     if (this.inline) {
-      $(options.container || $this).append(
-        $picker.addClass(`${NAMESPACE}-inline`)
-      );
+      $(options.container || $this).append($picker.addClass(`${NAMESPACE}-inline`));
     } else {
       $(document.body).append($picker.addClass(`${NAMESPACE}-dropdown`));
       $picker.addClass(CLASS_HIDE).css({
@@ -222,7 +225,12 @@ class Datepicker {
   }
 
   showView(view) {
-    const { $yearsPicker, $monthsPicker, $daysPicker, format } = this;
+    const {
+      $yearsPicker,
+      $monthsPicker,
+      $daysPicker,
+      format,
+    } = this;
 
     if (format.hasYear || format.hasMonth || format.hasDay) {
       switch (Number(view)) {
@@ -305,7 +313,7 @@ class Datepicker {
 
     if (left + width > containerWidth) {
       left += elementWidth - width;
-      placement = placement.replace("left", "right");
+      placement = placement.replace('left', 'right');
     }
 
     $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).css({
@@ -327,8 +335,8 @@ class Datepicker {
     const { options } = this;
     const { itemTag } = options;
     const item = {
-      text: "",
-      view: "",
+      text: '',
+      view: '',
       muted: false,
       picked: false,
       disabled: false,
@@ -354,9 +362,7 @@ class Datepicker {
       classes.push(options.disabledClass);
     }
 
-    return `<${itemTag} class="${classes.join(" ")}" data-view="${item.view}">${
-      item.text
-    }</${itemTag}>`;
+    return (`<${itemTag} class="${classes.join(' ')}" data-view="${item.view}">${item.text}</${itemTag}>`);
   }
 
   getValue() {
@@ -365,7 +371,7 @@ class Datepicker {
     return this.isInput ? $this.val() : $this.text();
   }
 
-  setValue(value = "") {
+  setValue(value = '') {
     const $this = this.$element;
 
     if (this.isInput) {
@@ -376,11 +382,7 @@ class Datepicker {
   }
 
   static setDefaults(options = {}) {
-    $.extend(
-      DEFAULTS,
-      LANGUAGES[options.language],
-      $.isPlainObject(options) && options
-    );
+    $.extend(DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
   }
 }
 

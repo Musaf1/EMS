@@ -2,128 +2,83 @@
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
   <div class="mdc-card py-2">
     <div class="d-flex justify-content-between align-items-center">
-      <h4 class="card-title mb-0 text-primary">Employee Attendance</h4>
-      <form
-        method="POST"
-        action="{% url 'employee_information:attandance'%}"
-        enctype="multipart/form-data"
-      >
-        {% csrf_token %}
-        <div class="form-group mb-3">
-          <label for="Employee" class="control-label text-primary"
-            >Employee</label
-          >
-          <select
-            name="Employee"
-            id="Employee"
-            class="form-select form-select-sm rounded-0"
-            required
-          >
-            {% if not form.name %}
-            <option value="1" disabled selected>Please Select Here</option>
-            {% else %}
-            <option value="1" disabled>Please Select Here</option>
-            {% endif %} {% for f in employees %} {% if form.name and form.name
-            == f.id %}
-            <option value="{{ f.id }}" selected>{{ f.name }}</option>
-            {% else %}
-            <option value="{{ f.id }}">{{ f.name }}</option>
-            {% endif %} {% endfor %}
-          </select>
+        <h4 class="card-title mb-0 text-primary">Employee Attendance</h4>
+        <form method="POST" action="{% url 'employee_information:attandance'%}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <label for="Employee" class="control-label text-primary">Employee</label>
+                <select name="Employee" id="Employee" class="form-select form-select-sm rounded-0" required>
+                    {% if not form.name %}
+                    <option value="1" disabled selected>Please Select Here</option>
+                    {% else %}
+                    <option value="1" disabled>Please Select Here</option>
+                    {% endif %}
+                    {% for f in employees %}
+                        {% if form.name and form.name == f.id %}
+                        <option value="{{ f.id }}" selected>{{ f.name }}</option>
+                        {% else %}
+                        <option value="{{ f.id }}">{{ f.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+
+                  </select>
+                </div>
+                    <label class="control-label text-primary">Start perod</label>
+                    <input class='mr-3' type="date" name="start_perod" id="start_perod" value="{% if form.start_perod %}{{ form.start_perod|date:'Y-m-d' }}{% endif %}" required>
+                    <label class="control-label text-primary">End perod</label>
+                    <input class='mr-3' type="date" name="end_perod" id="end_perod" value="{% if form.end_perod %}{{ form.end_perod|date:'Y-m-d' }}{% endif %}" required>
+                    <button class='mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2'>Filter</button>
+                    
+                 
+            </form>
         </div>
-        <label class="control-label text-primary">Start perod</label>
-        <input
-          class="mr-3"
-          type="date"
-          name="start_perod"
-          id="start_perod"
-          value="{% if form.start_perod %}{{ form.start_perod|date:'Y-m-d' }}{% endif %}"
-          required
-        />
-        <label class="control-label text-primary">End perod</label>
-        <input
-          class="mr-3"
-          type="date"
-          name="end_perod"
-          id="end_perod"
-          value="{% if form.end_perod %}{{ form.end_perod|date:'Y-m-d' }}{% endif %}"
-          required
-        />
-        <button
-          class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"
-        >
-          Filter
-        </button>
-      </form>
-    </div>
   </div>
 </div>
 
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-  <div class="mdc-card">
+  <div class="mdc-card"> 
     <div class="table-responsive">
-      <table class="table table-striped table-bordered">
-        <colgroup>
-          <col width="5%" />
-          <col width="15%" />
-          <col width="20%" />
-          <col width="20%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th class="text-start text-primary py-1">Date</th>
-            <th class="text-start text-primary py-1">Time Attendacde</th>
-            <th class="text-start text-primary py-1">Time leaves</th>
-            <th class="text-start text-primary py-1">Total hours</th>
-          </tr>
-        </thead>
-        <tbody>
-          <h2 style="text-align: center" class="text-primary">
-            Attendance Report
-          </h2>
-          <h4 style="text-align: center" class="text-primary">
-            {{start_pirod}} <strong> TO </strong> {{end_pirod}}
-          </h4>
-          <div style="text-align: center">
-            {% for employee in attendace_list %}
-            <!--add if employee.statse == 1-->
-
-            {% if start_pirod <= employee.date and employee.date <= end_pirod %}
-            <tr style=" text-align: center vertical-align: middle;">
-              <td class="px-2 py-1 text-start text-primary">
-                {{ employee.date }}
-              </td>
-              <td class="px-2 py-1 text-start text-primary">
-                {{ employee.Time_attendace }}
-              </td>
-              <td class="px-2 py-1 text-start text-primary">
-                {{ employee.time_leaves }}
-              </td>
-              <td class="px-2 py-1 text-start text-primary">
-                {{ employee.total_time }}
-              </td>
-              {% endif %}
-            </tr>
+        <table class="table table-striped table-bordered">
+            <colgroup>
+                <col width="5%">
+                <col width="15%">
+                <col width="20%">
+                <col width="20%">
+                
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="text-start text-primary py-1">Date</th>
+                    <th class="text-start text-primary py-1">Time Attendacde</th>
+                    <th class="text-start text-primary py-1">Time leaves</th>
+                    <th class="text-start text-primary py-1">Total hours</th>
+              
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <h2 style="text-align: center" class="text-primary"> Attendance Report </h2>
+                <h4 style="text-align: center" class="text-primary"> {{start_pirod}} <strong> TO </strong>  {{end_pirod}}</h4>
+                <div style="text-align: center">
+                    {% for employee in attendace_list %}
+                    <!--add if employee.statse == 1-->
+                    
+                        {% if  start_pirod <= employee.date and employee.date <= end_pirod %}
+                        <tr style =" text-align: center vertical-align: middle;">
+                          <td class="px-2 py-1 text-start text-primary">{{ employee.date }}</td>
+                          <td class="px-2 py-1 text-start text-primary">{{ employee.Time_attendace }}</td>
+                          <td class="px-2 py-1 text-start text-primary">{{ employee.time_leaves }}</td>
+                          <td class="px-2 py-1 text-start text-primary">{{ employee.total_time }}</td>
+                      {% endif %}
           </div>
-
           {% endfor %}
-        </tbody>
-      </table>
-      <div class="d-flex align-items-center">
-        <a
-          href="{% url 'employee_information:install_csv' %}"
-          class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"
-        >
-          Export attandance report
-        </a>
-        <a
-          href="{% url 'employee_information:salary_csv' %}"
-          class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"
-        >
-          Export salary report
-        </a>
-      </div>
-    </div>
-  </div>
+                </tbody>
+            </table>
+            <div class="d-flex align-items-center">
+                <a href="{% url 'employee_information:install_csv' %}" class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"> Export attandance report </a>
+                <a href="{% url 'employee_information:salary_csv' %}" class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"> Export salary report </a> 
+            </div> </div> </div> 
 </div>
-{% endblock pageContent %} {% block ScriptBlock %} {% endblock ScriptBlock %}
+{% endblock pageContent %} {% block ScriptBlock %}
+
+{% endblock ScriptBlock %}
