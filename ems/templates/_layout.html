@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 </head>
-<body style="background-color:#2A363B">
+<body>
 
 
     <style type="text/css">
@@ -96,7 +96,7 @@
     </style>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="blue" data-image="{% static 'img/sidebar-4.jpg' %}">
+    <div class="sidebar" data-color="red" data-image="{% static 'img/sidebar-4.jpg' %}">
 
     <!--
 
@@ -107,13 +107,13 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="{% url 'dashboard:dashboard' %}" class="simple-text">
-                    <var>Leave Management</var>
+                <a href="#" class="simple-text">
+                    Leave Management
                 </a>
             </div>
 
             <ul class="nav">
-                <li>
+                <li class="active">
                     <a href="{% url 'dashboard:dashboard' %}">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard </p>
@@ -127,12 +127,12 @@
                 </li> -->
                 
                 {% if request.user.is_superuser and request.user.is_staff %}
-                {% comment %} <li>
+                <li>
                     <a href="{% url 'dashboard:employees' %}">
                         <i class="pe-7s-users"></i>
                         <p>Employee Section</p>
                     </a>
-                </li> {% endcomment %}
+                </li>
                 {% endif %}
 
                 <li>

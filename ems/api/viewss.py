@@ -1,7 +1,7 @@
-from employee.models import *
-from employee_information.models import *
+from employee.models import Role,Department,Employee
+from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod
 from leave.models import Leave
-from .serializers import *
+from .serializers import UserSerializer,RoleSerializer,DepartmentSerializer,EmployeeSerializer,PositionSerializer,Department_infoSerializer,Employees_infoSerializer,Attendace_infoSerializer,LeaveSerializer,LinkUserSerializer,PirodSerializer
 from rest_framework import viewsets
 
 from rest_framework.views import APIView
@@ -12,10 +12,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone,dateformat
 from django.http import JsonResponse
 # Create your views here.
-
-class User(viewsets.ModelViewSet):
-  queryset = User.objects.all()
-  serializer_class = UserSerializer 
 
 class Role(viewsets.ModelViewSet):
   queryset = Role.objects.all()
@@ -31,11 +27,7 @@ class Employee(viewsets.ModelViewSet):
 
 class Position(viewsets.ModelViewSet):
   queryset = Position.objects.all()
-  serializer_class = PositionSerializer 
-
-class Building_info(viewsets.ModelViewSet):
-  queryset = Building_info.objects.all()
-  serializer_class = Building_infoSerializer    
+  serializer_class = PositionSerializer  
 
 class Department_info(viewsets.ModelViewSet):
   queryset = Department_info.objects.all()

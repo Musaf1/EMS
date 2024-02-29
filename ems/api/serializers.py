@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from django.contrib.auth.models import User
-from employee.models import *
-from employee_information.models import *
+from employee.models import Role,Department,Employee
+from employee_information.models import Position,Department_info,Employees_info,Attendace_info,LinkUser,Pirod
 from leave.models import Leave
 
 class UserSerializer(serializers.ModelSerializer):
@@ -13,7 +13,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', "email", "mac", "change_mac")
+        fields = ('id',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+        )
         validators = [
             UniqueTogetherValidator(
                 queryset=User.objects.all(),
@@ -24,56 +30,51 @@ class UserSerializer(serializers.ModelSerializer):
 class RoleSerializer(serializers.ModelSerializer):
   class Meta:
     model = Role
-    fields = '__all__' 
+    fields = ['id', 'name', 'description', 'created', 'updated']
 
 class DepartmentSerializer(serializers.ModelSerializer):
   class Meta:
     model = Department
-    fields = '__all__'  
+    fields = ['id', 'name', 'description', 'created', 'updated']   
 
 class EmployeeSerializer(serializers.ModelSerializer):
   class Meta:
     model = Employee
-    fields = '__all__'
+    fields = ['id', 'user', 'image', 'firstname', 'lastname', 'othername', 'birthday', 'department', 'role', 'startdate', 'employeetype', 'employeeid', 'dateissued', 'is_blocked', 'is_deleted', 'created', 'updated']    
 
 class PositionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Position
-    fields = '__all__'
-
-class Building_infoSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Building_info
-    fields = '__all__'      
+    fields = ['id', 'name', 'description', 'created', 'updated']
 
 class Department_infoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Department_info
-    fields = '__all__'      
+    fields = ['id', 'name', 'description', 'location', 'created', 'updated']      
 
 class Employees_infoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Employees_info
-    fields = '__all__'
+    fields = ['id', 'employeeid','name','gender','dob','contact','address','email','department','position','shift','startdate','salary','gosi','deduction','total_salary','acount_number','status','created','updated','employeetype']    
 
 class Attendace_infoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Attendace_info
-    fields = '__all__'
+    fields = ['id', 'name','date','Time_attendace','time_leaves','total_time','absent_days']
 
 class LeaveSerializer(serializers.ModelSerializer):
   class Meta:
     model = Leave
-    fields = '__all__'
+    fields = ['id', 'user','startdate','enddate','leavetype','reason','defaultdays','status','is_approved','updated','created']  
 
 class LinkUserSerializer(serializers.ModelSerializer):
   class Meta:
     model = LinkUser
-    fields = '__all__'
-  
+    fields = ['id', 'user','name','image','is_blocked','is_deleted','dateissued']  
+
 class PirodSerializer(serializers.ModelSerializer):
   class Meta:
     model = Pirod
-    fields = '__all__'                    
+    fields = ['id', 'start_perod','end_perod']                      
 
     

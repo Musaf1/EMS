@@ -2,7 +2,7 @@
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
     <div class="mdc-card py-2">
         <div class="d-flex justify-content-between align-items-center">
-            <h4 class="card-title mb-0 text-primary">Employee List</h4>
+            <h4 class="card-title mb-0">Employee List</h4>
             <div class="text-start">
                 <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm" id="create_new"><i class="material-icons mdc-button__icon">add</i><span> Add New</span></button>
             </div>
@@ -24,38 +24,38 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="text-start text-primary py-1">#</th>
-                        <th class="text-start text-primary py-1">Code</th>
-                        <th class="text-start text-primary py-1">Name</th>
-                        <th class="text-start text-primary py-1">Department</th>
-                        <th class="text-start text-primary py-1">Position</th>
-                        <th class="text-center text-primary py-1">Status</th>
-                        <th class="text-center text-primary py-1">Action</th>
+                        <th class="text-start text-dark py-1">#</th>
+                        <th class="text-start text-dark py-1">Code</th>
+                        <th class="text-start text-dark py-1">Name</th>
+                        <th class="text-start text-dark py-1">Department</th>
+                        <th class="text-start text-dark py-1">Position</th>
+                        <th class="text-center text-dark py-1">Status</th>
+                        <th class="text-center text-dark py-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for employee in employees %}
                     <tr>
-                        <td class="px-2 py-1 text-center text-primary">{{ employee.id }}</td>
-                        <td class="px-2 py-1 text-start text-primary">{{ employee.employeeid }}</td>
-                        <td class="px-2 py-1 text-start text-primary">{{ employee.name }}</td>
-                        <td class="px-2 py-1 text-start text-primary">{{ employee.department_id }}</td>
-                        <td class="px-2 py-1 text-start text-primary">{{ employee.position_id }}</td>
-                        <td class="px-2 py-1 text-center text-primary">
+                        <td class="px-2 py-1 text-center">{{ employee.id }}</td>
+                        <td class="px-2 py-1 text-start">{{ employee.employeeid }}</td>
+                        <td class="px-2 py-1 text-start">{{ employee.name }}</td>
+                        <td class="px-2 py-1 text-start">{{ employee.department_id }}</td>
+                        <td class="px-2 py-1 text-start">{{ employee.position_id }}</td>
+                        <td class="px-2 py-1 text-center">
                             {% if employee.status == 1 %}
                             <span class="badge bg-primary rounded-pill px-3">Active</span>
                             {% else %}
                             <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
                         </td>
-                        <td class="px-2 py-1 text-center text-primary">
+                        <td class="px-2 py-1 text-center">
+                            <button class="mdc-button mdc-button--raised p-1 icon-button mdc-ripple-upgraded view-data" type="button" data-id="{{ employee.pk }}" title="View Details">
+                                <i class="material-icons mdc-button__icon">visibility</i>
+                            </button>
                             <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--primary mdc-ripple-upgraded edit-data" type="button" data-id="{{ employee.pk }}" title="Edit">
                                 <i class="material-icons mdc-button__icon">edit</i>
                             </button>
                             <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ employee.pk }}" title="Delete">
                                 <i class="material-icons mdc-button__icon">deleteoutline</i>
-                            </button>
-                            <button class="mdc-button mdc-button--raised p-1 icon-button mdc-ripple-upgraded view-data" type="button" data-id="{{ employee.pk }}" title="View Details">
-                                <i class="material-icons mdc-button__icon">visibility</i>
                             </button>
                         </td>
                     </tr>

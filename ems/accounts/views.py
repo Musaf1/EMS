@@ -66,7 +66,7 @@ def changepassword(request):
 			user = form.save(commit=True)
 			update_session_auth_hash(request,user)
 
-			messages.success(request,'Password changed successfully',extra_tags = 'alert alert-info alert-dismissible show' )
+			messages.success(request,'Password changed successfully',extra_tags = 'alert alert-success alert-dismissible show' )
 			return redirect('accounts:changepassword')
 		else:
 			messages.error(request,'Error,changing password',extra_tags = 'alert alert-warning alert-dismissible show' )

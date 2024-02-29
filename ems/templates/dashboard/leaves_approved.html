@@ -77,7 +77,6 @@
 
 body {
 	font-size:17px;
-	color:#00836d;
 }
 
 
@@ -177,9 +176,9 @@ body {
                     </section>
 
                 	<!-- TABLE -->
-                	<div class="table-responsive table-shadow", style="background-color:#003342">
+                	<div class="table-responsive table-shadow">
                 		<div class="text-center table-description">
-                			<h2 class="fw-bold">Approved Leaves</h2>
+                			<h3 class="fw-bold">Approved Leaves</h3>
                 		</div>
                 		<section class="total-leaves-count">
                 			{% if leave_list %}
@@ -205,14 +204,14 @@ body {
 							      <td>{{ leave.user }}</td>
 							      <td>{{ leave.leavetype}}</td>
 							      <td>{{ leave.leave_days }}</td>
-							      <td><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
+							      <td><span class="badge badge-success" style="background-color:rgb(21, 172, 34); font-size: 14px;">{{ leave.status }}</span></td>
 
 							      <td> 
-							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color:#00836d;">
+							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
 							      	    <span>View &nbsp;</span>
 							      	</a>
 							      	
-							        <a href="{% url 'dashboard:userleaveunapprove' leave.id %}" style="color:#ad5555;">
+							        <a href="{% url 'dashboard:userleaveunapprove' leave.id %}" style="color:#bd0404;">
 							       	<span>Unapprove</span>
 							        </a>
 

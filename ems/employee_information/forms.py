@@ -30,7 +30,7 @@ class attendaceForm(forms.ModelForm):
 
 	class Meta:
 		model = Pirod
-		fields = [ 'Employee', 'start_perod','end_perod']
+		fields = [ 'Employee', 'start_perod','end_perod']	
 		'''start_perod = forms.DateInput()
 		end_perod= forms.DateInput()'''
 # take format csf pdf ...
@@ -46,7 +46,7 @@ class DeductionForm(forms.ModelForm):
 
 	class Meta:
 		model = payment
-		fields = ['name', 'other_payment','other_deduction']
+		fields = ['name', 'other_payment','other_deduction']	
 
 class year_increase(forms.ModelForm):
 

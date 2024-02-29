@@ -11,11 +11,9 @@ router.register('position',viewss.Position,basename='position')
 router.register('department_info',viewss.Department_info,basename='department_info')
 router.register('employees_info',viewss.Employees_info,basename='employees_info')
 router.register('attendace_info',viewss.Attendace_info,basename='attendace_info')
-router.register('building_info',viewss.Building_info,basename='building_info')
 router.register('leave',viewss.Leave,basename='leave')
 router.register('linkUser',viewss.LinkUser,basename='linkUser')
 router.register('pirod',viewss.Pirod,basename='pirod')
-router.register('user',viewss.User,basename='user')
 
 urlpatterns = [
     # path('role/', views.RoleList.as_view()),
@@ -30,6 +28,7 @@ urlpatterns = [
     # path('Leave/', views.snippet_list),
     # path('Leave/<int:pk>/', views.snippet_detail),
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
+    path('user/', viewss.UserRecordView.as_view(), name='users'),
     path('time/', viewss.ServerTime, name='time'),
     path('date/', viewss.ServerDate, name='date'),
     path('', include(router.urls)),

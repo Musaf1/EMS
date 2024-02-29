@@ -15,14 +15,12 @@ SICK = 'sick'
 CASUAL = 'casual'
 EMERGENCY = 'emergency'
 STUDY = 'study'
-TASK = 'task'
 
 LEAVE_TYPE = (
 (SICK,'Sick Leave'),
 (CASUAL,'Casual Leave'),
 (EMERGENCY,'Emergency Leave'),
-(STUDY,'Study Leave'),
-(TASK,'Task Leave'),  )
+(STUDY,'Study Leave') )
 
 DAYS = 30
 
@@ -37,9 +35,11 @@ class Leave(models.Model):
 	defaultdays = models.PositiveIntegerField(verbose_name=_('Leave days per year counter'),default=DAYS,null=True,blank=True)
 
 
+
 	status = models.CharField(max_length=100,default='pending') #pending,approved,rejected,cancelled
 	is_approved = models.BooleanField(default=False) #hide
-	Manger_approve_by = models.TextField(max_length=100,default='pending')
+	Manger_approve_by = models.TextField(max_length=100,default='pending') #pending,approved,rejected,cancelled
+
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	created = models.DateTimeField(auto_now=False, auto_now_add=True)
 	counter = models.IntegerField(default = 0)
@@ -91,7 +91,9 @@ class Leave(models.Model):
 
 	@property
 	def approve_leave(self):
+		
 		#if not self.is_approved:
+		
 		if self.counter == 0:
 			self.counter = 1
 			print("fisrt if, self.counter : ",self.counter)
@@ -104,6 +106,7 @@ class Leave(models.Model):
 			print("second if,self.counter : ",self.counter)
 			self.status = 'approved'
 		self.save()
+
 
 
 
@@ -123,6 +126,9 @@ class Leave(models.Model):
 			self.status = 'pending'
 			print("second if,self.counter : ",self.counter)
 			self.save()
+			
+			
+			
 
 
 

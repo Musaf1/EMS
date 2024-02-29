@@ -43,22 +43,17 @@ class Department_info(models.Model):
         return self.name
     
 class Building_info(models.Model):
-    name = models.TextField(unique=True) 
+    name = models.TextField() 
     description = models.TextField() 
     status = models.IntegerField() 
-    location = PlainLocationField(based_fields=['address'], zoom=7, default="26.377387, 50.011715")
+    location = PlainLocationField()
     # change data_added to create 
     created = models.DateTimeField(default=timezone.now) 
     # change data_update to update 
     updated = models.DateTimeField(auto_now=True) 
 
     def __str__(self):
-        return self.name
-    
-    def save(self, *args, **kwargs):
-        if not self.location:
-            self.location = "26.377387, 50.011715"
-        super().save(*args, **kwargs)    
+        return self.name    
      
     
 class Employees_info(models.Model):
@@ -103,7 +98,6 @@ class Employees_info(models.Model):
     (CONTRACT,'Contract'),
     (INTERN,'Intern'),
     )
-
     
     Saudi = 'Saudi'
     Non_Sadui = 'Non-Sadui'
@@ -112,7 +106,6 @@ class Employees_info(models.Model):
         (Saudi,'Saudi'),
         (Non_Sadui,'Non-Sadui'),
         )
-
 
     # change code to employeeid
     employeeid = models.CharField(max_length=100,blank=True)
@@ -143,7 +136,7 @@ class Employees_info(models.Model):
     updated = models.DateTimeField(auto_now_add=True) 
     employeetype = models.CharField(_('Employee Type'),max_length=15,default=FULL_TIME,choices=EMPLOYEETYPE,blank=False,null=True)
     Nationality = models.TextField(blank=False,null= True) 
-    
+
     def save(self,*args,**kwargs):
         '''
         overriding the save method - for every instance that calls the save method 
@@ -167,7 +160,7 @@ class Attendace_info(models.Model):
     date = models.DateField(_('Date attended'),help_text='date staff Date attended',blank=False,null=True)
     Time_attendace = models.TimeField(_('Date attended'),help_text='date staff Date attended')
     time_leaves = models.TimeField(_('Date attended'),help_text='date staff Date attended')
-    total_time = models.FloatField()
+    total_time = models.TextField(blank=True , default= True)
     absent_days = models.IntegerField(default=0)
 
 
@@ -239,4 +232,5 @@ class payment(models.Model):
     other_payment = models.FloatField(default=0) 
     other_deduction = models.FloatField(default=0) 
     year_increase =  models.FloatField(default=0)
+
     

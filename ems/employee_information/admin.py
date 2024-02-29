@@ -9,8 +9,9 @@ class exportForm(resources.ModelResource):
     # name = Field() if name is FK then use this 
     class Meta:
         model = Attendace_info
-        fields = ('id', 'name', 'date','Time_attendace', 'time_leaves','total_time')
+        fields = ( 'id','name', 'date','Time_attendace', 'time_leaves','total_time')
         export_order = fields # same or change the order 
+
 
     # this part to get the FK data rather than 1 
     '''

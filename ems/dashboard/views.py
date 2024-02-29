@@ -230,7 +230,7 @@ def employee_edit_data(request,id):
 			# instance.updated = now
 
 			instance.save()
-			messages.success(request,'Account Updated Successfully !!!',extra_tags = 'alert alert-info alert-dismissible show')
+			messages.success(request,'Account Updated Successfully !!!',extra_tags = 'alert alert-success alert-dismissible show')
 			return redirect('dashboard:employees')
 
 		else:
@@ -288,11 +288,12 @@ def leave_creation(request):
 			'''
 			instance.user = user
 			#instance.name = name
+
 			instance.save()
 
 
 			# print(instance.defaultdays)
-			messages.success(request,'Leave Request Sent,wait for Admins response',extra_tags = 'alert alert-info alert-dismissible show')
+			messages.success(request,'Leave Request Sent,wait for Admins response',extra_tags = 'alert alert-success alert-dismissible show')
 			return redirect('dashboard:createleave')
 
 		messages.error(request,'failed to Request a Leave,please check entry dates',extra_tags = 'alert alert-warning alert-dismissible show')
@@ -340,6 +341,16 @@ def leaves_approved_list(request):
 
 @login_required(login_url='accounts:login')
 def leaves_view(request,id):
+	if not (request.user.is_authenticated):
+		return redirect('/')
+	
+	leave = get_object_or_404(Leave, id = id)
+	employee = LinkUser.objects.filter(user = leave.user)
+	return render(request,'dashboard/leave_detail_view.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
+
+
+@login_required(login_url='accounts:login')
+def approve_leave(request,id):
 	if not (request.user.is_superuser or request.user.is_staff and request.user.is_authenticated):
 		return redirect('/') 
 	leave = get_object_or_404(Leave, id = id)
@@ -349,17 +360,7 @@ def leaves_view(request,id):
 	print("id : ",id_lave)
 	intermet(id,Manager_approve)
 	#Leave.objects.filter(id = id_lave).update(Manger_approve_by = Manager_approve)
-	
-	leave = get_object_or_404(Leave, id = id)
-	employee = LinkUser.objects.filter(user = leave.user)
-	return render(request,'dashboard/leave_detail_view.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
 
-
-@login_required(login_url='accounts:login')
-def approve_leave(request,id):
-	if not (request.user.is_superuser and request.user.is_authenticated):
-		return redirect('/')
-	leave = get_object_or_404(Leave, id = id)
 	user = leave.user
 	user_name = leave.user.first_name
 	LinkUser_user_name = leave.name.position
@@ -384,8 +385,7 @@ def approve_leave(request,id):
 	x = LinkUser.objects.filter(user = user)
 	#employee = Employee.objects.filter(user = user.first_name)
 	leave.approve_leave
-
-	# messages.error(request,'Leave successfully approved for {0}'.format(employee),extra_tags = 'alert alert-info alert-dismissible show')
+	# messages.error(request,'Leave successfully approved for {0}'.format(employee),extra_tags = 'alert alert-success alert-dismissible show')
 	return redirect('dashboard:userleaveview', id = id)
 
 @login_required(login_url='accounts:login')
@@ -413,7 +413,7 @@ def cancel_leave(request,id):
 	leave = get_object_or_404(Leave, id = id)
 	leave.leaves_cancel
 
-	messages.success(request,'Leave is canceled',extra_tags = 'alert alert-info alert-dismissible show')
+	messages.success(request,'Leave is canceled',extra_tags = 'alert alert-success alert-dismissible show')
 	return redirect('dashboard:canceleaveslist')#work on redirecting to instance leave - detail view
 
 
@@ -426,7 +426,7 @@ def uncancel_leave(request,id):
 	leave.status = 'pending'
 	leave.is_approved = False
 	leave.save()
-	messages.success(request,'Leave is uncanceled,now in pending list',extra_tags = 'alert alert-info alert-dismissible show')
+	messages.success(request,'Leave is uncanceled,now in pending list',extra_tags = 'alert alert-success alert-dismissible show')
 	return redirect('dashboard:canceleaveslist')#work on redirecting to instance leave - detail view
 
 
@@ -445,7 +445,7 @@ def reject_leave(request,id):
 	dataset = dict()
 	leave = get_object_or_404(Leave, id = id)
 	leave.reject_leave
-	messages.success(request,'Leave is rejected',extra_tags = 'alert alert-info alert-dismissible show')
+	messages.success(request,'Leave is rejected',extra_tags = 'alert alert-success alert-dismissible show')
 	return redirect('dashboard:leavesrejected')
 
 	# return HttpResponse(id)
@@ -456,7 +456,7 @@ def unreject_leave(request,id):
 	leave.status = 'pending'
 	leave.is_approved = False
 	leave.save()
-	messages.success(request,'Leave is now in pending list ',extra_tags = 'alert alert-info alert-dismissible show')
+	messages.success(request,'Leave is now in pending list ',extra_tags = 'alert alert-success alert-dismissible show')
 
 	return redirect('dashboard:leavesrejected')
 
@@ -470,7 +470,7 @@ def view_my_leave_table(request):
 		user = request.user
 		leaves = Leave.objects.filter(user = user)
 		employee = Employee.objects.filter(user = user).first()
-		# print(leaves)
+		#print(leaves)
 		dataset = dict()
 		dataset['leave_list'] = leaves
 		dataset['employee'] = employee
@@ -479,8 +479,8 @@ def view_my_leave_table(request):
 		return redirect('accounts:login')
 	return render(request,'dashboard/staff_leaves_table.html',dataset)
 
+
+
+
 def intermet(ida,approval):
 	Leave.objects.filter(id = ida).update(Manger_approve_by = approval)
-
-
-

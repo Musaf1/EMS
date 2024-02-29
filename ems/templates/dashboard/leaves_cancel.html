@@ -131,7 +131,6 @@
 
 body {
 	font-size:17px;
-	color:#00836d;
 }
 
 
@@ -181,9 +180,9 @@ body {
                     </section>
 
                 	<!-- TABLE -->
-                	<div class="table-responsive table-shadow", style="background-color:#003342"">
+                	<div class="table-responsive table-shadow">
                 		<div class="text-center table-description">
-                			<h2 class="fw-bold">Cancelled Leaves</h2>
+                			<h3 class="fw-bold">Cancelled Leaves</h3>
                 		</div>
 
                 		<section class="total-leaves-count">
@@ -210,15 +209,15 @@ body {
 							      <td>{{ leave.user }}</td>
 							      <td>{{ leave.leavetype}}</td>
 							      <td>{{ leave.leave_days }}</td>
-								  <td><span class="badge badge-success" style="background-color:#ad5555; font-size: 14px;">{{ leave.status }}</span></td>
+							      <td>{{ leave.status }}</td>
 
 							      <td> 
-							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #00836d;;">
+							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
 							      	    <span class='fw-bold'>View&nbsp;</span>
 							      	</a>
 							      	
 							      	{% if not leave.is_approved %}
-							      		<a href="{% url 'dashboard:userleaveuncancel' leave.id %}" style="color:#ad5555;">Undo Cancel</a>
+							      		<a href="{% url 'dashboard:userleaveuncancel' leave.id %}" style="color:#bd0404;">Undo Cancel</a>
 							      	{% endif %}
 							        
 							      </td>

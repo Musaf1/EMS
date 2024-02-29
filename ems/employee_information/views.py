@@ -23,7 +23,6 @@ from .forms import DeductionForm,year_increase
 from django.contrib import messages
 import time as t
 from leave.models import Leave
-from xlsxwriter import Workbook
 
 employees = [
 
@@ -400,28 +399,34 @@ def Timeshet(request):
         for i in m1:
             if date(2023,8,21)<i.date  and i.date <date(2023,8,25):
                 f.write(f'\n{i.name},{i.date} ,{i.Time_attendace} , {i.time_leaves}')
-
 def TimeshetTest(request):
-    employee_list = Attendace_info.objects.all()
+    employee_list = Employees_info.objects.all()
+
     deduction = employee_list
     context = {
         'page_title':'Employees',
         'employees':employee_list,
     }
     if request.POST :
+
         form = attendaceForm(request.POST)
         # if form okay save in DB
-        print("name_id : ", request.POST["Employee"]) 
+        print("name_id : ", request.POST["Employee"])
+  
         if form.is_valid():
             print("is valid")
             form.save()
+            print("saved")
+
             employee_name =form.cleaned_data['Employee']
             start_pirod =form.cleaned_data['start_perod']
             end_pirod =form.cleaned_data['end_perod']
-            attendace_list = Attendace_info.objects.filter(id = employee_name )
-        else:
-            print("Form not valid")
+            attendace_list = Attendace_info.objects.filter(name = employee_name )
 
+        else:
+            print("Form not valid")  
+
+            
         context = {
             'page_title':'Employees',
             'employees':employee_list,
@@ -430,6 +435,7 @@ def TimeshetTest(request):
             'form': form,
             'attendace_list': attendace_list,
         }
+       
     return render(request, 'employee_information/attandance.html',context)
 '''
 def test(request): 
@@ -517,41 +523,24 @@ def export2(requst,format):
 def file_csv(request):
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = "attachment; filename= attendace.csv"
+
     pirodOB = Pirod.objects.all()
     start_pirod =pirodOB[len(pirodOB)-1].start_perod
     end_pirod =pirodOB[len(pirodOB)-1].end_perod
+    
     print("installing atendace CSV from " + str(start_pirod) + " to " + str(end_pirod))
-    workbook = Workbook(response)
+
+    # create a csv 
+    writer = csv.writer(response)
+    # get data form database
     data = Attendace_info.objects.filter(date__range=[start_pirod, end_pirod])
-    worksheet = workbook.add_worksheet()
-    bold = workbook.add_format({'bold': True, 'bg_color': 'yellow'})
-    worksheet.set_column('A:A', 10)
-    worksheet.set_column('B:B', 15)
-    worksheet.set_column('C:C', 15)
-    worksheet.set_column('D:D', 15)
-    worksheet.set_column('E:E', 10)
-    worksheet.write(0, 0, 'Name')
-    worksheet.write(0, 1, 'Date')
-    worksheet.write(0, 2, 'Time Attendace')
-    worksheet.write(0, 3, 'Time Leaves')
-    worksheet.write(0, 4, 'Total Time')
-    i=1
-    for row in data:
-            if row.total_time < 8:  # Replace `condition` with your actual logic
-                worksheet.write(i, 0, str(row.name), bold)
-                worksheet.write(i, 1, str(row.date), bold)
-                worksheet.write(i, 2, str(row.Time_attendace), bold)
-                worksheet.write(i, 3, str(row.time_leaves), bold)
-                worksheet.write(i, 4, str(row.total_time), bold)
-                i+=1
-            else:
-                worksheet.write(i, 0, str(row.name))
-                worksheet.write(i, 1, str(row.date))
-                worksheet.write(i, 2, str(row.Time_attendace))
-                worksheet.write(i, 3, str(row.time_leaves))
-                worksheet.write(i, 4, str(row.total_time))
-                i+=1        
-    workbook.close()
+    # add columns to csv
+    writer.writerow(['name', 'date', 'Time_attendace', 'time_leaves', 'total_time'])
+    print("-----------------im in file_csv function--------------- ")
+    # loop over and add the data 
+    for i in data : 
+        writer.writerow([i.name, i.date, i.Time_attendace, i.time_leaves, i.total_time])
+
     return response
 
 def salary_csv(request):
@@ -603,6 +592,7 @@ def salary_csv(request):
             gosi = salary*0.11
         else:
             gosi = salary*0.025
+
         counter1 = 0
         counter2 = 0
         counter3 = 0 
@@ -732,10 +722,10 @@ def salary_csv(request):
     writer.writerow(['From', start_date, 'To',end_date])
     writer.writerow([''])
 
-    writer.writerow(['Name', 'Salary', 'Gosi', 'Detaction', 'Basic','Home', 'Transportation', 'OtherPayment','Other Deduction', 'Total_salary', 'acount_number'])
+    writer.writerow(['Name', 'Salary', 'Gosi', 'Detaction', 'Basic','Home', 'Transportation', 'Other Payment','Other Deduction', 'Total_salary', 'acount_number'])
     # loop over and add the data 
     for i in info : 
-        writer.writerow([i.name, i.salary, i.gosi, i.deduction +  i.other_deduction  , i.total_salary*0.65, i.total_salary*0.25, i.total_salary*0.10,i.other_payment, i.other_deduction, i.total_salary - i.other_deduction + i.other_payment, i.acount_number])
+        writer.writerow([i.name, i.salary, i.gosi, i.deduction +  i.other_deduction  , i.total_salary*0.65, i.total_salary*0.25, i.total_salary*0.10,i.other_payment , i.other_deduction, i.total_salary - i.other_deduction + i.other_payment, i.acount_number])
         print("----------------- csv installed function--------------- ")
 
     return response

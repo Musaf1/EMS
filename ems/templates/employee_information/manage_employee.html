@@ -11,6 +11,7 @@
                     <label for="name" class="control-label"> Full Name</label>
                     <input type="text" name="name" id="name" class="form-control form-control-sm rounded-0" value="{% if employee.name %}{{employee.name}}{% endif %}" required>
                 </div>
+                
                 <div class="form-group mb-3">
                     <label for="Nationality" class="control-label">Nationality</label>
                     <select name="Nationality" id="Nationality" class="form-control form-control-sm rounded-0" required>
@@ -27,6 +28,7 @@
                         {% endif %}
                     </select>
                 </div>
+
                 <div class="form-group mb-3">
                     <label for="gender" class="control-label">Gender</label>
                     <select name="gender" id="gender" class="form-control form-control-sm rounded-0" required>

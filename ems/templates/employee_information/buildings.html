@@ -2,7 +2,7 @@
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
     <div class="mdc-card py-2">
         <div class="d-flex justify-content-between align-items-center">
-            <h4 class="card-title mb-0 text-primary">Building List</h4>
+            <h4 class="card-title mb-0">Building List</h4>
             <div class="text-start">
                 <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm" id="create_new"><i class="material-icons mdc-button__icon">add</i><span> Add New</span></button>
             </div>
@@ -22,22 +22,22 @@
                 </colgroup>
                 <thead> 
                     <tr>
-                        <th class="text-start text-primary py-1">#</th>
-                        <th class="text-start text-primary py-1">Building Name</th>
-                        <th class="text-start text-primary py-1">Description</th>
-                        <th class="text-start text-primary py-1">Location</th>
-                        <th class="text-center text-primary py-1">Status</th>
-                        <th class="text-center text-primary py-1">Action</th>
+                        <th class="text-start text-dark py-1">#</th>
+                        <th class="text-start text-dark py-1">Building Name</th>
+                        <th class="text-start text-dark py-1">Description</th>
+                        <th class="text-start text-dark py-1">Location</th>
+                        <th class="text-center text-dark py-1">Status</th>
+                        <th class="text-center text-dark py-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for building in buildings %}
                     <tr>
-                        <td class="px-2 py-1 text-center text-primary">{{ building.id }}</td>
-                        <td class="px-2 py-1 text-start text-primary">{{ building.name }}</td>
-                        <td class="px-2 py-1 text-start text-primary">{{ building.description }}</td>
-                        <td class="px-2 py-1 text-start text-primary">{{ building.location }}</td>
-                        <td class="px-2 py-1 text-center text-primary">
+                        <td class="px-2 py-1 text-center">{{ building.id }}</td>
+                        <td class="px-2 py-1 text-start">{{ building.name }}</td>
+                        <td class="px-2 py-1 text-start">{{ building.description }}</td>
+                        <td class="px-2 py-1 text-start">{{ building.location }}</td>
+                        <td class="px-2 py-1 text-center">
                             {% if building.status == 1 %}
                             <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}
                             <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
