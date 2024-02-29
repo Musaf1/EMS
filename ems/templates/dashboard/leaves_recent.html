@@ -47,6 +47,7 @@
 
 	body {
 		font-size:17px;
+		color:#00836d;
 	}
 
 	.alert-warning{
@@ -172,9 +173,9 @@
                     </section>
 
                 	<!-- TABLE -->
-                	<div class="table-responsive table-shadow">
+                	<div class="table-responsive table-shadow", style="background-color:#003342"">
                 		<div class="text-center table-description">
-                			<h3 class="fw-bold">Pending Leaves</h3>
+                			<h2 class="fw-bold">Pending Leaves</h2>
                 		</div>
                 	
                 		<table class="table">
@@ -190,50 +191,48 @@
 							  </thead>
 							  <tbody>
 								{% if request.user.is_staff and not request.user.is_superuser %}
+								{% for leave in leave_list %}
+									{%if leave.counter < 1 %}
 
-									{% for leave in leave_list %}
-										{%if leave.counter < 1 %}
+										<tr>
 
-											<tr>
+										<td>{{ leave.name }}</td>
+										<td>{{ leave.leavetype}}</td>
+										<td>{{ leave.leave_days }}</td>
+										<td><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
 
-											<td>{{ leave.name }}</td>
-											<td>{{ leave.leavetype}}</td>
-											<td>{{ leave.leave_days }}</td>
-											<td><span class="badge badge-success" style="background-color:rgb(189, 138, 0); font-size: 14px;">{{ leave.status }}</span></td>
+										<td> 
+											<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #00836d;">
+												<span>View</span>
+											</a>
+											
+										</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
 
-											<td> 
-												<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
-													<span>View</span>
-												</a>
-												
-											</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
+							{% elif request.user.is_superuser %}
+								{% for leave in leave_list %}
+									{%if leave.counter >= 1 %}
 
-								{% elif request.user.is_superuser %}
-									{% for leave in leave_list %}
-										{%if leave.counter >= 1 %}
+										<tr>
 
-											<tr>
+										<td>{{ leave.name }}</td>
+										<td>{{ leave.leavetype}}</td>
+										<td>{{ leave.leave_days }}</td>
+										<td><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
 
-											<td>{{ leave.name }}</td>
-											<td>{{ leave.leavetype}}</td>
-											<td>{{ leave.leave_days }}</td>
-											<td><span class="badge badge-success" style="background-color:rgb(189, 138, 0); font-size: 14px;">{{ leave.status }}</span></td>
+										<td> 
+											<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #00836d;">
+												<span>View</span>
+											</a>
+											
+										</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
 
-											<td> 
-												<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
-													<span>View</span>
-												</a>
-												
-											</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
-								{% endif %}
-								
-									
 							  </tbody>
 
 						</table>

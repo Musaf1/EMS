@@ -83,6 +83,7 @@
 
 body {
 	font-size:17px;
+	color:#00836d;
 }
 
 
@@ -172,7 +173,7 @@ body {
                     </section>
 
                 	<!-- TABLE -->
-                	<div class="table-responsive table-shadow">
+                	<div class="table-responsive table-shadow", style="background-color:#003342"">
                 		<div class="text-center table-description">
                 			<h4 class="title-h3" style="text-shadow: 1px 0px rgba(0,0,0,0.11)">{{ employee.get_full_name }}</h4>
                 		</div>
@@ -185,28 +186,25 @@ body {
 							      <th scope="col"><b>Day(s)</b></th>
 							      <th scope="col"><b>Status</b></th>
 								  <th scope="col"><b>Process</b></th>
-
 							    </tr>
 							  </thead>
 							  <tbody>
 							  	{% for leave in leave_list %}
 							    <tr>
 
-							      <td>{{ leave.leavetype}} </td>
+							      <td>{{ leave.leavetype}}</td>
 							      <td>{{ leave.leave_days }}</td>
 							      {% if leave.is_approved %}
-							      <td ><span class="badge badge-success" style="background-color:green; font-size: 14px;">{{ leave.status }}</span></td>
+							      <td ><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
 								  {% elif leave.is_rejected %}
-							      <td ><span class="badge badge-success" style="background-color:rgb(184, 12, 0); font-size: 14px;">{{ leave.status }}</span></td> 
+							      <td ><span class="badge badge-warning" style="background-color:#ad5555; font-size: 14px;">{{ leave.status }}</span></td> 
 								  {% else %}
-							      <td ><span class="badge badge-warning" style="background-color:rgb(189, 138, 0); font-size: 14px;">{{ leave.status }}</span></td>
+							      <td ><span class="badge badge-warning" style="background-color:#ad5555; font-size: 14px;">{{ leave.status }}</span></td>
 							      {% endif %}
 								  <td>{{ leave.Manger_approve_by }}</td>
-
-
 							      <td> 
-							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
-							      	    View Details
+							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #00836d;">
+							      	    View
 							      	</a>
 							      	
 							      </td>

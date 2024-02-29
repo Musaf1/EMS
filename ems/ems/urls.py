@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .import views
+from accounts import views
 
 
 urlpatterns = [
-    path('',views.index_view,name='home'),
+    path('',views.loginpage,name="home"),
     path('admin/', admin.site.urls,name="admin-site"),
     path('employee_information/', include('employee_information.urls',namespace='employee_information')),
    # path('home',views.index_view,name='home'),

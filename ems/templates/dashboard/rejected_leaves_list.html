@@ -131,6 +131,7 @@
 
 body {
 	font-size:17px;
+	color:#00836d;
 }
 
 
@@ -180,9 +181,9 @@ body {
                     </section>
 
                 	<!-- TABLE -->
-                	<div class="table-responsive table-shadow">
+                	<div class="table-responsive table-shadow", style="background-color:#003342"">
                 		<div class="text-center table-description">
-                			<h3 class="fw-bold">Rejected Leaves</h4>
+                			<h2 class="fw-bold">Rejected Leaves</h4>
                 		</div>
 
                 		<section class="total-leaves-count">
@@ -209,15 +210,15 @@ body {
 							      <td>{{ leave.user }}</td>
 							      <td>{{ leave.leavetype}}</td>
 							      <td>{{ leave.leave_days }}</td>
-							      <td><span class="badge badge-success" style="background-color:#d04247; font-size: 14px;">{{ leave.status }}</span></td>
+							      <td><span class="badge badge-success" style="background-color:#ad5555; font-size: 14px;">{{ leave.status }}</span></td>
 
 							      <td> 
-							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #795548;">
+							      	<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color:#00836d;;">
 							      	    <span>View &nbsp;</span>
 							      	</a>
 							      	
 							      	{% if leave.is_rejected %}
-							      		<a href="{% url 'dashboard:unreject' leave.id %}" style="color:#bd0404;">Undo Reject</a>
+							      		<a href="{% url 'dashboard:unreject' leave.id %}" style="color:#ad5555;">Undo Reject</a>
 							      	{% endif %}
 							        
 							      </td>
