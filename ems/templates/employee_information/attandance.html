@@ -2,11 +2,11 @@
 <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
   <div class="mdc-card py-2">
     <div class="d-flex justify-content-between align-items-center">
-        <h4 class="card-title mb-0 text-primary">Employee Attendance</h4>
+        <h4 class="card-title mb-0 text-white">Employee Attendance</h4>
         <form method="POST" action="{% url 'employee_information:attandance'%}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group mb-3">
-                <label for="Employee" class="control-label text-primary">Employee</label>
+                <label for="Employee" class="control-label text-white">Employee</label>
                 <select name="Employee" id="Employee" class="form-select form-select-sm rounded-0" required>
                     {% if not form.name %}
                     <option value="1" disabled selected>Please Select Here</option>
@@ -23,9 +23,9 @@
 
                   </select>
                 </div>
-                    <label class="control-label text-primary">Start perod</label>
+                    <label class="control-label text-white">Start Period</label>
                     <input class='mr-3' type="date" name="start_perod" id="start_perod" value="{% if form.start_perod %}{{ form.start_perod|date:'Y-m-d' }}{% endif %}" required>
-                    <label class="control-label text-primary">End perod</label>
+                    <label class="control-label text-white">End Period</label>
                     <input class='mr-3' type="date" name="end_perod" id="end_perod" value="{% if form.end_perod %}{{ form.end_perod|date:'Y-m-d' }}{% endif %}" required>
                     <button class='mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2'>Filter</button>
                     
@@ -48,27 +48,35 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th class="text-start text-primary py-1">Date</th>
-                    <th class="text-start text-primary py-1">Time Attendacde</th>
-                    <th class="text-start text-primary py-1">Time leaves</th>
-                    <th class="text-start text-primary py-1">Total hours</th>
+                    <th class="text-start text-white py-1">Date</th>
+                    <th class="text-start text-white py-1">Time Attendacde</th>
+                    <th class="text-start text-white py-1">Time leaves</th>
+                    <th class="text-start text-white py-1">Total hours</th>
               
                     
                 </tr>
             </thead>
             <tbody>
-                <h2 style="text-align: center" class="text-primary"> Attendance Report </h2>
-                <h4 style="text-align: center" class="text-primary"> {{start_pirod}} <strong> TO </strong>  {{end_pirod}}</h4>
+                <h2 style="text-align: center" class="text-white"> Attendance Report </h2>
+                <h4 style="text-align: center" class="text-white"> {{start_pirod}} <strong> TO </strong>  {{end_pirod}}</h4>
                 <div style="text-align: center">
                     {% for employee in attendace_list %}
                     <!--add if employee.statse == 1-->
                     
                         {% if  start_pirod <= employee.date and employee.date <= end_pirod %}
-                        <tr style =" text-align: center vertical-align: middle;">
-                          <td class="px-2 py-1 text-start text-primary">{{ employee.date }}</td>
-                          <td class="px-2 py-1 text-start text-primary">{{ employee.Time_attendace }}</td>
-                          <td class="px-2 py-1 text-start text-primary">{{ employee.time_leaves }}</td>
-                          <td class="px-2 py-1 text-start text-primary">{{ employee.total_time }}</td>
+                        {% if 8.0 <= employee.total_time %}
+                            <tr style =" text-align: center vertical-align: middle;">
+                                <td class="px-2 py-1 text-start">{{ employee.date }}</td>
+                                <td class="px-2 py-1 text-start">{{ employee.Time_attendace }}</td>
+                                <td class="px-2 py-1 text-start">{{ employee.time_leaves }}</td>
+                                <td class="px-2 py-1 text-start">{{ employee.total_time }}</td>
+                                {% else %}
+                                <tr style =" text-align: center vertical-align: middle;" class='bg-warning'>
+                                    <td class="px-2 py-1 text-start">{{ employee.date }}</td>
+                                    <td class="px-2 py-1 text-start">{{ employee.Time_attendace }}</td>
+                                    <td class="px-2 py-1 text-start">{{ employee.time_leaves }}</td>
+                                    <td class="px-2 py-1 text-start">{{ employee.total_time }}</td>
+                            {% endif %}
                       {% endif %}
           </div>
           {% endfor %}

@@ -48,17 +48,17 @@
                               </p>
 
                         </a>
-                        <ul class="dropdown-menu" style="background-color: #003342" style="color: #00836d">
+                        <ul class="dropdown-menu" style="background-color: #003342" style="color: #b2b2b2">
                           {% if request.user.is_authenticated %}
-                          <li><a href="{% url 'accounts:logout'  %}" style="color: #00836d">Logout</a></li>
+                          <li><a href="{% url 'accounts:logout'  %}" style="color: #b2b2b2">Logout</a></li>
                           {% else %}
-                          <li><a href="{% url 'accounts:login'  %}" style="color: #00836d">Login</a></li>
+                          <li><a href="{% url 'accounts:login'  %}" style="color: #b2b2b2">Login</a></li>
                           {% endif %}
                           
-                          <li><a href="{% url 'accounts:changepassword' %}" style="color: #00836d">Change Password</a></li>
-                          <li><a href="{% url 'accounts:Update_Profile' %}" style="color: #00836d">Update Profile Cancelled</a></li>
-                          <li><a href="{% url 'accounts:Update_user' %}" style="color: #00836d">Update Profile</a></li>
-                          <li><a href="{% url 'accounts:profile' request.user.id %}" style="color: #00836d"> My Profile</a></li>
+                          <li><a href="{% url 'accounts:changepassword' %}" style="color: #b2b2b2">Change Password</a></li>
+                          <li><a href="{% url 'accounts:Update_Profile' %}" style="color: #b2b2b2">Update Profile Cancelled</a></li>
+                          <li><a href="{% url 'accounts:Update_user' %}" style="color: #b2b2b2">Update Profile</a></li>
+                          <li><a href="{% url 'accounts:profile' request.user.id %}" style="color: #b2b2b2"> My Profile</a></li>
                         </ul>
                   </li>
       <li class="separator hidden-lg"></li>

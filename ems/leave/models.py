@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
-from employee_information.models import Employees_info
+from employee_information.models import Employees_info,Attendace_info
 
 
 # Create your models here.
@@ -100,9 +100,13 @@ class Leave(models.Model):
 		else:
 			self.is_approved = True
 			self.counter = 2
+			print("its hr approve counter = ",self.counter )
 			self.Manger_approve_by = "approved"
 			print("second if,self.counter : ",self.counter)
 			self.status = 'approved'
+			if self.leavetype == 'task':
+				print("im in if self.leavetype and type : ",self.leavetype)
+				Attendace_info.objects.filter(name_id = self.user_id,date = self.startdate).update(Time_attendace = time(8,0,0),time_leaves = time(16,0,0) )
 		self.save()
 
 

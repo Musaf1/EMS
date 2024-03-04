@@ -31,16 +31,16 @@
                               </a>
                               <ul class="dropdown-menu" style="background-color: #003342">
                                 {% if request.user.is_superuser %}
-                                <li><a href="{% url 'dashboard:leaveslist' %}" style="color: #00836d">Pending Leaves</a></li>
-                                <li><a href="{% url 'dashboard:approvedleaveslist' %}" style="color: #00836d">Approved Leaves</a></li>
-                                <li><a href="{% url 'dashboard:canceleaveslist' %}" style="color: #00836d">Cancelled Leaves</a></li>
-                                <li><a href="{% url 'dashboard:leavesrejected' %}" style="color: #00836d">Rejected Leaves</a></li>
+                                <li><a href="{% url 'dashboard:leaveslist' %}" style="color: #b2b2b2">Pending Leaves</a></li>
+                                <li><a href="{% url 'dashboard:approvedleaveslist' %}" style="color: #b2b2b2">Approved Leaves</a></li>
+                                <li><a href="{% url 'dashboard:canceleaveslist' %}" style="color: #b2b2b2">Cancelled Leaves</a></li>
+                                <li><a href="{% url 'dashboard:leavesrejected' %}" style="color: #b2b2b2">Rejected Leaves</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'dashboard:createleave' %}" style="color: #00836d">Apply for Leave</a></li>
+                                <li><a href="{% url 'dashboard:createleave' %}" style="color: #b2b2b2">Apply for Leave</a></li>
                                 {% else %}
-                                <li><a href="{% url 'dashboard:createleave' %}" style="color: #00836d">Apply for Leave</a></li>
+                                <li><a href="{% url 'dashboard:createleave' %}" style="color: #b2b2b2">Apply for Leave</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'dashboard:staffleavetable' %}" style="color: #00836d">All Leaves</a></li>
+                                <li><a href="{% url 'dashboard:staffleavetable' %}" style="color: #b2b2b2">All Leaves</a></li>
                                 {% endif %}
                               </ul>
                         </li>
@@ -55,8 +55,8 @@
 
                               </a>
                               <ul class="dropdown-menu" style="background-color: #003342">
-                                <li><a href="{% url 'accounts:register' %}" style="color: #00836d">Create Users</a></li>
-                                <li><a href="{% url 'accounts:profile_list' %}" style="color: #00836d">All Users</a></li>
+                                <li><a href="{% url 'accounts:register' %}" style="color: #b2b2b2">Create Users</a></li>
+                                <li><a href="{% url 'accounts:profile_list' %}" style="color: #b2b2b2">All Users</a></li>
                               </ul>
                         </li>
                         {% endif %}
@@ -72,7 +72,7 @@
 
                               </a>
                               <ul class="dropdown-menu" style="background-color: #003342">
-                                <li><a href="{% url 'dashboard:employeecreate' %}" style="color: #00836d">Link user</a></li>
+                                <li><a href="{% url 'dashboard:employeecreate' %}" style="color: #b2b2b2">Link user</a></li>
                               </ul>
                         </li>
                         {% endif %}
@@ -106,11 +106,11 @@
                               </a>
                               <ul class="dropdown-menu" style="background-color: #003342">
                                 {% if request.user.is_authenticated %}
-                                <li><a href="{% url 'accounts:logout'  %}" style="color: #00836d">Logout</a></li>
+                                <li><a href="{% url 'accounts:logout'  %}" style="color: #b2b2b2">Logout</a></li>
                                 {% else %}
-                                <li><a href="{% url 'accounts:login'  %}" style="color: #00836d">Login</a></li>
+                                <li><a href="{% url 'accounts:login'  %}" style="color: #b2b2b2">Login</a></li>
                                 {% endif %}
-                                <li><a href="{% url 'accounts:changepassword' %}" style="color: #00836d">Change Password</a></li>
+                                <li><a href="{% url 'accounts:changepassword' %}" style="color: #b2b2b2">Change Password</a></li>
                                 
                               </ul>
                         </li>
@@ -123,10 +123,10 @@
 
 
         <style>
-            .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus, .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus { color: #00836d }
+            .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus, .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus { color: #b2b2b2 }
 
-            .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus { color:  #00836d}
+            .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus { color:  #b2b2b2}
 
-            .navbar-default .navbar-nav > .dropdown > a:hover .caret, .navbar-default .navbar-nav > .dropdown > a:focus .caret { border-bottom-color:  #00836d; border-top-color:  #00836d; }
+            .navbar-default .navbar-nav > .dropdown > a:hover .caret, .navbar-default .navbar-nav > .dropdown > a:focus .caret { border-bottom-color:  #b2b2b2; border-top-color:  #b2b2b2; }
 
         </style>

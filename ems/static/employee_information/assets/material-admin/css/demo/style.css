@@ -152,7 +152,7 @@ svg.mdc-button__icon {
 
 .mdc-button--raised:not(:disabled),
 .mdc-button--unelevated:not(:disabled) {
-  background-color: #00836d;
+  background-color: #d3d48d;
 }
 
 @supports not (-ms-ime-align: auto) {
@@ -19063,7 +19063,7 @@ a.mdc-list-item {
 }
 
 .text-white {
-  color:  #003342 !important;
+  color:  #fff !important;
 }
 
 /* === Core Styles === */
@@ -19621,7 +19621,7 @@ address p {
 }
 
 .text-white {
-  color:  #003342 !important;
+  color:  #fff !important;
 }
 
 .text-muted {

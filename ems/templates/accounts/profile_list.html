@@ -43,7 +43,7 @@
 	}
 	body {
 		font-size:17px;
-		color:#00836d;
+		color:#fff;
 	}
 
 {% endblock %}
@@ -87,7 +87,7 @@
                                     {% for profile in profiles %}
                                     <tr>
                                         <td>{{profile.user.username}} </td>
-                                        <td>{{ profile.name }}</td>
+                                        <td>{{ profile.user.first_name}} {{profile.user.last_name }}</td>
                                         <td>{{ profile.phone }}</td>
                                         <td>{{ profile.date_modified }}</td>
                                         
