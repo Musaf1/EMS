@@ -36,18 +36,18 @@
                 <tbody>
                     {% for employee in employees %}
                     <tr>
-                        <td class="px-2 py-1 text-center text-black">{{ employee.id }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.employeeid }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.name }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.department_id }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.position_id }}</td>
-                        <td class="px-2 py-1 text-center text-black">
+                        <td class="px-2 py-1 text-center text-white">{{ employee.id }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.employeeid }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.name }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.department_id }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.position_id }}</td>
+                        <td class="px-2 py-1 text-center text-white">
                             {% if employee.status == 1 %}
                             <span class="badge bg-primary rounded-pill px-3">Active</span>
                             {% else %}
                             <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
                         </td>
-                        <td class="px-2 py-1 text-center text-black">
+                        <td class="px-2 py-1 text-center text-white">
                             <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--primary mdc-ripple-upgraded edit-data" type="button" data-id="{{ employee.pk }}" title="Edit">
                                 <i class="material-icons mdc-button__icon">edit</i>
                             </button>

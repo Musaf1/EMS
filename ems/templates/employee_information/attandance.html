@@ -66,16 +66,16 @@
                         {% if  start_pirod <= employee.date and employee.date <= end_pirod %}
                         {% if 8.0 <= employee.total_time %}
                             <tr style =" text-align: center vertical-align: middle;">
-                                <td class="px-2 py-1 text-start">{{ employee.date }}</td>
-                                <td class="px-2 py-1 text-start">{{ employee.Time_attendace }}</td>
-                                <td class="px-2 py-1 text-start">{{ employee.time_leaves }}</td>
-                                <td class="px-2 py-1 text-start">{{ employee.total_time }}</td>
+                                <td class="px-2 py-1 text-start text-white">{{ employee.date }}</td>
+                                <td class="px-2 py-1 text-start text-white">{{ employee.Time_attendace }}</td>
+                                <td class="px-2 py-1 text-start text-white">{{ employee.time_leaves }}</td>
+                                <td class="px-2 py-1 text-start text-white">{{ employee.total_time }}</td>
                                 {% else %}
                                 <tr style =" text-align: center vertical-align: middle;" class='bg-warning'>
-                                    <td class="px-2 py-1 text-start">{{ employee.date }}</td>
-                                    <td class="px-2 py-1 text-start">{{ employee.Time_attendace }}</td>
-                                    <td class="px-2 py-1 text-start">{{ employee.time_leaves }}</td>
-                                    <td class="px-2 py-1 text-start">{{ employee.total_time }}</td>
+                                    <td class="px-2 py-1 text-start text-white">{{ employee.date }}</td>
+                                    <td class="px-2 py-1 text-start text-white">{{ employee.Time_attendace }}</td>
+                                    <td class="px-2 py-1 text-start text-white">{{ employee.time_leaves }}</td>
+                                    <td class="px-2 py-1 text-start text-white">{{ employee.total_time }}</td>
                             {% endif %}
                       {% endif %}
           </div>

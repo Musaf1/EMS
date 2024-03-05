@@ -21853,7 +21853,7 @@ address p {
 }
 
 .table.table-striped tbody tr:nth-child(odd) {
-  background: #EEEEEE;
+  background: #00524b;
 }
 
 .table-responsive {

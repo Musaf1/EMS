@@ -44,16 +44,16 @@
                     {% for employee in employees %}
                     {% if employee.status == 1 %}
                     <tr>
-                        <td class="px-2 py-1 text-center text-black">{{ employee.id }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.name }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.salary|sub:employee.gosi |mul:0.65}}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.gosi }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.other_payment }} </td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.other_deduction }} </td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.total_salary|add:employee.other_payment|sub:employee.other_deduction }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ employee.acount_number }}</td>
+                        <td class="px-2 py-1 text-center text-white">{{ employee.id }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.name }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.65}}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.gosi }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.other_payment }} </td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.other_deduction }} </td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.total_salary|add:employee.other_payment|sub:employee.other_deduction }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.acount_number }}</td>
                         
                     {% endif %}
                         

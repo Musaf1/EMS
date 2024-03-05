@@ -33,11 +33,11 @@
                 <tbody>
                     {% for building in buildings %}
                     <tr>
-                        <td class="px-2 py-1 text-center text-black">{{ building.id }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ building.name }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ building.description }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ building.location }}</td>
-                        <td class="px-2 py-1 text-center text-black">
+                        <td class="px-2 py-1 text-center text-white">{{ building.id }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ building.name }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ building.description }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ building.location }}</td>
+                        <td class="px-2 py-1 text-center text-white">
                             {% if building.status == 1 %}
                             <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}
                             <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}

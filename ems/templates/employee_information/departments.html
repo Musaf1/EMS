@@ -32,15 +32,15 @@
                 <tbody>
                     {% for department in departments %}
                     <tr>
-                        <td class="px-2 py-1 text-center text-black">{{ department.id }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ department.name }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ department.description }}</td>
-                        <td class="px-2 py-1 text-center text-black">
+                        <td class="px-2 py-1 text-center text-white">{{ department.id }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ department.name }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ department.description }}</td>
+                        <td class="px-2 py-1 text-center text-white">
                             {% if department.status == 1 %}
                             <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}
                             <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
                         </td>
-                        <td class="px-2 py-1 text-center text-black">
+                        <td class="px-2 py-1 text-center text-white">
                             <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--primary mdc-ripple-upgraded edit-data" type="button" data-id="{{ department.pk }}" title="Edit">
                                 <i class="material-icons mdc-button__icon">edit</i>
                             </button>

@@ -32,15 +32,15 @@
                 <tbody>
                     {% for position in positions %}
                     <tr>
-                        <td class="px-2 py-1 text-center text-black">{{ position.id }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ position.name }}</td>
-                        <td class="px-2 py-1 text-start text-black">{{ position.description }}</td>
-                        <td class="px-2 py-1 text-center text-black">
+                        <td class="px-2 py-1 text-center text-white">{{ position.id }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ position.name }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ position.description }}</td>
+                        <td class="px-2 py-1 text-center text-white">
                             {% if position.status == 1 %}
                             <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}
                             <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
                         </td>
-                        <td class="px-2 py-1 text-center text-black">
+                        <td class="px-2 py-1 text-center text-white">
                             <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--primary mdc-ripple-upgraded edit-data" type="button" data-id="{{ position.pk }}" title="Edit">
                                 <i class="material-icons mdc-button__icon">edit</i>
                             </button>
