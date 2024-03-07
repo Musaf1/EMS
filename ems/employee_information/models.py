@@ -413,6 +413,8 @@ class LinkUser(models.Model):
     # employeeid = models.OneToOneField(Employees_info, on_delete=models.CASCADE)
     name = models.ForeignKey(Employees_info, on_delete=models.CASCADE)
     image = models.FileField(upload_to='images/',default='default.png')#work on path username-date/image
+    mac = models.CharField(_('mac'), max_length=150, blank=True)
+    change_mac = models.IntegerField(_('hange_mac'), default=0)
     is_blocked = models.BooleanField(_('Is Blocked'),help_text='button to toggle employee block and unblock',default=False)
     is_deleted = models.BooleanField(_('Is Deleted'),help_text='button to toggle employee deleted and undelete',default=False)
     dateissued = models.DateField(_('Date Issued'),help_text='date staff id was issued',blank=False,null=True)

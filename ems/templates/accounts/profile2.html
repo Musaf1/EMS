@@ -147,11 +147,12 @@ h3{
                       <img src="{{profile.profile_image.url}}"> <br/>
                     {% endif %}
 
-                    {% if profile %}
-                        User name : {{profile.user.username}} <br/>
-                        Name : {{profile.name}} <br/>
-                        <br/>
-                        <br/>
+                    {% if profile %} <br/>
+                       <h4> User name : {{profile.user.username}}</h4>
+                       <h4> Name : {{profile.user.first_name}}</h4> 
+                       <h4> Last Name : {{profile.user.last_name}}</h4>
+                       <h4> Email : {{profile.user.email}}</h4> <br/>
+                        {% comment %} <br/>
                         <!-- can be use as manager-->
                         <strong> follows</strong> <br/>
                         {% for following in profile.follows.all %}
@@ -161,13 +162,10 @@ h3{
                         <!-- can be use to see who is your employees ( manager see departent empolyees)-->
                         <strong> followed by</strong> <br/>
                         {% for following in profile.followed_by.all %}
-                            <a href="{% url 'accounts:profile' following.user.id %}">@{{ following}} </a>    <br/><br/> 
-                        {% endfor %} 
-                        
-                    
+                            <a href="{% url 'accounts:profile' following.user.id %}">@{{ following}} </a>    <br/><br/>{% endfor %}  {% endcomment %}
                     {% endif %} 
                     
-                    <form method=POST>
+                    {% comment %} <form method=POST>
                         {% csrf_token %}
                         <!-- if he is follweing the user -->
                         <!-- value = "unfollow" = the value will take form fornt and we process as we want (note can e 4 or x ..)-->
@@ -182,7 +180,7 @@ h3{
                             follow @{{profile.user.username |lower}}
                         </button>
                         {% endif %}
-                    </form>
+                    </form> {% endcomment %}
                     <br/>
                     
                     <form action="" method="POST" enctype="multipart/form-data">

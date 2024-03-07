@@ -403,35 +403,48 @@ def Timeshet(request):
                 f.write(f'\n{i.name},{i.date} ,{i.Time_attendace} , {i.time_leaves}')
 
 def TimeshetTest(request):
-    employee_list = Attendace_info.objects.all()
+    employee_list = Employees_info.objects.all()
     deduction = employee_list
     context = {
         'page_title':'Employees',
         'employees':employee_list,
     }
     if request.POST :
-        form = attendaceForm(request.POST)
-        # if form okay save in DB
-        print("name_id : ", request.POST["Employee"]) 
-        if form.is_valid():
-            print("is valid")
-            form.save()
-            print("saved")
-            employee_name =form.cleaned_data['Employee']
-            start_pirod =form.cleaned_data['start_perod']
-            end_pirod =form.cleaned_data['end_perod']
-            attendace_list = Attendace_info.objects.filter(name = employee_name )
-        else:
-            print("Form not valid")
+        try:
+            form = attendaceForm(request.POST)
+            # if form okay save in DB
+            print("name_id : ", request.POST["Employee"])
+            print("Start date : ", request.POST["start_perod"])
+            print("end date : ", request.POST["end_perod"])
+            if request.POST["start_perod"] > request.POST["end_perod"]:
+                return render(request, 'employee_information/attandance.html',context)
 
-        context = {
-            'page_title':'Employees',
-            'employees':employee_list,
-            'start_pirod' : start_pirod,
-            'end_pirod' :end_pirod,
-            'form': form,
-            'attendace_list': attendace_list,
-        }
+    
+            if form.is_valid():
+                print("is valid")
+                form.save()
+                print("saved")
+
+                employee_name =form.cleaned_data['Employee']
+                start_pirod =form.cleaned_data['start_perod']
+                end_pirod =form.cleaned_data['end_perod']
+                attendace_list = Attendace_info.objects.filter(name = employee_name )
+
+            else:
+                print("Form not valid")  
+
+                
+            context = {
+                'page_title':'Employees',
+                'employees':employee_list,
+                'start_pirod' : start_pirod,
+                'end_pirod' :end_pirod,
+                'form': form,
+                'attendace_list': attendace_list,
+            }
+        except:
+            print(" except active")
+            return render(request, 'employee_information/attandance.html',context)
     return render(request, 'employee_information/attandance.html',context)
 '''
 def test(request): 
@@ -773,7 +786,7 @@ def deduction(request):
             form.save()  
             employee =form.cleaned_data['name']
             inermdite(employee)
-            messages.success(request, 'add deduction successfly  ff   ' )
+            messages.success(request, 'Add deduction successfully' )
     return render(request, 'employee_information/deduction.html',{'form':form})
 
 def deduction(request):
@@ -786,7 +799,7 @@ def deduction(request):
             form.save()  
             employee =form.cleaned_data['name']
             inermdite(employee)
-            messages.success(request, 'add deduction successfly  ff   ' )
+            messages.success(request, 'Add deduction successfully' )
     return render(request, 'employee_information/deduction.html',{'form':form})
 
 """    user = form.cleaned_data.get("username")
@@ -841,7 +854,7 @@ def salary_increse(request):
 
             Employees_info.objects.filter(name=employee).update( salary= Employee.salary*temp)
             
-            messages.success(request, 'increase added successfly   ' )
+            messages.success(request, 'increase added successfly' )
     return render(request, 'employee_information/year_increase.html',{'form':form})
 
 """
