@@ -1,0 +1,72 @@
+{% extends "employee_information/base.html" %} 
+{% load mathfilters %}
+{% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0 text-white">Employee Salary</h4>
+            {% comment %} <div class="text-start">
+                <button class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm" id="create_new"><i class="material-icons mdc-button__icon">add</i><span> Add New</span></button>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <colgroup>
+                    <col width="5%">
+                    <col width="15%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="text-start text-white py-1">#</th>
+                        <th class="text-start text-white py-1">Name</th>
+                        <th class="text-start text-white py-1">Basic</th>
+                        <th class="text-start text-white py-1">Home</th>
+                        <th class="text-start text-white py-1">Transportation</th>
+                        <th class="text-start text-white py-1">Cosi deduction</th>
+                        <th class="text-start text-white py-1">Other allowance</th>
+                        <th class="text-start text-white py-1">Other deduction</th>
+                        <th class="text-start text-white py-1">Total salary</th>
+                        <th class="text-start text-white py-1">Bank account</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    {% if employee.status == 1 %}
+                    <tr>
+                        <td class="px-2 py-1 text-center text-white">{{ employee.id }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.name }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.65}}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.gosi }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.other_payment }} </td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.other_deduction }} </td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.total_salary|add:employee.other_payment|sub:employee.other_deduction }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.acount_number }}</td>
+                        
+                    {% endif %}
+                        
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-flex align-items-center">
+                <a href="{% url 'employee_information:salary_increse' %}" class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"> Annual increase </a>
+                <a href="{% url 'employee_information:deduction' %}" class="mdc-button mdc-button--raised mdc-ripple-upgraded btn-sm m-2"> Add deduction or allowance </a> 
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock pageContent %} {% block ScriptBlock %}
+
+{% endblock ScriptBlock %}
