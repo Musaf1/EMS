@@ -21,7 +21,7 @@ class LinkUserForm(forms.ModelForm):
 	
 	class Meta:
 		model = LinkUser
-		exclude = ['is_blocked','is_deleted','employeetype' , 'dateissued', 'mac', 'change_mac']
+		exclude = ['is_blocked','is_deleted','employeetype' , 'dateissued']
 		widgets = {
 				'bio':forms.Textarea(attrs={'cols':5,'rows':5})
 		}

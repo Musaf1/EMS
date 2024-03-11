@@ -29,10 +29,10 @@
                     <tr>
                         <th class="text-start text-white py-1">#</th>
                         <th class="text-start text-white py-1">Name</th>
+                        <th class="text-start text-white py-1">Cosi deduction</th>
                         <th class="text-start text-white py-1">Basic</th>
                         <th class="text-start text-white py-1">Home</th>
                         <th class="text-start text-white py-1">Transportation</th>
-                        <th class="text-start text-white py-1">Cosi deduction</th>
                         <th class="text-start text-white py-1">Other allowance</th>
                         <th class="text-start text-white py-1">Other deduction</th>
                         <th class="text-start text-white py-1">Total salary</th>
@@ -46,10 +46,10 @@
                     <tr>
                         <td class="px-2 py-1 text-center text-white">{{ employee.id }}</td>
                         <td class="px-2 py-1 text-start text-white">{{ employee.name }}</td>
+                        <td class="px-2 py-1 text-start text-white">{{ employee.gosi }}</td>
                         <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.65}}</td>
                         <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.25}}</td>
                         <td class="px-2 py-1 text-start text-white">{{ employee.salary|sub:employee.gosi |mul:0.10}}</td>
-                        <td class="px-2 py-1 text-start text-white">{{ employee.gosi }}</td>
                         <td class="px-2 py-1 text-start text-white">{{ employee.other_payment }} </td>
                         <td class="px-2 py-1 text-start text-white">{{ employee.other_deduction }} </td>
                         <td class="px-2 py-1 text-start text-white">{{ employee.total_salary|add:employee.other_payment|sub:employee.other_deduction }}</td>

@@ -86,7 +86,7 @@ def dashboard_employees(request):
 
 @login_required(login_url='accounts:login')
 def dashboard_employees_create(request):
-	if not (request.user.is_authenticated and request.user.is_superuser and request.user.is_staff):
+	if not (request.user.is_authenticated and request.user.is_superuser):
 		return redirect('/')
 
 	if request.method == 'POST':
@@ -277,7 +277,13 @@ def leave_creation(request):
 		form = LeaveCreationForm(data = request.POST)
 		if form.is_valid():
 			instance = form.save(commit = False)
-			user = request.user
+			user_name = request.user
+			#appled_name = get_object_or_404(LinkUser, user = user_name)
+			#attendace_list = Attendace_info.objects.filter(name = employee_name )
+
+
+			applyed2 = LinkUser.objects.filter(user = user_name).first()
+			print("request.user : ",applyed2.name)
 			'''
 			user_id = request.user.id
 			x = LinkUser.objects.filter(name = user)
@@ -286,7 +292,9 @@ def leave_creation(request):
 			#name = request.name
 			#print("name : ", name)
 			'''
-			instance.user = user
+			instance.user = user_name
+			instance.name = applyed2.name
+ 
 			#instance.name = name
 			instance.save()
 
@@ -316,12 +324,13 @@ def leaves_list(request):
 	if not (request.user.is_staff or request.user.is_superuser):
 		return redirect('/')
 	leaves = Leave.objects.all_pending_leaves()
-	return render(request,'dashboard/leaves_recent.html',{'leave_list':leaves,'title':'leaves list - pending'})
+	employees = LinkUser.objects.all()
+	return render(request,'dashboard/leaves_recent.html',{'leave_list':leaves, 'employees':employees ,'title':'leaves list - pending'})
 
 
 @login_required(login_url='accounts:login')
 def leaves_approved_list(request):
-	if not (request.user.is_superuser and request.user.is_staff):
+	if not (request.user.is_superuser and request.user.is_authenticated):
 		return redirect('/')
 	leaves = Leave.objects.all_approved_leaves() #approved leaves -> calling model manager method
 	return render(request,'dashboard/leaves_approved.html',{'leave_list':leaves,'title':'approved leave list'})
@@ -407,13 +416,13 @@ def unapprove_leave(request,id):
 
 @login_required(login_url='accounts:login')
 def cancel_leave(request,id):
-	if not (request.user.is_superuser and request.user.is_authenticated):
+	if not (request.user.is_superuser or request.user.is_staff and request.user.is_authenticated):
 		return redirect('/')
 	leave = get_object_or_404(Leave, id = id)
 	leave.leaves_cancel
 
 	messages.success(request,'Leave is canceled',extra_tags = 'alert alert-info alert-dismissible show')
-	return redirect('dashboard:canceleaveslist')#work on redirecting to instance leave - detail view
+	return redirect('dashboard:leaveslist')#work on redirecting to instance leave - detail view
 
 
 # Current section -> here

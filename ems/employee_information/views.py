@@ -62,6 +62,7 @@ def login_user(request):
     return HttpResponse(json.dumps(resp),content_type='application/json')
 
 #Logout
+@login_required
 def logoutuser(request):
     logout(request)
     return redirect('/')
@@ -69,6 +70,9 @@ def logoutuser(request):
 # Create your views here.
 @login_required
 def home(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
+
     context = {
         'page_title':'Home',
         'employees':employees,
@@ -87,6 +91,8 @@ def about(request):
 
 @login_required
 def buildings(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     building_list = Building_info.objects.all()
     context = {
         'page_title':'Buildings',
@@ -96,6 +102,8 @@ def buildings(request):
 
 @login_required
 def manage_buildings(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     building = {}
     if request.method == 'GET':
         data =  request.GET
@@ -112,6 +120,8 @@ def manage_buildings(request):
 
 @login_required
 def save_building(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':'failed'}
     try:
@@ -127,6 +137,8 @@ def save_building(request):
 
 @login_required
 def delete_building(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':''}
     try:
@@ -139,6 +151,8 @@ def delete_building(request):
 # Departments
 @login_required
 def departments(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     department_list = Department_info.objects.all()
     context = {
         'page_title':'Departments',
@@ -147,6 +161,8 @@ def departments(request):
     return render(request, 'employee_information/departments.html',context)
 @login_required
 def manage_departments(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     department = {}
     if request.method == 'GET':
         data =  request.GET
@@ -163,6 +179,8 @@ def manage_departments(request):
 
 @login_required
 def save_department(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':'failed'}
     try:
@@ -178,6 +196,8 @@ def save_department(request):
 
 @login_required
 def delete_department(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':''}
     try:
@@ -190,6 +210,8 @@ def delete_department(request):
 # Positions
 @login_required
 def positions(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     position_list = Position.objects.all()
     context = {
         'page_title':'Positions',
@@ -198,6 +220,8 @@ def positions(request):
     return render(request, 'employee_information/positions.html',context)
 @login_required
 def manage_positions(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     position = {}
     if request.method == 'GET':
         data =  request.GET
@@ -214,6 +238,8 @@ def manage_positions(request):
 
 @login_required
 def save_position(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':'failed'}
     try:
@@ -229,6 +255,8 @@ def save_position(request):
 
 @login_required
 def delete_position(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':''}
     try:
@@ -239,16 +267,20 @@ def delete_position(request):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 @login_required
-# Employees
 def employees(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     employee_list = Employees_info.objects.all()
     context = {
         'page_title':'Employees',
         'employees':employee_list,
     }
     return render(request, 'employee_information/employees.html',context)
+
 @login_required
 def manage_employees(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     employee = {}
     departments = Department_info.objects.filter(status = 1).all() 
     positions = Position.objects.filter(status = 1).all() 
@@ -270,6 +302,8 @@ def manage_employees(request):
 
 @login_required
 def save_employee(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':'failed'}
     if (data['id']).isnumeric() and int(data['id']) > 0:
@@ -299,6 +333,8 @@ def save_employee(request):
 
 @login_required
 def delete_employee(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     data =  request.POST
     resp = {'status':''}
     try:
@@ -310,6 +346,8 @@ def delete_employee(request):
 
 @login_required
 def view_employee(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     employee = {}
     departments = Department_info.objects.filter(status = 1).all() 
     positions = Position.objects.filter(status = 1).all() 
@@ -330,7 +368,10 @@ def view_employee(request):
 
 
 # Employees
+@login_required
 def employees_salary(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     employee_list = Employees_info.objects.all()
     '''
     deduction = employee_list
@@ -359,8 +400,10 @@ def employees_salary(request):
     return render(request, 'employee_information/salary.html',context)
 
 
-
+@login_required
 def importExcil(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     if request.method =='POST':
         peronl = PersonResources()
         dataset= Dataset()
@@ -377,6 +420,8 @@ def importExcil(request):
     
 @login_required
 def salary(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     employee = {}
     departments = Department_info.objects.filter(status = 1).all() 
     positions = Position.objects.filter(status = 1).all() 
@@ -394,7 +439,10 @@ def salary(request):
     }
     return render(request, 'employee_information/view_employee.html',context)
 
+@login_required
 def Timeshet(request): 
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     m1 = Employees_info.objects.all()
     with open ('employee_information/Attandance.csv','w') as f :
         f.write(f'"name","time attendace","time leaves" , "total working hours"')
@@ -402,7 +450,10 @@ def Timeshet(request):
             if date(2023,8,21)<i.date  and i.date <date(2023,8,25):
                 f.write(f'\n{i.name},{i.date} ,{i.Time_attendace} , {i.time_leaves}')
 
+@login_required
 def TimeshetTest(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     employee_list = Employees_info.objects.all()
     deduction = employee_list
     context = {
@@ -529,7 +580,10 @@ def export2(requst,format):
     return response
 '''
 
+@login_required
 def file_csv(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = "attachment; filename= attendace.csv"
     pirodOB = Pirod.objects.all()
@@ -569,7 +623,10 @@ def file_csv(request):
     workbook.close()
     return response
 
+@login_required
 def salary_csv(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = "attachment; filename= Salary.csv"
     pirodDB = Pirod.objects.last()
@@ -776,7 +833,10 @@ def salary_csv(request):
 
 """
 
+@login_required
 def deduction(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     form = DeductionForm(request.POST)
     if request.method =='POST':
         print("-----------mtheod is post and requst.name :")
@@ -789,7 +849,10 @@ def deduction(request):
             messages.success(request, 'Add deduction successfully' )
     return render(request, 'employee_information/deduction.html',{'form':form})
 
+@login_required
 def deduction(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     form = DeductionForm(request.POST)
     if request.method =='POST':
         print("-----------mtheod is post and requst.name :")
@@ -832,7 +895,10 @@ def deduction(request):
 # EX:  take 10 and convert it to 0.10
 # get the salary form database
 # update the salary by adding 10% to it 
+@login_required
 def salary_increse(request):
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        return redirect('accounts:login')
     form = year_increase(request.POST)
     
     if request.method =='POST':

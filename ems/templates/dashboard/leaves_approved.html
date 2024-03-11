@@ -191,7 +191,7 @@ body {
 							  <thead>
 							    <tr>
 							      <!-- <th scope="col">#</th> -->
-							      <th scope="col"><b>User</b></th>
+							      <th scope="col"><b>Name</b></th>
 							      <th scope="col"><b>Type</b></th>
 							      <th scope="col"><b>Day(s)</b></th>
 							      <th scope="col"><b>Status</b></th>
@@ -202,7 +202,7 @@ body {
 							  	{% for leave in leave_list %}
 							    <tr>
 
-							      <td>{{ leave.user }}</td>
+							      <td>{{ leave.name }}</td>
 							      <td>{{ leave.leavetype}}</td>
 							      <td>{{ leave.leave_days }}</td>
 							      <td><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>

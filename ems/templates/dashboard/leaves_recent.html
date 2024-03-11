@@ -182,32 +182,44 @@
 							  <thead>
 							    <tr>
 							      <!-- <th scope="col">#</th> -->
-							      <th scope="col"><b>User</b></th>
+							      <th scope="col"><b>Name</b></th>
 							      <th scope="col"><b>Type</b></th>
 							      <th scope="col"><b>Day(s)</b></th>
 							      <th scope="col"><b>Status</b></th>
 							      <th scope="col"><b>Actions</b></th>
-							    </tr>
+								  {%for employee in employees %}
+										{%if employee.user.id == request.user.id %}
+										{% endif %}
+								  {% endfor %}
+
+								</tr>
 							  </thead>
 							  <tbody>
 								{% if request.user.is_staff and not request.user.is_superuser %}
-								{% for leave in leave_list %}
-									{%if leave.counter < 1 %}
-
-										<tr>
-
-										<td>{{ leave.name }}</td>
-										<td>{{ leave.leavetype}}</td>
-										<td>{{ leave.leave_days }}</td>
-										<td><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
-
-										<td> 
-											<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #fff;">
-												<span>View</span>
-											</a>
+								{%for employee in employees %}
+									{%if employee.user.id == request.user.id %}	
+										{% for leave in leave_list %}
 											
-										</td>
-										</tr>
+											{% if employee.name.department == leave.name.department%}
+												{%if leave.counter < 1 %}
+
+													<tr>
+
+													<td>{{ leave.name }}</td>
+													<td>{{ leave.leavetype}}</td>
+													<td>{{ leave.leave_days }}</td>
+													<td><span class="badge badge-success" style="background-color:#00836d; font-size: 14px;">{{ leave.status }}</span></td>
+
+													<td> 
+														<a href="{% url 'dashboard:userleaveview' leave.id %}" style="color: #fff;">
+															<span>View</span>
+														</a>
+														
+													</td>
+													</tr>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
 									{% endif %}
 								{% endfor %}
 
