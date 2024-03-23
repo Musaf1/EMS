@@ -54,9 +54,6 @@
                           {% else %}
                           <li><a href="{% url 'accounts:login'  %}" style="color: #b2b2b2">Login</a></li>
                           {% endif %}
-                          
-                          <li><a href="{% url 'accounts:changepassword' %}" style="color: #b2b2b2">Change Password</a></li>
-                          <li><a href="{% url 'accounts:Update_Profile' %}" style="color: #b2b2b2">Update Profile Cancelled</a></li>
                           <li><a href="{% url 'accounts:Update_user' %}" style="color: #b2b2b2">Update Profile</a></li>
                           <li><a href="{% url 'accounts:profile' request.user.id %}" style="color: #b2b2b2"> My Profile</a></li>
                         </ul>

@@ -54,27 +54,6 @@ def logout_view(request):
 	return redirect('accounts:login')
 
 
-def changepassword(request):
-	if not request.user.is_authenticated:
-		return redirect('/')
-	'''
-	Please work on me -> success & error messages & style templates
-	'''
-	if request.method == 'POST':
-		form = PasswordChangeForm(request.user, request.POST)
-		if form.is_valid():
-			user = form.save(commit=True)
-			update_session_auth_hash(request,user)
-
-			messages.success(request,'Password changed successfully',extra_tags = 'alert alert-info alert-dismissible show' )
-			return redirect('accounts:changepassword')
-		else:
-			messages.error(request,'Error,changing password',extra_tags = 'alert alert-warning alert-dismissible show' )
-			return redirect('accounts:changepassword')
-			
-	form = PasswordChangeForm(request.user)
-	return render(request,'accounts/change_password_form.html',{'form':form})
-
 def users_list(request):
 	employees = Employee.objects.all()
 	return render(request,'accounts/users_table.html',{'employees':employees,'title':'Users List'})
@@ -113,36 +92,6 @@ def users_blocked_list(request):
 	blocked_employees = Employee.objects.all_blocked_employees()
 	return render(request,'accounts/all_deleted_users.html',{'employees':blocked_employees,'title':'blocked users list'})
     
-
-def Update_Profile(request):
-	user = request.user
-	form = User_Update_Profile(instance= user)
-	if request.method == 'POST':
-		form = User_Update_Profile(request.POST,request.FILES)
-		if form.is_valid():
-			instance = form.save(commit = False)
-			user = request.user.id
-			print("user : ",user)
-			assigned_user = User.objects.get(id = user)
-			print("assigned_user : ",assigned_user)
-			print("request.POST.name : ",request.POST.get('username'))
-			instance.first_name = request.POST.get('username')
-
-			#instance.image = request.FILES.get('image')
-
-			#instance.save()
-			
-
-			return  redirect('dashboard:employees')
-		else:
-			messages.error(request,'Trying to create dublicate employees with a single user account ',extra_tags = 'alert alert-warning alert-dismissible show')
-			return redirect('dashboard:employeecreate')
-	dataset = dict()
-	form = User_Update_Profile()
-	dataset['form'] = form
-	dataset['title'] = 'register employee'
-	return render(request,'dashboard/employee_create.html',dataset)
-	
 		
 '''
 	
