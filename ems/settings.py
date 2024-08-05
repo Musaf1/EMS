@@ -83,7 +83,7 @@ ROOT_URLCONF = 'ems.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [BASE_DIR,'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,12 +147,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static','static_root')
+STATIC_ROOT = [BASE_DIR,'static','static_root']
 
 STATICFILES_DIRS = (
     # location of your application, should not be public web accessible 
     './static',
-    os.path.join(BASE_DIR,'static','our_static'),
+    [BASE_DIR,'static','our_static'],
 )
 
 
@@ -162,7 +162,7 @@ MEDIA_URL = '/media/'
 # # MEDIA FILES WILL BE SERVED FROM STATIC_CDN WHEN WE ARE LIVE
 # MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'static_cdn','media_root')
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT =  [BASE_DIR, 'media']
 MEDIA_URL = '/media/'
 
 
