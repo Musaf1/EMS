@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--w(dug*va_megpa25w$gmv8o6+f8!fg_*m1^u$)z25pab0hicm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['ems-70yg.onrender.com','127.0.0.1']
 
 # Email Settings
 EMAIL_HOST = 'smtp.gmail.com'
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
     'widget_tweaks',
+    'whitenoise.runserver_nostatic',
 
     # PROJECT APPS
     'dashboard',
@@ -69,6 +70,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
